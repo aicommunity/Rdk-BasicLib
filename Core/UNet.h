@@ -3,10 +3,10 @@
 // ===========================================================
 /* ***********************************************************
 @Copyright Alexander V. Bakhshiev, 2002.
-E-mail:		alexab@ailab.ru
+E-mail:        alexab@ailab.ru
 url:            http://ailab.ru
 
-This file - part of the project: Neuro Modeler Software Developer Kit (NMSDK)
+This file - part of the project: RDK
 
 File License:        BSD License
 Project License:     BSD License
