@@ -13,14 +13,14 @@ See file license.txt for more information
 #ifndef UBCLLibraryH
 #define UBCLLibraryH
 
-#include "../../UALibrary.h"
+#include "../../ULibrary.h"
 
-#include "UNet.h"
+//#include "UNet.h"
 #include "UModel.h"
 
 namespace RDK {
 
-class UBCLLibrary: public UALibrary
+class UBCLLibrary: public ULibrary
 {
 public: // Методы
 // --------------------------
@@ -34,7 +34,7 @@ UBCLLibrary(void);
 // --------------------------
 // Заполняет массив ClassSamples готовыми экземплярами образцов и их именами.
 // Не требуется предварительная очистка массива и уборка памяти.
-virtual void CreateClassSamples(UAStorage *storage);
+virtual void CreateClassSamples(UStorage *storage);
 // --------------------------
 };          
 

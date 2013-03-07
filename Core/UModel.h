@@ -14,11 +14,11 @@ See file license.txt for more information
 #ifndef UMODEL_H
 #define UMODEL_H
 
-#include "../../UANet.h"
+#include "../../UNet.h"
 
 namespace RDK {
 
-class UModel: public UANet
+class UModel: public UNet
 {
 protected: // Основные свойства
 

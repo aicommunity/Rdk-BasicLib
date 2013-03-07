@@ -15,7 +15,7 @@ See file license.txt for more information
 #include "UBCLLibrary.h"
 
 #include "UModel.cpp"
-#include "UNet.cpp"
+//#include "UNet.cpp"
 
 
 namespace RDK {
@@ -26,7 +26,7 @@ UBCLLibrary BCLLibrary;
 // Конструкторы и деструкторы
 // --------------------------
 UBCLLibrary::UBCLLibrary(void)
- : UALibrary("BCLLibrary","1.0")
+ : ULibrary("BCLLibrary","1.0")
 {
 }
 // --------------------------
@@ -36,15 +36,15 @@ UBCLLibrary::UBCLLibrary(void)
 // --------------------------
 // Заполняет массив ClassSamples готовыми экземплярами образцов и их именами.
 // Не требуется предварительная очистка массива и уборка памяти.
-void UBCLLibrary::CreateClassSamples(UAStorage *storage)
+void UBCLLibrary::CreateClassSamples(UStorage *storage)
 {
- RDK::UAContainer *cont;
+ RDK::UContainer *cont;
 
- cont=new UNet;
+ /*cont=new UNet;
  cont->SetName("Net");
  cont->Default();
  UploadClass("UNet",cont);
-
+   */
  cont=new UModel;
  cont->SetName("Model");
  cont->Default();
