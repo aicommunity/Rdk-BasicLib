@@ -20,7 +20,7 @@ See file license.txt for more information
 
 namespace RDK {
 
-class UBCLLibrary: public ULibrary
+class RDK_LIB_TYPE UBCLLibrary: public ULibrary
 {
 public: // Ìועמהû
 // --------------------------
