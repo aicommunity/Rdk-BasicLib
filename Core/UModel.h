@@ -18,7 +18,7 @@ See file license.txt for more information
 
 namespace RDK {
 
-class UModel: public UNet
+class RDK_LIB_TYPE UModel: public UNet
 {
 protected: // Основные свойства
 
