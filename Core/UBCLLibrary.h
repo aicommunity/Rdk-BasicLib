@@ -38,7 +38,7 @@ virtual void CreateClassSamples(UStorage *storage);
 // --------------------------
 };          
 
-extern UBCLLibrary BCLLibrary;
+extern RDK_LIB_TYPE UBCLLibrary BCLLibrary;
 
 }
 
