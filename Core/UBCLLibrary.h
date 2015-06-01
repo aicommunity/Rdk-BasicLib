@@ -13,9 +13,8 @@ See file license.txt for more information
 #ifndef UBCLLibraryH
 #define UBCLLibraryH
 
-#include "../../ULibrary.h"
+#include "rdk.h"
 
-//#include "UNet.h"
 #include "UModel.h"
 
 namespace RDK {

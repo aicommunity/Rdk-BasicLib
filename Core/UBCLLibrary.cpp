@@ -14,10 +14,6 @@ See file license.txt for more information
 
 #include "UBCLLibrary.h"
 
-#include "UModel.cpp"
-//#include "UNet.cpp"
-
-
 namespace RDK {
 
 UBCLLibrary BCLLibrary;
