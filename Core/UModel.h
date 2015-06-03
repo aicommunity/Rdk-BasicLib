@@ -14,7 +14,7 @@ See file license.txt for more information
 #ifndef UMODEL_H
 #define UMODEL_H
 
-#include "rdk.h"
+#include "../../../Rdk/Deploy/Include/rdk.h"
 
 namespace RDK {
 

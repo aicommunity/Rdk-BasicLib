@@ -13,7 +13,7 @@ See file license.txt for more information
 #ifndef UBCLLibraryH
 #define UBCLLibraryH
 
-#include "rdk.h"
+#include "../../../Rdk/Deploy/Include/rdk.h"
 
 #include "UModel.h"
 
