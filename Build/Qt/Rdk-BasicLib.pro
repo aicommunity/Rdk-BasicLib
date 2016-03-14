@@ -13,23 +13,10 @@ CONFIG += staticlib
 DEFINES += LIBRDK_LIBRARY_EXPORT
 DEFINES += RDK_UNICODE_RUN
 DEFINES += RDK_QT
+INCLUDEPATH += $$PWD/../../../../Rdk/Deploy/Include
 
-symbian {
-    MMP_RULES += EXPORTUNFROZEN
-    TARGET.UID3 = 0xE975DFAE
-    TARGET.CAPABILITY = 
-    TARGET.EPOCALLOWDLLDATA = 1
-    addFiles.sources = librdk.qt.dll
-    addFiles.path = !:/sys/bin
-    DEPLOYMENT += addFiles
-}
-
-unix:!symbian {
-    maemo5 {
-        target.path = /opt/usr/lib
-    } else {
-        target.path = /usr/lib
-    }
+unix {
+    target.path = /usr/lib
     INSTALLS += target
     DESTDIR = $$PWD/../../../../Bin/Platform/Unix/Lib.Qt
 }
