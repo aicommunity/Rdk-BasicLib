@@ -81,3 +81,8 @@ Debug
 *.o       
 doxygen
 .metadata
+*.cmake
+CMakeFiles
+CMakeCache.txt
+Makefile
+*.a
