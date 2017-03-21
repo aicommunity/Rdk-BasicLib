@@ -3,7 +3,7 @@ project(Rdk-BasicLib)
 
 # Put all the archive targets into ${PROJECT_NAME}/Lib/
 
-set(A_OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../Lib/")
+set(A_OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../../Bin/Platform/Linux/Libs/")
 file(MAKE_DIRECTORY ${A_OUTPUT_DIR})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${A_OUTPUT_DIR})
 
@@ -25,4 +25,5 @@ include_directories(${SOURCE_DIR})
 # Create target file
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
+
 
