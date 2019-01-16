@@ -22,7 +22,7 @@ UBCLLibrary BCLLibrary;
 // Конструкторы и деструкторы
 // --------------------------
 UBCLLibrary::UBCLLibrary(void)
- : ULibrary("BCLLibrary","1.0")
+ : ULibrary("BCLLibrary","1.0", GetGlobalVersion())
 {
 }
 // --------------------------
