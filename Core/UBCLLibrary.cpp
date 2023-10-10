@@ -16,13 +16,13 @@ See file license.txt for more information
 
 namespace RDK {
 
-UBCLLibrary BCLLibrary;
+UBasicLib BasicLibrary;
 
 // --------------------------
 // Конструкторы и деструкторы
 // --------------------------
-UBCLLibrary::UBCLLibrary(void)
- : ULibrary("BCLLibrary","1.0", GetGlobalVersion())
+UBasicLib::UBasicLib(void)
+ : ULibrary("BasicLib","1.0", GetGlobalVersion())
 {
 }
 // --------------------------
@@ -32,7 +32,7 @@ UBCLLibrary::UBCLLibrary(void)
 // --------------------------
 // Заполняет массив ClassSamples готовыми экземплярами образцов и их именами.
 // Не требуется предварительная очистка массива и уборка памяти.
-void UBCLLibrary::CreateClassSamples(UStorage *storage)
+void UBasicLib::CreateClassSamples(UStorage *storage)
 {
  RDK::UContainer *cont;
 

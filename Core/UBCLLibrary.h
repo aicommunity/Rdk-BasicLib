@@ -38,13 +38,13 @@ See file license.txt for more information
 
 namespace RDK {
 
-class RDK_LIB_TYPE UBCLLibrary: public ULibrary
+class RDK_LIB_TYPE UBasicLib: public ULibrary
 {
 public: // Методы
 // --------------------------
 // Конструкторы и деструкторы
 // --------------------------
-UBCLLibrary(void);
+UBasicLib(void);
 // --------------------------
 
 // --------------------------
@@ -56,7 +56,7 @@ virtual void CreateClassSamples(UStorage *storage);
 // --------------------------
 };          
 
-extern RDK_LIB_TYPE UBCLLibrary BCLLibrary;
+extern RDK_LIB_TYPE UBasicLib BasicLibrary;
 
 }
 
