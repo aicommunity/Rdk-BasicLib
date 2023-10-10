@@ -27,8 +27,34 @@ windows {
 
 HEADERS += \
     ../../Core/UBCLLibrary.h \
-    ../../Core/UModel.h
+    ../../Core/UFileDataset.h \
+    ../../Core/UIO.h \
+    ../../Core/UIOConverter.h \
+    ../../Core/UIOLibrary.h \
+    ../../Core/UMatrixSource.h \
+    ../../Core/UMatrixSourceDataFile.h \
+    ../../Core/UMatrixSourceFile.h \
+    ../../Core/UMatrixSourceFileSep.h \
+    ../../Core/UMatrixSourceTimeSeries.h \
+    ../../Core/UModel.h \
+    ../../Core/UNoise.h \
+    ../../Core/UNoiseGen.h \
+    ../../Core/UScalarSource.h \
+    ../../Core/UStatistic.h
 
 SOURCES += \
     ../../Core/UBCLLibrary.cpp \
-    ../../Core/UModel.cpp
+    ../../Core/UFileDataset.cpp \
+    ../../Core/UIO.cpp \
+    ../../Core/UIOConverter.cpp \
+    ../../Core/UIOLibrary.cpp \
+    ../../Core/UMatrixSource.cpp \
+    ../../Core/UMatrixSourceDataFile.cpp \
+    ../../Core/UMatrixSourceFile.cpp \
+    ../../Core/UMatrixSourceFileSep.cpp \
+    ../../Core/UMatrixSourceTimeSeries.cpp \
+    ../../Core/UModel.cpp \
+    ../../Core/UNoise.cpp \
+    ../../Core/UNoiseGen.cpp \
+    ../../Core/UScalarSource.cpp \
+    ../../Core/UStatistic.cpp

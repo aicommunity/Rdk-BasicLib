@@ -16,6 +16,25 @@ See file license.txt for more information
 #include "../../../Rdk/Deploy/Include/rdk.h"
 
 #include "UModel.h"
+#include "UStatistic.h"
+
+#include "UIO.h"
+//#include "UFileIO.h"
+#include "UIOConverter.h"
+//#include "UIOTextConverter.h"
+
+#include "UNoise.h"
+#include "UNoiseGen.h"
+
+#include "UMatrixSource.h"
+#include "UScalarSource.h"
+#include "UMatrixSourceTimeSeries.h"
+#include "UMatrixSourceDataFile.h"
+#ifdef WIN32
+#include "UMatrixSourceFile.h"
+#include "UMatrixSourceFileSep.h"
+#include "UFileDataset.h"
+#endif
 
 namespace RDK {
 
