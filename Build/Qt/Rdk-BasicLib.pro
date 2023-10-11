@@ -25,16 +25,26 @@ windows {
     DESTDIR = $$PWD/../../../../Bin/Platform/Win/Lib.Qt
 }
 
+windows {
+
+HEADERS += \
+    ../../Core/UFileDataset.h \
+    ../../Core/UMatrixSourceFile.h \
+    ../../Core/UMatrixSourceFileSep.h
+
+SOURCES += \
+    ../../Core/UFileDataset.cpp \
+    ../../Core/UMatrixSourceFile.cpp \
+    ../../Core/UMatrixSourceFileSep.cpp
+}
+
 HEADERS += \
     ../../Core/UBCLLibrary.h \
-    ../../Core/UFileDataset.h \
     ../../Core/UIO.h \
     ../../Core/UIOConverter.h \
     ../../Core/UIOLibrary.h \
     ../../Core/UMatrixSource.h \
     ../../Core/UMatrixSourceDataFile.h \
-    ../../Core/UMatrixSourceFile.h \
-    ../../Core/UMatrixSourceFileSep.h \
     ../../Core/UMatrixSourceTimeSeries.h \
     ../../Core/UModel.h \
     ../../Core/UNoise.h \
@@ -44,14 +54,11 @@ HEADERS += \
 
 SOURCES += \
     ../../Core/UBCLLibrary.cpp \
-    ../../Core/UFileDataset.cpp \
     ../../Core/UIO.cpp \
     ../../Core/UIOConverter.cpp \
     ../../Core/UIOLibrary.cpp \
     ../../Core/UMatrixSource.cpp \
     ../../Core/UMatrixSourceDataFile.cpp \
-    ../../Core/UMatrixSourceFile.cpp \
-    ../../Core/UMatrixSourceFileSep.cpp \
     ../../Core/UMatrixSourceTimeSeries.cpp \
     ../../Core/UModel.cpp \
     ../../Core/UNoise.cpp \
