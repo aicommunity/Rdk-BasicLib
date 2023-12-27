@@ -22,32 +22,26 @@ class RDK_LIB_TYPE UStatistic: public UNet
 {
 protected: // Параметры
 // Путь для сохранения статистики
-std::string SavePath;
+UProperty<std::string,UStatistic, ptPubParameter> SavePath;
 
 /// Префикс имен для статистики
-std::string PrefixName;
+UProperty<std::string,UStatistic, ptPubParameter> PrefixName;
 
 // Флаг необходимости создавать подкаталог дата/время каждый раз после Reset
-bool SubFolderAfterResetFlag;
+UProperty<bool,UStatistic, ptPubParameter> SubFolderAfterResetFlag;
 
 /// Флаг принудительного создания корневого пути для логов ("StatisticLog" по умолчанию)
 /// даже если SubFolderAfterResetFlag отключен
-bool ForceCreateSavePath;
+UProperty<bool,UStatistic, ptPubParameter> ForceCreateSavePath;
 
 // Флаг необходимости добавлять дату и время к имени файла
-bool TimeToFileNameFlag;
+UProperty<bool,UStatistic, ptPubParameter> TimeToFileNameFlag;
 
 // Флаг необходимости добавлять порядковый номер файла к имени
-bool OrderIndexToFileNameFlag;
-
-/// Дополнительный постфикс для имени файла, когда на одну временную метку
-/// приходится несколько сохранений лога
-int CurrentFileNameNumber;
-
-time_t OldTimeStamp;
+UProperty<bool,UStatistic, ptPubParameter> OrderIndexToFileNameFlag;
 
 // Число шагов расчета которые следуте пропустить перед началом регистрации
-int NumSkipSteps;
+UProperty<int,UStatistic, ptPubParameter> NumSkipSteps;
 
 public:
 // Флаг ручного режима сохранения статистики
@@ -60,7 +54,14 @@ public: // Данные
 // Флаг, взводимый для разового сохранения в ручном режиме
 ULProperty<bool,UStatistic> ManualModeSwitch;
 
+
 protected: // Временные переменные
+int OldTimeStamp;
+
+/// Дополнительный постфикс для имени файла, когда на одну временную метку
+/// приходится несколько сохранений лога
+int CurrentFileNameNumber;
+
 // Флаг, выставляемый, если был проведен Reset.
 bool ResetFlag;
 
@@ -433,7 +434,7 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
     }
    }
 
-   UIProperty* property=0;
+   UIPropertyOutput* property=0;
    UEPtr<UItem> item=dynamic_cast<UItem*>(c_items[i].Item);
    if(!item)
     continue;
@@ -582,7 +583,7 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
   }
   ++(*CurrentAverageNumber);
 
-  if(CurrentAverageNumber == AverageNumber && AverageNumber>0)
+  if(CurrentAverageNumber == AverageNumber.v && AverageNumber>0)
   {
    for(size_t i=0;i<Average.size();i++)
 	Average[i]/=T(CurrentAverageNumber);
@@ -711,7 +712,7 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
   }
   ++(*CurrentAverageNumber);
 
-  if(CurrentAverageNumber == AverageNumber && AverageNumber>0)
+  if(CurrentAverageNumber == AverageNumber.v && AverageNumber>0)
   {
    for(size_t i=0;i<Average.size();i++)
 	Average[i]/=T(CurrentAverageNumber);
