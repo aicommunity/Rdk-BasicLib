@@ -11,8 +11,8 @@ namespace RDK {
 // Конструкторы и деструкторы
 // --------------------------
 UIO::UIO(void)
+ : Direction("Direction", this)
 {
- AddLookupProperty("Direction",ptPubParameter, new UVProperty<int,UIO>(this,&UIO::SetDirection,&UIO::GetDirection));
 }
 
 UIO::~UIO(void)
@@ -22,29 +22,12 @@ UIO::~UIO(void)
 // --------------------------
 
 // --------------------------
-// Методы управления параметрами
-// --------------------------
-const int& UIO::GetDirection(void) const
-{
- return Direction;
-}
-
-bool UIO::SetDirection(const int &value)
-{
- Direction=value;
- return true;
-}
-// --------------------------
-
-// --------------------------
 // Скрытые методы управления счетом
 // --------------------------
 // Восстановление настроек по умолчанию и сброс процесса счета
 bool UIO::ADefault(void)
 {
- SetDirection(1);
-// SetNumInputs(1);
-// SetNumOutputs(1);
+ Direction=1;
  return AIODefault();
 }
 
