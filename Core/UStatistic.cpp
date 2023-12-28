@@ -199,7 +199,7 @@ bool UStatistic::ACalculate(void)
   ++CurrentFileNameNumber;
   CurrentFileName=new_file_name+sntoa(CurrentFileNameNumber,2);
  }
- OldTimeStamp=time_data;
+ OldTimeStamp=int(time_data);
 
  bool res=AFSCalculate();
  ++CurrentFileIndex;
