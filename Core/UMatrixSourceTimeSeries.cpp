@@ -23,9 +23,9 @@ UMatrixSourceTimeSeries::UMatrixSourceTimeSeries(void)
   IsStandartizeData("IsStandartizeData",this),
   IsCheckDateTime("IsCheckDateTime",this),
   SkipCalcIfNoNewData("SkipCalcIfNoNewData",this),
+  IsNewData("IsNewData",this),
   UseRelativePathFromConfig("UseRelativePathFromConfig",this,&UMatrixSourceTimeSeries::SetUseRelativePathFromConfig),
   UseRelativePathFromWorkDir("UseRelativePathFromWorkDir",this,&UMatrixSourceTimeSeries::SetUseRelativePathFromWorkDir),
-  IsNewData("IsNewData",this),
   FullMatrix("FullMatrix",this),
   CurrentLine("CurrentLine",this),
   CurrentLineIndex("CurrentLineIndex", this),
@@ -300,7 +300,7 @@ bool UMatrixSourceTimeSeries::ReadAndDecode(const std::string &file_name)
  if(ColCount.v>0)
  {
   //Если данных меньше, чем длина одной серии, тоже возвернем ничего
-  if(source_timeseries.size()>ColCount.v)
+  if(int(source_timeseries.size())>ColCount.v)
   {
    MDMatrix<double> out;
    TransformData(out);
