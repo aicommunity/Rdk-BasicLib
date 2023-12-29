@@ -460,9 +460,6 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
   std::string result;
   for(size_t i=0;i<InputMatrixData->size();i++)
   {
-   if(!(*InputMatrixData)[i])
-	continue;
-
    result.resize(0);
 
    if(WriteIndexFlag)
@@ -571,8 +568,6 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
    Average.resize(InputMatrixData->size());
    for(size_t i=0;i<InputMatrixData->size();i++)
    {
-    if(!(*InputMatrixData)[i])
-     continue;
     Average[i].Resize(InputMatrixData[i].GetRows(),InputMatrixData[i].GetCols());
    }
   }
@@ -590,108 +585,105 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
    std::string result;
    for(size_t i=0;i<InputMatrixData->size();i++)
    {
-	if(!(*InputMatrixData)[i])
-	 continue;
+    result.resize(0);
 
-	result.resize(0);
+    if(WriteIndexFlag)
+    {
+     result=sntoa(CurrentIndex,8);
+    }
 
-	if(WriteIndexFlag)
-	{
-	 result=sntoa(CurrentIndex,8);
-	}
+    if(!result.empty())
+     result+=std::string(" ");
 
-	if(!result.empty())
-  	 result+=std::string(" ");
+    if(WriteTimeStampFlag)
+    {
+     time_t time_data;
+     time(&time_data);
+   //	 std::string new_file_name;
+     result+=get_text_time(time_data,'.',':')+std::string(" AvgN=\t")+sntoa(CurrentAverageNumber.v);
+    }
 
-	if(WriteTimeStampFlag)
-	{
-	 time_t time_data;
-	 time(&time_data);
-//	 std::string new_file_name;
-	 result+=get_text_time(time_data,'.',':')+std::string(" AvgN=\t")+sntoa(CurrentAverageNumber.v);
-	}
+      if(WriteSourceTimeStampFlag)
+      {
+       result+=RDK::sntoa(GetTime().GetSourceCurrentGlobalTime()*86400.0*1000.0);
+       result+=std::string(" ");
+      }
 
-   if(WriteSourceTimeStampFlag)
-   {
-	result+=RDK::sntoa(GetTime().GetSourceCurrentGlobalTime()*86400.0*1000.0);
-	result+=std::string(" ");
-   }
+      if(WriteTimeFromResetFlag)
+      {
+       time_t curr_time = time(NULL);
+       time_t tme = curr_time - StartTime;
+       time_t hrs = tme/3600;
+       time_t min = (tme%3600)/60;
+       time_t sec = tme%60;
 
-   if(WriteTimeFromResetFlag)
-   {
-		time_t curr_time = time(NULL);
-		time_t tme = curr_time - StartTime;
-		time_t hrs = tme/3600;
-		time_t min = (tme%3600)/60;
-		time_t sec = tme%60;
+       //Получить текущую дату и время в виде строки
+       std::stringstream ss;
+       if(hrs<10)
+        ss<<"0";
+       ss<<hrs<<":";
+       if(min<10)
+        ss<<"0";
+       ss<<min<<":";
+       if(sec<10)
+        ss<<"0";
 
-		//Получить текущую дату и время в виде строки
-		std::stringstream ss;
-		if(hrs<10)
-			ss<<"0";
-		ss<<hrs<<":";
-		if(min<10)
-			ss<<"0";
-		ss<<min<<":";
-		if(sec<10)
-			ss<<"0";
+       ss<<sec;
+       std::string tim = ss.str();
 
-		ss<<sec;
-		std::string tim = ss.str();
+       result+= tim+std::string(" ");
+      }
 
-		result+= tim+std::string(" ");
-   }
+      if(WriteModelTimeStampFlag)
+      {
+       result+=RDK::sntoa(GetTime().GetDoubleTime(),20);
+       result+=std::string(" ");
+      }
 
-   if(WriteModelTimeStampFlag)
-   {
-	result+=RDK::sntoa(GetTime().GetDoubleTime(),20);
-	result+=std::string(" ");
-   }
+    if(SaveMode == 0)
+    {
+     result+="\t";
+     MDMatrix<T> &matrix=Average[i];
+     for(int n=0;n<matrix.GetRows();n++)
+     {
+      for(int m=0;m<matrix.GetCols();m++)
+      {
+       result+=sntoa(matrix(n,m));
+       result+="\t\t";
+      }
+     }
+     result+="\n";
+    }
+    else
+    {
+     result+="\n";
+     MDMatrix<T> &matrix=Average[i];
+     for(int n=0;n<matrix.GetRows();n++)
+     {
+      for(int m=0;m<matrix.GetCols();m++)
+      {
+       result+=sntoa(matrix(n,m));
+       result+="\t\t";
+      }
+      result+="\n";
+     }
+    }
 
-	if(SaveMode == 0)
-	{
-	 result+="\t";
-	 MDMatrix<T> &matrix=Average[i];
-	 for(int n=0;n<matrix.GetRows();n++)
-	 {
-	  for(int m=0;m<matrix.GetCols();m++)
-	  {
-	   result+=sntoa(matrix(n,m));
-	   result+="\t\t";
-	  }
-	 }
-	 result+="\n";
-	}
-	else
-	{
-	 result+="\n";
-	 MDMatrix<T> &matrix=Average[i];
-	 for(int n=0;n<matrix.GetRows();n++)
-	 {
-	  for(int m=0;m<matrix.GetCols();m++)
-	  {
-	   result+=sntoa(matrix(n,m));
-	   result+="\t\t";
-	  }
-	  result+="\n";
-	 }
-	}
-
-	if(LogFiles[i]->is_open())
-	{
-	 LogFiles[i]->write(result.c_str(),result.size());
-	 LogFiles[i]->flush();
+    if(LogFiles[i]->is_open())
+    {
+     LogFiles[i]->write(result.c_str(),result.size());
+     LogFiles[i]->flush();
      LogFiles[i]->close();
      LogFiles[i]->open(LogFileNames[i].c_str(),ios::out | ios::app);
      if(LogFiles[i]->fail() || !LogFiles[i]->is_open())
      {
-      LogMessage(RDK_EX_WARNING, std::string("Can't open statistic file: ")+LogFileNames[i]+std::string(" reason: ")+strerror(errno));
+         LogMessage(RDK_EX_WARNING, std::string("Can't open statistic file: ")+LogFileNames[i]+std::string(" reason: ")+strerror(errno));
      }
     }
    }
    CurrentAverageNumber=0;
    for(size_t i=0;i<Average.size();i++)
-	Average[i].ToZero();
+    Average[i].ToZero();
   }
  }
  break;
