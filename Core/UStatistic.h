@@ -22,32 +22,26 @@ class RDK_LIB_TYPE UStatistic: public UNet
 {
 protected: // Параметры
 // Путь для сохранения статистики
-std::string SavePath;
+UProperty<std::string,UStatistic, ptPubParameter> SavePath;
 
 /// Префикс имен для статистики
-std::string PrefixName;
+UProperty<std::string,UStatistic, ptPubParameter> PrefixName;
 
 // Флаг необходимости создавать подкаталог дата/время каждый раз после Reset
-bool SubFolderAfterResetFlag;
+UProperty<bool,UStatistic, ptPubParameter> SubFolderAfterResetFlag;
 
 /// Флаг принудительного создания корневого пути для логов ("StatisticLog" по умолчанию)
 /// даже если SubFolderAfterResetFlag отключен
-bool ForceCreateSavePath;
+UProperty<bool,UStatistic, ptPubParameter> ForceCreateSavePath;
 
 // Флаг необходимости добавлять дату и время к имени файла
-bool TimeToFileNameFlag;
+UProperty<bool,UStatistic, ptPubParameter> TimeToFileNameFlag;
 
 // Флаг необходимости добавлять порядковый номер файла к имени
-bool OrderIndexToFileNameFlag;
-
-/// Дополнительный постфикс для имени файла, когда на одну временную метку
-/// приходится несколько сохранений лога
-int CurrentFileNameNumber;
-
-time_t OldTimeStamp;
+UProperty<bool,UStatistic, ptPubParameter> OrderIndexToFileNameFlag;
 
 // Число шагов расчета которые следуте пропустить перед началом регистрации
-int NumSkipSteps;
+UProperty<int,UStatistic, ptPubParameter> NumSkipSteps;
 
 public:
 // Флаг ручного режима сохранения статистики
@@ -60,7 +54,14 @@ public: // Данные
 // Флаг, взводимый для разового сохранения в ручном режиме
 ULProperty<bool,UStatistic> ManualModeSwitch;
 
+
 protected: // Временные переменные
+int OldTimeStamp;
+
+/// Дополнительный постфикс для имени файла, когда на одну временную метку
+/// приходится несколько сохранений лога
+int CurrentFileNameNumber;
+
 // Флаг, выставляемый, если был проведен Reset.
 bool ResetFlag;
 
@@ -433,7 +434,7 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
     }
    }
 
-   UIProperty* property=0;
+   UIPropertyOutput* property=0;
    UEPtr<UItem> item=dynamic_cast<UItem*>(c_items[i].Item);
    if(!item)
     continue;
@@ -459,96 +460,93 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
   std::string result;
   for(size_t i=0;i<InputMatrixData->size();i++)
   {
-   if(!(*InputMatrixData)[i])
-	continue;
-
    result.resize(0);
 
    if(WriteIndexFlag)
    {
-	result=sntoa(CurrentIndex,8);
+    result=sntoa(CurrentIndex,8);
    }
 
    if(!result.empty())
-	result+=std::string(" ");
+    result+=std::string(" ");
 
    if(WriteTimeStampFlag)
    {
-	time_t time_data;
-	time(&time_data);
-	result+=get_text_time(time_data,'.',':')+std::string(" AvgN=\t")+sntoa(*CurrentAverageNumber);
+    time_t time_data;
+    time(&time_data);
+    result+=get_text_time(time_data,'.',':')+std::string(" AvgN=\t")+sntoa(*CurrentAverageNumber);
    }
 
    if(WriteSourceTimeStampFlag)
    {
-	result+=RDK::sntoa(GetTime().GetSourceCurrentGlobalTime()*86400.0*1000.0);
-	result+=std::string(" ");
+    result+=RDK::sntoa(GetTime().GetSourceCurrentGlobalTime()*86400.0*1000.0);
+    result+=std::string(" ");
    }
 
    if(WriteTimeFromResetFlag)
    {
-		time_t curr_time = time(NULL);
-		time_t tme = curr_time - StartTime;
-		time_t hrs = tme/3600;
-		time_t min = (tme%3600)/60;
-		time_t sec = tme%60;
+    time_t curr_time = time(NULL);
+    time_t tme = curr_time - StartTime;
+    time_t hrs = tme/3600;
+    time_t min = (tme%3600)/60;
+    time_t sec = tme%60;
 
-		//Получить текущую дату и время в виде строки
-		std::stringstream ss;
-		if(hrs<10)
-			ss<<"0";
-		ss<<hrs<<":";
-		if(min<10)
-			ss<<"0";
-		ss<<min<<":";
-		if(sec<10)
-			ss<<"0";
+    //Получить текущую дату и время в виде строки
+    std::stringstream ss;
+    if(hrs<10)
+     ss<<"0";
+    ss<<hrs<<":";
+    if(min<10)
+     ss<<"0";
+    ss<<min<<":";
+    if(sec<10)
+     ss<<"0";
 
-		ss<<sec;
-		std::string tim = ss.str();
+    ss<<sec;
+    std::string tim = ss.str();
 
-		result+= tim+std::string(" ");
+    result+= tim+std::string(" ");
    }
 
    if(WriteModelTimeStampFlag)
    {
-	result+=RDK::sntoa(GetTime().GetDoubleTime(),20);
-	result+=std::string(" ");
+    result+=RDK::sntoa(GetTime().GetDoubleTime(),20);
+    result+=std::string(" ");
    }
 
    if(SaveMode == 0)
    {
-	result+="\t";
-	MDMatrix<T> &matrix=*(*InputMatrixData)[i];
-	for(int n=0;n<matrix.GetRows();n++)
-	{
-	 for(int m=0;m<matrix.GetCols();m++)
-	 {
-	  result+=sntoa(matrix(n,m));
-	  result+="\t\t";
-	 }
-	}
-	result+="\n";
+    result+="\t";
+    const MDMatrix<T> &matrix=InputMatrixData[i];
+    for(int n=0;n<matrix.GetRows();n++)
+    {
+     for(int m=0;m<matrix.GetCols();m++)
+     {
+      result+=sntoa(matrix(n,m));
+      result+="\t\t";
+     }
+    }
+    result+="\n";
    }
    else
    {
-	result+="\n";
-	MDMatrix<T> &matrix=*(*InputMatrixData)[i];
-	for(int n=0;n<matrix.GetRows();n++)
-	{
-	 for(int m=0;m<matrix.GetCols();m++)
-	 {
-	  result+=sntoa(matrix(n,m));
-	  result+="\t\t";
-	 }
-	 result+="\n";
-	}
+    result+="\n";
+    const MDMatrix<T> &matrix=InputMatrixData[i];
+    for(int n=0;n<matrix.GetRows();n++)
+    {
+     for(int m=0;m<matrix.GetCols();m++)
+     {
+      result+=sntoa(matrix(n,m));
+      result+="\t\t";
+     }
+     result+="\n";
+    }
    }
 
    if(LogFiles[i]->is_open())
    {
-	LogFiles[i]->write(result.c_str(),result.size());
-	LogFiles[i]->flush();
+    LogFiles[i]->write(result.c_str(),result.size());
+    LogFiles[i]->flush();
     LogFiles[i]->close();
     LogFiles[i]->open(LogFileNames[i].c_str(),ios::out | ios::app);
     if(LogFiles[i]->fail() || !LogFiles[i]->is_open())
@@ -570,128 +568,122 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
    Average.resize(InputMatrixData->size());
    for(size_t i=0;i<InputMatrixData->size();i++)
    {
-	if(!(*InputMatrixData)[i])
-	 continue;
-	Average[i].Resize((*InputMatrixData)[i]->GetRows(),(*InputMatrixData)[i]->GetCols());
+    Average[i].Resize(InputMatrixData[i].GetRows(),InputMatrixData[i].GetCols());
    }
   }
   for(size_t i=0;i<InputMatrixData->size();i++)
   {
-   if((*InputMatrixData)[i])
-    Average[i]+=*(*InputMatrixData)[i];
+   Average[i]+=InputMatrixData[i];
   }
   ++(*CurrentAverageNumber);
 
-  if(CurrentAverageNumber == AverageNumber && AverageNumber>0)
+  if(CurrentAverageNumber == AverageNumber.v && AverageNumber>0)
   {
    for(size_t i=0;i<Average.size();i++)
-	Average[i]/=T(CurrentAverageNumber);
+    Average[i]/=T(CurrentAverageNumber);
 
    std::string result;
    for(size_t i=0;i<InputMatrixData->size();i++)
    {
-	if(!(*InputMatrixData)[i])
-	 continue;
+    result.resize(0);
 
-	result.resize(0);
+    if(WriteIndexFlag)
+    {
+     result=sntoa(CurrentIndex,8);
+    }
 
-	if(WriteIndexFlag)
-	{
-	 result=sntoa(CurrentIndex,8);
-	}
+    if(!result.empty())
+     result+=std::string(" ");
 
-	if(!result.empty())
-  	 result+=std::string(" ");
+    if(WriteTimeStampFlag)
+    {
+     time_t time_data;
+     time(&time_data);
+   //	 std::string new_file_name;
+     result+=get_text_time(time_data,'.',':')+std::string(" AvgN=\t")+sntoa(CurrentAverageNumber.v);
+    }
 
-	if(WriteTimeStampFlag)
-	{
-	 time_t time_data;
-	 time(&time_data);
-//	 std::string new_file_name;
-	 result+=get_text_time(time_data,'.',':')+std::string(" AvgN=\t")+sntoa(CurrentAverageNumber.v);
-	}
+      if(WriteSourceTimeStampFlag)
+      {
+       result+=RDK::sntoa(GetTime().GetSourceCurrentGlobalTime()*86400.0*1000.0);
+       result+=std::string(" ");
+      }
 
-   if(WriteSourceTimeStampFlag)
-   {
-	result+=RDK::sntoa(GetTime().GetSourceCurrentGlobalTime()*86400.0*1000.0);
-	result+=std::string(" ");
-   }
+      if(WriteTimeFromResetFlag)
+      {
+       time_t curr_time = time(NULL);
+       time_t tme = curr_time - StartTime;
+       time_t hrs = tme/3600;
+       time_t min = (tme%3600)/60;
+       time_t sec = tme%60;
 
-   if(WriteTimeFromResetFlag)
-   {
-		time_t curr_time = time(NULL);
-		time_t tme = curr_time - StartTime;
-		time_t hrs = tme/3600;
-		time_t min = (tme%3600)/60;
-		time_t sec = tme%60;
+       //Получить текущую дату и время в виде строки
+       std::stringstream ss;
+       if(hrs<10)
+        ss<<"0";
+       ss<<hrs<<":";
+       if(min<10)
+        ss<<"0";
+       ss<<min<<":";
+       if(sec<10)
+        ss<<"0";
 
-		//Получить текущую дату и время в виде строки
-		std::stringstream ss;
-		if(hrs<10)
-			ss<<"0";
-		ss<<hrs<<":";
-		if(min<10)
-			ss<<"0";
-		ss<<min<<":";
-		if(sec<10)
-			ss<<"0";
+       ss<<sec;
+       std::string tim = ss.str();
 
-		ss<<sec;
-		std::string tim = ss.str();
+       result+= tim+std::string(" ");
+      }
 
-		result+= tim+std::string(" ");
-   }
+      if(WriteModelTimeStampFlag)
+      {
+       result+=RDK::sntoa(GetTime().GetDoubleTime(),20);
+       result+=std::string(" ");
+      }
 
-   if(WriteModelTimeStampFlag)
-   {
-	result+=RDK::sntoa(GetTime().GetDoubleTime(),20);
-	result+=std::string(" ");
-   }
+    if(SaveMode == 0)
+    {
+     result+="\t";
+     MDMatrix<T> &matrix=Average[i];
+     for(int n=0;n<matrix.GetRows();n++)
+     {
+      for(int m=0;m<matrix.GetCols();m++)
+      {
+       result+=sntoa(matrix(n,m));
+       result+="\t\t";
+      }
+     }
+     result+="\n";
+    }
+    else
+    {
+     result+="\n";
+     MDMatrix<T> &matrix=Average[i];
+     for(int n=0;n<matrix.GetRows();n++)
+     {
+      for(int m=0;m<matrix.GetCols();m++)
+      {
+       result+=sntoa(matrix(n,m));
+       result+="\t\t";
+      }
+      result+="\n";
+     }
+    }
 
-	if(SaveMode == 0)
-	{
-	 result+="\t";
-	 MDMatrix<T> &matrix=Average[i];
-	 for(int n=0;n<matrix.GetRows();n++)
-	 {
-	  for(int m=0;m<matrix.GetCols();m++)
-	  {
-	   result+=sntoa(matrix(n,m));
-	   result+="\t\t";
-	  }
-	 }
-	 result+="\n";
-	}
-	else
-	{
-	 result+="\n";
-	 MDMatrix<T> &matrix=Average[i];
-	 for(int n=0;n<matrix.GetRows();n++)
-	 {
-	  for(int m=0;m<matrix.GetCols();m++)
-	  {
-	   result+=sntoa(matrix(n,m));
-	   result+="\t\t";
-	  }
-	  result+="\n";
-	 }
-	}
-
-	if(LogFiles[i]->is_open())
-	{
-	 LogFiles[i]->write(result.c_str(),result.size());
-	 LogFiles[i]->flush();
+    if(LogFiles[i]->is_open())
+    {
+     LogFiles[i]->write(result.c_str(),result.size());
+     LogFiles[i]->flush();
      LogFiles[i]->close();
      LogFiles[i]->open(LogFileNames[i].c_str(),ios::out | ios::app);
      if(LogFiles[i]->fail() || !LogFiles[i]->is_open())
      {
-      LogMessage(RDK_EX_WARNING, std::string("Can't open statistic file: ")+LogFileNames[i]+std::string(" reason: ")+strerror(errno));
+         LogMessage(RDK_EX_WARNING, std::string("Can't open statistic file: ")+LogFileNames[i]+std::string(" reason: ")+strerror(errno));
      }
     }
    }
    CurrentAverageNumber=0;
    for(size_t i=0;i<Average.size();i++)
-	Average[i].ToZero();
+    Average[i].ToZero();
   }
  }
  break;
@@ -703,113 +695,108 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
    Average.resize(InputMatrixData->size());
    for(size_t i=0;i<InputMatrixData->size();i++)
    {
-	if(!(*InputMatrixData)[i])
-	 continue;
-	Average[i].Resize((*InputMatrixData)[i]->GetRows(),(*InputMatrixData)[i]->GetCols());
-	Average[i]+=*(*InputMatrixData)[i];
+    Average[i].Resize(InputMatrixData[i].GetRows(),InputMatrixData[i].GetCols());
+    Average[i]+=InputMatrixData[i];
    }
   }
   ++(*CurrentAverageNumber);
 
-  if(CurrentAverageNumber == AverageNumber && AverageNumber>0)
+  if(CurrentAverageNumber == AverageNumber.v && AverageNumber>0)
   {
    for(size_t i=0;i<Average.size();i++)
-	Average[i]/=T(CurrentAverageNumber);
+    Average[i]/=T(CurrentAverageNumber);
 
    std::string result;
    for(size_t i=0;i<InputMatrixData->size();i++)
    {
-	if(!(*InputMatrixData)[i])
-	 continue;
-
-	result.resize(0);
-	if(WriteIndexFlag)
-	{
-	 result=sntoa(CurrentIndex,8);
-	}
-
-	if(!result.empty())
-  	 result+=std::string(" ");
-
-	if(WriteTimeStampFlag)
-	{
-	 time_t time_data;
-	 time(&time_data);
-//	 std::string new_file_name;
-	 result+=get_text_time(time_data,'.',':');
-  	 result+=std::string(" ");
-	}
-
-	if(WriteSourceTimeStampFlag)
-	{
-	 result+=RDK::sntoa(GetTime().GetSourceCurrentGlobalTime()*86400.0*1000.0);
-  	 result+=std::string(" ");
-	}
-
-	if(WriteTimeFromResetFlag)
-	{
-		time_t curr_time = time(NULL);
-		time_t tme = curr_time - StartTime;
-		time_t hrs = tme/3600;
-		time_t min = (tme%3600)/60;
-		time_t sec = tme%60;
-
-		//Получить текущую дату и время в виде строки
-		std::stringstream ss;
-		if(hrs<10)
-		ss<<"0";
-		ss<<hrs<<":";
-		if(min<10)
-		ss<<"0";
-		ss<<min<<":";
-		if(sec<10)
-		ss<<"0";
-
-		ss<<sec;
-		std::string tim = ss.str();
-
-		result+= tim+std::string(" ");
-	}
-
-	if(WriteModelTimeStampFlag)
-	{
-	 result+=RDK::sntoa(GetTime().GetDoubleTime(),20);
-	 result+=std::string(" ");
+    result.resize(0);
+    if(WriteIndexFlag)
+    {
+     result=sntoa(CurrentIndex,8);
     }
 
-	if(SaveMode == 0)
-	{
-	 result+="\t";
-	 MDMatrix<T> &matrix=Average[i];
-	 for(int n=0;n<matrix.GetRows();n++)
-	 {
-	  for(int m=0;m<matrix.GetCols();m++)
-	  {
-	   result+=sntoa(matrix(n,m));
-	   result+="\t\t";
-	  }
-	 }
-	 result+="\n";
-	}
-	else
-	{
-	 result+="\n";
-	 MDMatrix<T> &matrix=Average[i];
-	 for(int n=0;n<matrix.GetRows();n++)
-	 {
-	  for(int m=0;m<matrix.GetCols();m++)
-	  {
-	   result+=sntoa(matrix(n,m));
-	   result+="\t\t";
-	  }
-	  result+="\n";
-	 }
-	}
+    if(!result.empty())
+       result+=std::string(" ");
 
-	if(LogFiles[i]->is_open())
-	{
-	 LogFiles[i]->write(result.c_str(),result.size());
-	 LogFiles[i]->flush();
+    if(WriteTimeStampFlag)
+    {
+     time_t time_data;
+     time(&time_data);
+   //	 std::string new_file_name;
+     result+=get_text_time(time_data,'.',':');
+       result+=std::string(" ");
+    }
+
+    if(WriteSourceTimeStampFlag)
+    {
+     result+=RDK::sntoa(GetTime().GetSourceCurrentGlobalTime()*86400.0*1000.0);
+       result+=std::string(" ");
+    }
+
+    if(WriteTimeFromResetFlag)
+    {
+     time_t curr_time = time(NULL);
+     time_t tme = curr_time - StartTime;
+     time_t hrs = tme/3600;
+     time_t min = (tme%3600)/60;
+     time_t sec = tme%60;
+
+     //Получить текущую дату и время в виде строки
+     std::stringstream ss;
+     if(hrs<10)
+     ss<<"0";
+     ss<<hrs<<":";
+     if(min<10)
+     ss<<"0";
+     ss<<min<<":";
+     if(sec<10)
+     ss<<"0";
+
+     ss<<sec;
+     std::string tim = ss.str();
+
+     result+= tim+std::string(" ");
+    }
+
+    if(WriteModelTimeStampFlag)
+    {
+     result+=RDK::sntoa(GetTime().GetDoubleTime(),20);
+     result+=std::string(" ");
+    }
+
+    if(SaveMode == 0)
+    {
+     result+="\t";
+     MDMatrix<T> &matrix=Average[i];
+     for(int n=0;n<matrix.GetRows();n++)
+     {
+      for(int m=0;m<matrix.GetCols();m++)
+      {
+       result+=sntoa(matrix(n,m));
+       result+="\t\t";
+      }
+     }
+     result+="\n";
+    }
+    else
+    {
+     result+="\n";
+     MDMatrix<T> &matrix=Average[i];
+     for(int n=0;n<matrix.GetRows();n++)
+     {
+      for(int m=0;m<matrix.GetCols();m++)
+      {
+       result+=sntoa(matrix(n,m));
+       result+="\t\t";
+      }
+      result+="\n";
+     }
+    }
+
+    if(LogFiles[i]->is_open())
+    {
+     LogFiles[i]->write(result.c_str(),result.size());
+     LogFiles[i]->flush();
      LogFiles[i]->close();
      LogFiles[i]->open(LogFileNames[i].c_str(),ios::out | ios::app);
      if(LogFiles[i]->fail() || !LogFiles[i]->is_open())
@@ -820,7 +807,7 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
    }
    CurrentAverageNumber=0;
    for(size_t i=0;i<Average.size();i++)
-	Average[i].ToZero();
+    Average[i].ToZero();
   }
  }
  break;

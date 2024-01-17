@@ -141,7 +141,7 @@ bool UNoise<T>::AReset(void)
 template<class T>
 bool UNoise<T>::ACalculate(void)
 {
- if(!InputParams)
+ if(!InputParams.IsConnected())
   return true;
 
  return ANoiseCalculate();

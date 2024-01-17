@@ -26,19 +26,17 @@ namespace RDK {
 // Конструкторы и деструкторы
 // ---------------------
 UStatistic::UStatistic(void)
- : ManualModeEnabled("ManualModeEnabled",this),
+ : SavePath("SavePath", this),
+   SubFolderAfterResetFlag("SubFolderAfterResetFlag", this),
+   ForceCreateSavePath("ForceCreateSavePath", this),
+   PrefixName("PrefixName", this),
+   TimeToFileNameFlag("TimeToFileNameFlag", this),
+   OrderIndexToFileNameFlag("OrderIndexToFileNameFlag", this),
+   NumSkipSteps("NumSkipSteps", this),
+   ManualModeEnabled("ManualModeEnabled",this),
    TimeInterval("TimeInterval", this, &UStatistic::SetTimeInterval),
    ManualModeSwitch("ManualModeSwitch",this)
 {
- AddLookupProperty("SavePath",ptPubParameter, new UVProperty<std::string,UStatistic>(this,&SavePath));
- AddLookupProperty("SubFolderAfterResetFlag",ptPubParameter, new UVProperty<bool,UStatistic>(this,&SubFolderAfterResetFlag));
- AddLookupProperty("ForceCreateSavePath",ptPubParameter, new UVProperty<bool,UStatistic>(this,&ForceCreateSavePath));
-
- AddLookupProperty("PrefixName",ptPubParameter, new UVProperty<std::string,UStatistic>(this,&PrefixName));
-
- AddLookupProperty("TimeToFileNameFlag",ptPubParameter, new UVProperty<bool,UStatistic>(this,&TimeToFileNameFlag));
- AddLookupProperty("OrderIndexToFileNameFlag",ptPubParameter, new UVProperty<bool,UStatistic>(this,&OrderIndexToFileNameFlag));
- AddLookupProperty("NumSkipSteps",ptPubParameter, new UVProperty<int,UStatistic>(this,&NumSkipSteps));
 }
 
 UStatistic::~UStatistic(void)
@@ -146,23 +144,23 @@ bool UStatistic::ACalculate(void)
 
  if(SubFolderAfterResetFlag && ResetFlag)
  {
-  CurrentPath=Environment->GetCurrentDataDir()+SavePath;
+  CurrentPath=Environment->GetCurrentDataDir()+SavePath.v;
   if(RDK::CreateNewDirectory(CurrentPath.c_str()))
    return false; // TODO: Заглушка!! здесь исключение
 
   time_t time_data;
   time(&time_data);
-  if(!PrefixName.empty())
-   CurrentPath=Environment->GetCurrentDataDir()+SavePath+std::string("/")+PrefixName+std::string(" ")+get_text_time(time_data,'.','-');
+  if(!PrefixName->empty())
+   CurrentPath=Environment->GetCurrentDataDir()+SavePath.v+std::string("/")+PrefixName.v+std::string(" ")+get_text_time(time_data,'.','-');
   else
-   CurrentPath=Environment->GetCurrentDataDir()+SavePath+std::string("/")+get_text_time(time_data,'.','-');
+   CurrentPath=Environment->GetCurrentDataDir()+SavePath.v+std::string("/")+get_text_time(time_data,'.','-');
   if(RDK::CreateNewDirectory(CurrentPath.c_str()))
    return false; // TODO: Заглушка!! здесь исключение
  }
  else
  if(!SubFolderAfterResetFlag && ResetFlag)
  {
-  CurrentPath=Environment->GetCurrentDataDir()+SavePath;
+  CurrentPath=Environment->GetCurrentDataDir()+SavePath.v;
   if(ForceCreateSavePath)
    if(RDK::CreateNewDirectory(CurrentPath.c_str()))
     return false; // TODO: Заглушка!! здесь исключение
@@ -173,7 +171,7 @@ bool UStatistic::ACalculate(void)
  time_t time_data;
  time(&time_data);
  std::string new_file_name;
- if(!PrefixName.empty())
+ if(!PrefixName->empty())
   new_file_name=PrefixName;
 
  if(!new_file_name.empty())
@@ -201,7 +199,7 @@ bool UStatistic::ACalculate(void)
   ++CurrentFileNameNumber;
   CurrentFileName=new_file_name+sntoa(CurrentFileNameNumber,2);
  }
- OldTimeStamp=time_data;
+ OldTimeStamp=int(time_data);
 
  bool res=AFSCalculate();
  ++CurrentFileIndex;

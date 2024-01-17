@@ -64,7 +64,7 @@ bool UFileDataset::AReset(void)
 
  NumSamples=Matrix->GetRows();
 
- if(CurrentSample>=0 && CurrentSample<NumSamples)
+ if(CurrentSample>=0 && CurrentSample.v<NumSamples.v)
   SampleData=Matrix->GetRow(CurrentSample);
  else
   SampleData->Resize(0,0);
@@ -79,7 +79,7 @@ bool UFileDataset::ACalculate(void)
   return false;
 
  NumSamples=Matrix->GetRows();
- if(CurrentSample>=0 && CurrentSample<NumSamples)
+ if(CurrentSample.v>=0 && CurrentSample.v<NumSamples.v)
   SampleData=Matrix->GetRow(CurrentSample);
  else
   SampleData->Resize(0,0);

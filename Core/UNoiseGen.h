@@ -16,7 +16,7 @@ protected: // Параметры
 
 protected: // Данные
 // Уровень шума
-double NoiseLevel;
+UProperty<double, UNoiseGen<T>, ptPubParameter> NoiseLevel;
 
 protected: // Временные переменные
 #if __cplusplus >= 201103L
@@ -31,14 +31,6 @@ public: // Методы
 UNoiseGen(void);
 virtual ~UNoiseGen(void);
 // --------------------------
-
-// --------------------------
-// Методы управления параметрами
-// --------------------------
-bool SetNoiseLevel(const double &value);
-const double& GetNoiseLevel(void) const;
-// --------------------------
-
 
 // --------------------------
 // Методы управления данными
@@ -89,11 +81,11 @@ protected:
 // --------------------------
 template<class T>
 UNoiseGen<T>::UNoiseGen(void)
+ : NoiseLevel("NoiseLevel", this)
 #if __cplusplus >= 201103L
-	: gen(rd())
+ , gen(rd())
 #endif
 {
- this->AddLookupProperty("NoiseLevel",ptPubParameter, new UVProperty<double,UNoiseGen<T> >(this,&UNoiseGen::SetNoiseLevel,&UNoiseGen::GetNoiseLevel));
 }
 
 template<class T>
@@ -102,27 +94,6 @@ UNoiseGen<T>::~UNoiseGen(void)
 
 }
 // --------------------------
-
-// --------------------------
-// Методы управления параметрами
-// --------------------------
-template<class T>
-bool UNoiseGen<T>::SetNoiseLevel(const double &value)
-{
- if(NoiseLevel==value)
-  return true;
-
- NoiseLevel=value;
- return true;
-}
-
-template<class T>
-const double& UNoiseGen<T>::GetNoiseLevel(void) const
-{
- return NoiseLevel;
-}
-// --------------------------
-
 
 // --------------------------
 // Методы управления данными
