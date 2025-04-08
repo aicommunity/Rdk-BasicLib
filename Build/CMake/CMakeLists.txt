@@ -1,29 +1,58 @@
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required(VERSION 3.0)
 project(Rdk-BasicLib)
 
-# Put all the archive targets into ${PROJECT_NAME}/Lib/
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set(A_OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../../Bin/Platform/Linux/Libs/")
-file(MAKE_DIRECTORY ${A_OUTPUT_DIR})
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${A_OUTPUT_DIR})
+set(QT_NO_GUI ON)
 
-# Compiler options
+add_library(Rdk-BasicLib STATIC)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+include_directories(${CMAKE_SOURCE_DIR}/../../../../Rdk/Deploy/Include)
 
-# Source files
+set(SOURCES
+    ../../Core/UBCLLibrary.cpp
+    ../../Core/UIO.cpp
+    ../../Core/UIOConverter.cpp
+    ../../Core/UIOLibrary.cpp
+    ../../Core/UMatrixSource.cpp
+    ../../Core/UMatrixSourceDataFile.cpp
+    ../../Core/UMatrixSourceTimeSeries.cpp
+    ../../Core/UModel.cpp
+    ../../Core/UNoise.cpp
+    ../../Core/UNoiseGen.cpp
+    ../../Core/UScalarSource.cpp
+    ../../Core/UStatistic.cpp
+    ../../Core/UFileDataset.cpp
+    ../../Core/UMatrixSourceFile.cpp
+    ../../Core/UMatrixSourceFileSep.cpp
+)
 
-set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../Core/")
-set(SOURCE_FILES
-	"${SOURCE_DIR}/UBCLLibrary.cpp"
-	"${SOURCE_DIR}/UModel.cpp")
-	
-# Headers
-	
-include_directories(${SOURCE_DIR})
+set(HEADERS
+    ../../Core/UBCLLibrary.h
+    ../../Core/UIO.h
+    ../../Core/UIOConverter.h
+    ../../Core/UIOLibrary.h
+    ../../Core/UMatrixSource.h
+    ../../Core/UMatrixSourceDataFile.h
+    ../../Core/UMatrixSourceTimeSeries.h
+    ../../Core/UModel.h
+    ../../Core/UNoise.h
+    ../../Core/UNoiseGen.h
+    ../../Core/UScalarSource.h
+    ../../Core/UStatistic.h
+    ../../Core/UFileDataset.h
+    ../../Core/UMatrixSourceFile.h
+    ../../Core/UMatrixSourceFileSep.h
+)
 
-# Create target file
+target_sources(Rdk-BasicLib PRIVATE ${SOURCES} ${HEADERS})
 
-add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
+set(VERSION 0)
+add_definitions(-DRDK_LIB_CVS_REVISION=${VERSION})
 
-
+if(UNIX)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/../../../../Bin/Platform/Linux/Lib.Qt)
+elseif(WIN32)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/../../../../Bin/Platform/Win/Lib.Qt)
+endif()
