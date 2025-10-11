@@ -2,95 +2,120 @@
 #define UMatrixSource_H
 
 #include "../../../Rdk/Deploy/Include/rdk.h"
+#include "../../../Rdk/Core/Engine/ModernSmartPointers.h"
+#include "../../../Rdk/Core/Engine/ModernContainers.h"
 
 namespace RDK {
                                                         
-/// Класс-источник данных матриц
+/// пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 class RDK_LIB_TYPE UMatrixSource: public UNet
 {
-protected: // Параметры
+protected: // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-public: // Входные и выходные данные
-/// Матрица double
+public: // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+/// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ double
 UPropertyInputData<MDMatrix<double>, UMatrixSource> DoubleMatrixInput;
 
-/// Матрица int
+/// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ int
 UPropertyInputData<MDMatrix<int>, UMatrixSource> IntMatrixInput;
 
-/// Вектор double
+/// пїЅпїЅпїЅпїЅпїЅпїЅ double
 UPropertyInputData<MDVector<double>, UMatrixSource> DoubleVectorInput;
 
-/// Вектор int
+/// пїЅпїЅпїЅпїЅпїЅпїЅ int
 UPropertyInputData<MDVector<int>, UMatrixSource> IntVectorInput;
 
-/// Матрица double
+/// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ double
 UPropertyOutputData<MDMatrix<double>, UMatrixSource, ptPubParameter | ptOutput> DoubleMatrix;
 
-/// Матрица int
+/// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ int
 UPropertyOutputData<MDMatrix<int>, UMatrixSource, ptPubParameter | ptOutput> IntMatrix;
 
-/// Вектор double
+/// пїЅпїЅпїЅпїЅпїЅпїЅ double
 UPropertyOutputData<MDVector<double>, UMatrixSource, ptPubParameter | ptOutput> DoubleVector;
 
-/// Вектор int
+/// пїЅпїЅпїЅпїЅпїЅпїЅ int
 UPropertyOutputData<MDVector<int>, UMatrixSource, ptPubParameter | ptOutput> IntVector;
 
-public: // Методы
+public: // пїЅпїЅпїЅпїЅпїЅпїЅ
 // --------------------------
-// Конструкторы и деструкторы
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 // --------------------------
 UMatrixSource(void);
+UMatrixSource(const UMatrixSource&) = default;
+UMatrixSource(UMatrixSource&&) noexcept = default;
 virtual ~UMatrixSource(void);
+
+UMatrixSource& operator=(const UMatrixSource&) = default;
+UMatrixSource& operator=(UMatrixSource&&) noexcept = default;
 // --------------------------    
 
 // --------------------------
-// Системные методы управления объектом
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 // --------------------------
 public:
-// Выделяет память для новой чистой копии объекта этого класса
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 virtual UMatrixSource* New(void);
 // --------------------------
 
 // --------------------------
-// Скрытые методы управления счетом
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 // --------------------------
 protected:
-/// Восстановление настроек по умолчанию и сброс процесса счета
+/// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 virtual bool ADefault(void);
 
-/// Обеспечивает сборку внутренней структуры объекта
-/// после настройки параметров
-/// Автоматически вызывает метод Reset() и выставляет Ready в true
-/// в случае успешной сборки
+/// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+/// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+/// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Reset() пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Ready пїЅ true
+/// пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 virtual bool ABuild(void);
 
-/// Сброс процесса счета.
+/// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 virtual bool AReset(void);
 
-/// Выполняет расчет этого объекта
+/// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 virtual bool ACalculate(void);
 // --------------------------
 
 // --------------------------
-// Скрытые методы управления счетом
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 // --------------------------
 protected:
-/// Восстановление настроек по умолчанию и сброс процесса счета
+/// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 virtual bool ASDefault(void);
 
-/// Обеспечивает сборку внутренней структуры объекта
-/// после настройки параметров
-/// Автоматически вызывает метод Reset() и выставляет Ready в true
-/// в случае успешной сборки
+/// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+/// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+/// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Reset() пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Ready пїЅ true
+/// пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 virtual bool ASBuild(void);
 
-/// Сброс процесса счета.
+/// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 virtual bool ASReset(void);
 
-/// Выполняет расчет этого объекта
+/// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 virtual bool ASCalculate(void);
 // --------------------------
 
+
+// --------------------------
+// Modern C++20 methods
+// --------------------------
+// Efficient matrix operations using modern containers
+template<typename T>
+void ReserveMatrix(MDMatrix<T>& matrix, size_t rows, size_t cols);
+
+// Move semantics for large matrices
+template<typename T>
+void MoveMatrix(MDMatrix<T>& target, MDMatrix<T>&& source);
+
+// Modern matrix validation
+bool IsValidMatrix() const;
+
+// Performance optimized operations
+void OptimizeMatrixOperations();
+// --------------------------
 
 };
 

@@ -3,12 +3,15 @@
 
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 #include "UFileIO.h"
+#include "../../../Rdk/Core/Engine/ModernSmartPointers.h"
+#include "../../../Rdk/Core/Engine/ModernContainers.h"
 
 namespace RDK {
 
 // --------------------------
-// Конструкторы и деструкторы
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 // --------------------------
 UFileIO::UFileIO(void)
 : BinFlag("BinFlag", this, &UFileIO::SetBinFlag),
@@ -27,7 +30,7 @@ UFileIO::~UFileIO(void)
 // --------------------------
 
 // --------------------------
-// Методы управления параметрами
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 // --------------------------
 bool UFileIO::SetBinFlag(const int &bin_flag)
 {
@@ -52,7 +55,7 @@ bool UFileIO::SetReadPartSize(const std::streamsize &value)
 
 
 // --------------------------
-// Методы управления данными
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 // --------------------------
 const std::string& UFileIO::GetDataString(void) const
 {
@@ -92,7 +95,7 @@ bool UFileIO::WriteData()
 
 char UFileIO::ReadData()
 {
- // Позиция по которой будет проведен следующий этап записи
+ // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
  std::streamsize readindex=0;
 
  std::fstream ofs;
@@ -122,9 +125,9 @@ char UFileIO::ReadData()
 // --------------------------
 
 // --------------------------
-// Системные методы управления объектом
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 // --------------------------
-// Выделяет память для новой чистой копии объекта этого класса
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 UFileIO* UFileIO::New(void)
 {
  return new UFileIO;
@@ -132,9 +135,9 @@ UFileIO* UFileIO::New(void)
 // --------------------------
 
 // --------------------------
-// Скрытые методы управления счетом
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 // --------------------------
-// Восстановление настроек по умолчанию и сброс процесса счета
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 bool UFileIO::AIODefault(void)
 {
  SetReadPartSize(2048);
@@ -143,22 +146,22 @@ bool UFileIO::AIODefault(void)
  return true;
 }
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Reset() пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Ready пїЅ true
+// пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 bool UFileIO::AIOBuild(void)
 {
  return true;
 }
 
-// Сброс процесса счета.
+// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 bool UFileIO::AIOReset(void)
 {
  return true;
 }
 
-// Выполняет расчет этого объекта
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 bool UFileIO::AIOCalculate(void)
 {
  if(Direction == 0)
@@ -199,6 +202,47 @@ bool UFileIO::AIOCalculate(void)
   WriteData();
  }
  return true;
+}
+// --------------------------
+
+// --------------------------
+// Modern C++20 methods implementation
+// --------------------------
+bool UFileIO::FileExists() const {
+    try {
+        return std::filesystem::exists(FileName.GetData());
+    } catch (const std::filesystem::filesystem_error&) {
+        return false;
+    }
+}
+
+std::uintmax_t UFileIO::GetFileSize() const {
+    try {
+        if (FileExists()) {
+            return std::filesystem::file_size(FileName.GetData());
+        }
+    } catch (const std::filesystem::filesystem_error&) {
+        // Return 0 on error
+    }
+    return 0;
+}
+
+bool UFileIO::EnsureDirectoryExists() const {
+    try {
+        std::filesystem::path file_path = FileName.GetData();
+        std::filesystem::path dir_path = file_path.parent_path();
+        
+        if (!dir_path.empty() && !std::filesystem::exists(dir_path)) {
+            return std::filesystem::create_directories(dir_path);
+        }
+        return true;
+    } catch (const std::filesystem::filesystem_error&) {
+        return false;
+    }
+}
+
+std::filesystem::path UFileIO::GetFilePath() const {
+    return std::filesystem::path(FileName.GetData());
 }
 // --------------------------
 
