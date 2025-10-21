@@ -23,7 +23,7 @@ namespace RDK {
 //UStatisticRect UBGuiSelectionRect;
 
 // ---------------------
-// Конструкторы и деструкторы
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 // ---------------------
 UStatistic::UStatistic(void)
  : SavePath("SavePath", this),
@@ -46,7 +46,7 @@ UStatistic::~UStatistic(void)
 // ---------------------
 
 // ---------------------
-// Методы управления параметрами
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 // ---------------------
 bool UStatistic::SetSavePath(const std::string &value)
 {
@@ -77,9 +77,9 @@ bool UStatistic::SetTimeInterval(const double &value)
 // ---------------------
 
 // --------------------------
-// Скрытые методы управления счетом фильтров
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 // --------------------------
-// Восстановление настроек по умолчанию и сброс процесса счета
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 bool UStatistic::ADefault(void)
 {
  Activity=false;
@@ -96,16 +96,16 @@ bool UStatistic::ADefault(void)
  return AFSDefault();
 }
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Reset() пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Ready пїЅ true
+// пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 bool UStatistic::ABuild(void)
 {
  return AFSBuild();
 }
 
-// Сброс процесса счета без потери настроек
+// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 bool UStatistic::AReset(void)
 {
  ResetFlag=true;
@@ -118,7 +118,7 @@ bool UStatistic::AReset(void)
  return AFSReset();
 }
 
-// Выполняет расчет этого объекта
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 bool UStatistic::ACalculate(void)
 {
  if(CurrentStep<NumSkipSteps)
@@ -144,26 +144,28 @@ bool UStatistic::ACalculate(void)
 
  if(SubFolderAfterResetFlag && ResetFlag)
  {
-  CurrentPath=Environment->GetCurrentDataDir()+SavePath.v;
+  auto env = Environment.lock();
+  CurrentPath=env->GetCurrentDataDir()+SavePath.v;
   if(RDK::CreateNewDirectory(CurrentPath.c_str()))
-   return false; // TODO: Заглушка!! здесь исключение
+   return false; // TODO: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!! пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
   time_t time_data;
   time(&time_data);
   if(!PrefixName->empty())
-   CurrentPath=Environment->GetCurrentDataDir()+SavePath.v+std::string("/")+PrefixName.v+std::string(" ")+get_text_time(time_data,'.','-');
+   CurrentPath=env->GetCurrentDataDir()+SavePath.v+std::string("/")+PrefixName.v+std::string(" ")+get_text_time(time_data,'.','-');
   else
-   CurrentPath=Environment->GetCurrentDataDir()+SavePath.v+std::string("/")+get_text_time(time_data,'.','-');
+   CurrentPath=env->GetCurrentDataDir()+SavePath.v+std::string("/")+get_text_time(time_data,'.','-');
   if(RDK::CreateNewDirectory(CurrentPath.c_str()))
-   return false; // TODO: Заглушка!! здесь исключение
+   return false; // TODO: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!! пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
  }
  else
  if(!SubFolderAfterResetFlag && ResetFlag)
  {
-  CurrentPath=Environment->GetCurrentDataDir()+SavePath.v;
+  auto env2 = Environment.lock();
+  CurrentPath=env2->GetCurrentDataDir()+SavePath.v;
   if(ForceCreateSavePath)
    if(RDK::CreateNewDirectory(CurrentPath.c_str()))
-    return false; // TODO: Заглушка!! здесь исключение
+    return false; // TODO: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!! пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
  }
 
  ResetFlag=false;
