@@ -19,7 +19,7 @@ namespace RDK {
 UBasicLib BasicLibrary;
 
 // --------------------------
-// Конструкторы и деструкторы
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 // --------------------------
 UBasicLib::UBasicLib(void)
  : ULibrary("BasicLib","1.0", GetGlobalVersion())
@@ -28,26 +28,26 @@ UBasicLib::UBasicLib(void)
 // --------------------------
 
 // --------------------------
-// Методы заполенения бибилиотеки
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 // --------------------------
-// Заполняет массив ClassSamples готовыми экземплярами образцов и их именами.
-// Не требуется предварительная очистка массива и уборка памяти.
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ ClassSamples пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+// пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
 void UBasicLib::CreateClassSamples(UStorage *storage)
 {
- RDK::UContainer *cont;
+ std::shared_ptr<RDK::UContainer> cont;
 
- cont=new UModel;
+ cont=std::make_shared<UModel>();
  cont->SetName("Model");
  cont->Default();
  UploadClass("UModel",cont);
 
 
- cont=new UStatisticMatrix<int>;
+ cont=std::make_shared<UStatisticMatrix<int>>();
  cont->SetName("StatisticIntMatrix");
  cont->Default();
  UploadClass("UStatisticIntMatrix",cont);
 
- cont=new UStatisticMatrix<double>;
+ cont=std::make_shared<UStatisticMatrix<double>>();
  cont->SetName("StatisticDoubleMatrix");
  cont->Default();
  UploadClass("UStatisticDoubleMatrix",cont);
@@ -64,56 +64,56 @@ void UBasicLib::CreateClassSamples(UStorage *storage)
  cont->Default();
  UploadClass("UIOTextConverter",cont);*/
 
- cont=new UNoiseGen<double>;
+ cont=std::make_shared<UNoiseGen<double>>();
  cont->SetName("NoiseGen");
  cont->Default();
  UploadClass("UNoiseGenDouble",cont);
 
- cont=new UNoiseGen<double>;
+ cont=std::make_shared<UNoiseGen<double>>();
  cont->SetName("NoiseGen");
  cont->Default();
  UploadClass("UNoiseGen",cont);
 
- cont=new UNoiseGen<int>;
+ cont=std::make_shared<UNoiseGen<int>>();
  cont->SetName("NoiseGen");
  cont->Default();
  UploadClass("UNoiseGenInt",cont);
 
-  cont=new UMatrixSource;
+  cont=std::make_shared<UMatrixSource>();
  cont->SetName("MatrixSource");
  cont->Default();
  UploadClass("UMatrixSource",cont);
 
- cont=new UScalarSource;
+ cont=std::make_shared<UScalarSource>();
  cont->SetName("ScalarSource");
  cont->Default();
  UploadClass("UScalarSource",cont);
 
  //UMatrixSourceTimeSeries
- cont=new UMatrixSourceTimeSeries;
+ cont=std::make_shared<UMatrixSourceTimeSeries>();
  cont->SetName("MatrixSourceTimeSeries");
  cont->Default();
  UploadClass("UMatrixSourceTimeSeries",cont);
 
  //UMatrixSourceDataFile
- cont=new UMatrixSourceDataFile;
+ cont=std::make_shared<UMatrixSourceDataFile>();
  cont->SetName("UMatrixSourceDataFile");
  cont->Default();
  UploadClass("UMatrixSourceDataFile",cont);
 
 
 #ifdef WIN32
- cont=new UMatrixSourceFile;
+ cont=std::make_shared<UMatrixSourceFile>();
  cont->SetName("UMatrixSourceFile");
  cont->Default();
  UploadClass("UUMatrixSourceFile",cont);
 
- cont=new UMatrixSourceFileSep;
+ cont=std::make_shared<UMatrixSourceFileSep>();
  cont->SetName("MatrixSourceFileSep");
  cont->Default();
  UploadClass("UMatrixSourceFileSep",cont);
 
- cont=new UFileDataset;
+ cont=std::make_shared<UFileDataset>();
  cont->SetName("FileDataset");
  cont->Default();
  UploadClass("UFileDataset",cont);

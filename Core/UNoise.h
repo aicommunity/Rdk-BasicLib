@@ -2,7 +2,7 @@
 #define UNOISE_H
 
 #include "../../../Rdk/Deploy/Include/rdk.h"
-#include "UEPtr.h"
+#include <memory>
 #include "ModernSmartPointers.h"
 #include <memory>
 #include <mutex>

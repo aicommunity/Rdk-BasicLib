@@ -15,7 +15,7 @@ See file license.txt for more information
 //#include "../../UNet.h"
 #include <errno.h>
 #include "../../../Rdk/Deploy/Include/rdk.h"
-#include "UEPtr.h"
+#include <memory>
 #include "ModernSmartPointers.h"
 #include <filesystem>
 #include <memory>
@@ -225,7 +225,7 @@ bool first_calc;
 
 protected: // ������
 /// ������ ������ �����
-std::vector<UEPtr<fstream> > LogFiles;
+std::vector<std::shared_ptr<fstream> > LogFiles;
 
 std::vector<std::string> LogFileNames;
 
@@ -306,7 +306,7 @@ UStatisticMatrix<T>::~UStatisticMatrix(void)
   {
    LogFiles[i]->flush();
    LogFiles[i]->close();
-   delete LogFiles[i];
+   LogFiles[i].reset();
   }
  }
 }
@@ -373,7 +373,7 @@ bool UStatisticMatrix<T>::AFSReset(void)
    {
 	LogFiles[i]->flush();
 	LogFiles[i]->close();
-	delete LogFiles[i];
+	LogFiles[i].reset();
    }
   }
   LogFiles.clear();
@@ -427,7 +427,7 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
   for(size_t i=InputMatrixData->size();i<LogFiles.size();i++)
   {
    LogFiles[i]->close();
-   delete LogFiles[i];
+   LogFiles[i].reset();
   }
   LogFiles.resize(InputMatrixData->size());
   LogFileNames.resize(LogFiles.size());
@@ -442,7 +442,7 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
   LogFileNames.resize(LogFiles.size());
   for(size_t i=curr_size;i<LogFiles.size();i++)
   {
-   LogFiles[i] = new fstream;
+   LogFiles[i] = std::make_shared<fstream>();
    std::string filename;
    if(!c_items[i].Item)
 	continue;
@@ -457,7 +457,7 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
    }
 
    UIPropertyOutput* property=0;
-   UEPtr<UItem> item=dynamic_cast<UItem*>(c_items[i].Item);
+   std::shared_ptr<UItem> item=std::shared_ptr<UItem>(dynamic_cast<UItem*>(c_items[i].Item), RDK::NonOwningDeleter());
    if(!item)
     continue;
    item->FindOutputProperty(c_items[i].Name, property);

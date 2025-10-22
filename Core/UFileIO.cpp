@@ -186,7 +186,7 @@ bool UFileIO::AIOCalculate(void)
   }
   else
   {
-   UEPtr<const MDMatrix<double> > input;
+   std::shared_ptr<const MDMatrix<double> > input;
    if(Input.IsConnected())
    {
 	input=Input.operator ->();

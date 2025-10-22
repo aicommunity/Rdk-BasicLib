@@ -129,7 +129,7 @@ bool UIOTextConverter::AIOCalculate(void)
 
  case 1:
  {
-  UEPtr<const MDMatrix<double> > input;
+  std::shared_ptr<const MDMatrix<double> > input;
   if(Input.IsConnected())
   {
    input=Input.operator ->();
@@ -148,7 +148,7 @@ bool UIOTextConverter::AIOCalculate(void)
 
  case 2:
  {
-  UEPtr<const MDMatrix<double> > input;
+  std::shared_ptr<const MDMatrix<double> > input;
   if(Input.IsConnected())
   {
    input=Input.operator ->();
