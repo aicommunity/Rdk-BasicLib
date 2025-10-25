@@ -457,7 +457,7 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
    }
 
    UIPropertyOutput* property=0;
-   std::shared_ptr<UItem> item=std::shared_ptr<UItem>(dynamic_cast<UItem*>(c_items[i].Item), RDK::NonOwningDeleter());
+   std::shared_ptr<UItem> item=safe_shared_cast<UItem>(dynamic_cast<UItem*>(c_items[i].Item));
    if(!item)
     continue;
    item->FindOutputProperty(c_items[i].Name, property);
