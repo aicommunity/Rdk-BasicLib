@@ -144,7 +144,7 @@ bool UStatistic::ACalculate(void)
 
  if(SubFolderAfterResetFlag && ResetFlag)
  {
-  auto env = Environment.lock();
+  auto env = Environment;
   CurrentPath=env->GetCurrentDataDir()+SavePath.v;
   if(RDK::CreateNewDirectory(CurrentPath.c_str()))
    return false; // TODO: ��������!! ����� ����������
@@ -161,7 +161,7 @@ bool UStatistic::ACalculate(void)
  else
  if(!SubFolderAfterResetFlag && ResetFlag)
  {
-  auto env2 = Environment.lock();
+  auto env2 = Environment;
   CurrentPath=env2->GetCurrentDataDir()+SavePath.v;
   if(ForceCreateSavePath)
    if(RDK::CreateNewDirectory(CurrentPath.c_str()))
