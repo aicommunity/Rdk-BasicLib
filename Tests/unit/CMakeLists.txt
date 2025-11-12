@@ -1,0 +1,43 @@
+# Rdk-BasicLib Unit Tests CMake Configuration
+cmake_minimum_required(VERSION 3.16)
+
+# Find Google Test
+find_package(GTest REQUIRED)
+
+# Create test executable for BasicLib tests
+add_executable(RdkBasicLibTests
+    TestUModel.cpp
+    TestUFileIO.cpp
+    TestUMatrixSource.cpp
+    TestUIO.cpp
+    ${CMAKE_SOURCE_DIR}/Libraries/Libraries_con.cpp
+)
+
+target_include_directories(RdkBasicLibTests PRIVATE
+    ${CMAKE_SOURCE_DIR}/Rdk/Core
+    ${CMAKE_SOURCE_DIR}/Rdk/Deploy/Include
+    ${CMAKE_SOURCE_DIR}/Libraries/Rdk-BasicLib/Core
+    ${CMAKE_SOURCE_DIR}/Libraries
+    ${CMAKE_SOURCE_DIR}/Tests
+)
+
+target_link_libraries(RdkBasicLibTests PRIVATE
+    rdk.static.qt
+    Rdk-BasicLib.qt
+    Rdk-CvBasicLib.qt
+    Rdk-HardwareLib.qt
+    Nmsdk-PulseLib.qt
+    Nmsdk-MotionControlLib.qt
+    TestHelpers
+    GTest::gtest
+    GTest::gtest_main
+    glog::glog
+    Threads::Threads
+)
+
+target_compile_features(RdkBasicLibTests PRIVATE cxx_std_20)
+target_compile_definitions(RdkBasicLibTests PRIVATE RDK_QT RDK_LIB_CVS_REVISION=0)
+
+# Register tests
+add_test(NAME RdkBasicLibTests COMMAND RdkBasicLibTests)
+
