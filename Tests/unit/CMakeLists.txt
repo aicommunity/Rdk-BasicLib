@@ -10,6 +10,10 @@ add_executable(RdkBasicLibTests
     TestUFileIO.cpp
     TestUMatrixSource.cpp
     TestUIO.cpp
+    TestUStatistic.cpp
+    TestUNoiseGen.cpp
+    TestUScalarSource.cpp
+    TestUMatrixSourceVariants.cpp
     ${CMAKE_SOURCE_DIR}/Libraries/Libraries_con.cpp
 )
 
