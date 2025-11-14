@@ -14,6 +14,9 @@ add_executable(RdkBasicLibTests
     TestUNoiseGen.cpp
     TestUScalarSource.cpp
     TestUMatrixSourceVariants.cpp
+    TestUFileDataset.cpp
+    TestUIOConverter.cpp
+    TestUNoise.cpp
     ${CMAKE_SOURCE_DIR}/Libraries/Libraries_con.cpp
 )
 

@@ -128,3 +128,43 @@ TEST_F(UMatrixSourceVariantsTest, MatrixSourceDataFileIsNet) {
     }
 }
 
+// Test UMatrixSourceFile creation
+TEST_F(UMatrixSourceVariantsTest, CreateMatrixSourceFile) {
+    if (!storage->CheckClass("UMatrixSourceFile")) {
+        GTEST_SKIP() << "UMatrixSourceFile class not available in storage";
+        return;
+    }
+    
+    auto matrixSource = storage->TakeObject("UMatrixSourceFile");
+    if (matrixSource) {
+        EXPECT_EQ(matrixSource->GetCompClassName(), "UMatrixSourceFile");
+        EXPECT_NE(matrixSource, nullptr);
+        
+        // Test setting name
+        matrixSource->SetName("TestMatrixSourceFile");
+        EXPECT_EQ(matrixSource->GetName(), "TestMatrixSourceFile");
+    } else {
+        GTEST_SKIP() << "Cannot create UMatrixSourceFile object";
+    }
+}
+
+// Test UMatrixSourceFileSep creation
+TEST_F(UMatrixSourceVariantsTest, CreateMatrixSourceFileSep) {
+    if (!storage->CheckClass("UMatrixSourceFileSep")) {
+        GTEST_SKIP() << "UMatrixSourceFileSep class not available in storage";
+        return;
+    }
+    
+    auto matrixSource = storage->TakeObject("UMatrixSourceFileSep");
+    if (matrixSource) {
+        EXPECT_EQ(matrixSource->GetCompClassName(), "UMatrixSourceFileSep");
+        EXPECT_NE(matrixSource, nullptr);
+        
+        // Test setting name
+        matrixSource->SetName("TestMatrixSourceFileSep");
+        EXPECT_EQ(matrixSource->GetName(), "TestMatrixSourceFileSep");
+    } else {
+        GTEST_SKIP() << "Cannot create UMatrixSourceFileSep object";
+    }
+}
+
