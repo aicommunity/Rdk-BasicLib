@@ -37,6 +37,7 @@ void UBasicLib::CreateClassSamples(UStorage *storage)
  std::shared_ptr<RDK::UContainer> cont;
 
  cont=std::make_shared<UModel>();
+ cont->SetStorage(storage);
  cont->SetName("Model");
  cont->Default();
  UploadClass("UModel",cont);
