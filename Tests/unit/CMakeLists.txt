@@ -17,6 +17,7 @@ add_executable(RdkBasicLibTests
     TestUFileDataset.cpp
     TestUIOConverter.cpp
     TestUNoise.cpp
+    TestBasicLibRegistration.cpp
     ${CMAKE_SOURCE_DIR}/Libraries/Libraries_con.cpp
 )
 
