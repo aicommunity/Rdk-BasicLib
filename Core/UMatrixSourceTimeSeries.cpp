@@ -14,7 +14,7 @@
 namespace RDK {
 
 // --------------------------
-// Конструкторы и деструкторы
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 // --------------------------
 UMatrixSourceTimeSeries::UMatrixSourceTimeSeries(void)
 :
@@ -40,9 +40,9 @@ UMatrixSourceTimeSeries::~UMatrixSourceTimeSeries(void)
 // --------------------------
 
 // --------------------------
-// Системные методы управления объектом
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 // --------------------------
-// Выделяет память для новой чистой копии объекта этого класса
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 UMatrixSourceTimeSeries* UMatrixSourceTimeSeries::New(void)
 {
  return new UMatrixSourceTimeSeries;
@@ -51,9 +51,9 @@ UMatrixSourceTimeSeries* UMatrixSourceTimeSeries::New(void)
 
 
 // --------------------------
-// Методы управления параметрами
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 // --------------------------
-/// Использовать путь до источника видеоданных относительно папки конфигурации
+/// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 bool UMatrixSourceTimeSeries::SetUseRelativePathFromConfig(const bool &value)
 {
  UseRelativePathFromWorkDir=false;
@@ -61,7 +61,7 @@ bool UMatrixSourceTimeSeries::SetUseRelativePathFromConfig(const bool &value)
  return true;
 }
 
-/// Использовать путь до источника видеоданных относительно рабочей папки приложения
+/// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 bool UMatrixSourceTimeSeries::SetUseRelativePathFromWorkDir(const bool &value)
 {
  UseRelativePathFromConfig=false;
@@ -71,9 +71,9 @@ bool UMatrixSourceTimeSeries::SetUseRelativePathFromWorkDir(const bool &value)
 // --------------------------
 
 // --------------------------
-// Скрытые методы управления счетом
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 // --------------------------
-// Восстановление настроек по умолчанию и сброс процесса счета
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 bool UMatrixSourceTimeSeries::ADefault(void)
 {
  FileName="";
@@ -81,22 +81,22 @@ bool UMatrixSourceTimeSeries::ADefault(void)
  SkipCalcIfNoNewData=true;
  UseRelativePathFromWorkDir=false;
  UseRelativePathFromConfig=true;
- ColCount = 1; //Спорно, так без искажений грубо пойдет, почислово-построчно
- IsStandartizeData = true; //Так как используем пока только для PCA, стандартизуем по умолчанию
+ ColCount = 1; //пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+ IsStandartizeData = true; //пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ PCA, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
  current_line_index = 0;
  return true;
 }
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Reset() пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Ready пїЅ true
+// пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 bool UMatrixSourceTimeSeries::ABuild(void)
 {
  return true;
 }
 
-// Сброс процесса счета.
+// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.
 bool UMatrixSourceTimeSeries::AReset(void)
 {
  IsNewData=false;
@@ -105,7 +105,7 @@ bool UMatrixSourceTimeSeries::AReset(void)
  return true;
 }
 
-// Выполняет расчет этого объекта
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 bool UMatrixSourceTimeSeries::ACalculate(void)
 {
  bool res = true;
@@ -118,9 +118,14 @@ bool UMatrixSourceTimeSeries::ACalculate(void)
 
  if(!res)
  {
-  //Тут должно быть что-то другое, типа возврата false?
-  if(GetOwner())
-   GetOwner()->ForceSkipComponentCalculation();
+  // CRITICAL: GetOwner() now returns weak_ptr, need to lock before use
+  std::weak_ptr<UContainer> owner_weak=GetOwner();
+  if(!owner_weak.expired())
+  {
+   std::shared_ptr<UContainer> owner=owner_weak.lock();
+   if(owner)
+    owner->ForceSkipComponentCalculation();
+  }
 
   return true;
  }
@@ -135,7 +140,7 @@ bool UMatrixSourceTimeSeries::ACalculate(void)
  return true;
 }
 
-//Обновить / пересчитать текущую строку матрицы, которая отправляется компонентом в качестве выхода
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ / пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 void UMatrixSourceTimeSeries::UpdateCurrentLine()
 {
  MDMatrix<double> outline;
@@ -154,7 +159,7 @@ void UMatrixSourceTimeSeries::UpdateCurrentLine()
 }
 
 
-//Преобразовать данные в матрицу шириной ColCount
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ ColCount
 bool UMatrixSourceTimeSeries::TransformData(MDMatrix<double> &matrix)
 {
  int cols = ColCount.v;
@@ -172,7 +177,7 @@ bool UMatrixSourceTimeSeries::TransformData(MDMatrix<double> &matrix)
  return true;
 }
 
-//Стандартизовать: вычесть матожидание верт ряда и поделить на СКО
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ
 bool UMatrixSourceTimeSeries::StandartizeData(MDMatrix<double> &matrix)
 {
  //Normalize data [] -> [0.0; 1.0]
@@ -269,7 +274,7 @@ bool UMatrixSourceTimeSeries::StandartizeData(MDMatrix<double> &matrix)
  return true;
 }
 
-/// Выполняет чтение, декодирование и выдачу данных
+/// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 bool UMatrixSourceTimeSeries::ReadAndDecode(const std::string &file_name)
 {
  std::ifstream datafile;
@@ -295,11 +300,11 @@ bool UMatrixSourceTimeSeries::ReadAndDecode(const std::string &file_name)
   //return true;
  }
 
- //Ширина выходных данных
- //Если не задано нормально, нечего и считать
+ //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+ //пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
  if(ColCount.v>0)
  {
-  //Если данных меньше, чем длина одной серии, тоже возвернем ничего
+  //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
   if(int(source_timeseries.size())>ColCount.v)
   {
    MDMatrix<double> out;
@@ -337,8 +342,14 @@ bool UMatrixSourceTimeSeries::ReadAndDecode(const std::string &file_name)
  {
   if(!xml.LoadFromFile(file_name,"Matrix"))
   {
-   if(GetOwner())
-    GetOwner()->ForceSkipComponentCalculation();
+   // CRITICAL: GetOwner() now returns weak_ptr, need to lock before use
+   std::weak_ptr<UContainer> owner_weak=GetOwner();
+   if(!owner_weak.expired())
+   {
+    std::shared_ptr<UContainer> owner=owner_weak.lock();
+    if(owner)
+     owner->ForceSkipComponentCalculation();
+   }
    return true;
   }
  }
@@ -355,7 +366,7 @@ bool UMatrixSourceTimeSeries::ReadAndDecode(const std::string &file_name)
 }
 
 
-/// Расчитывает реальный путь до файла исходя из настроек относительных путей
+/// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 std::string UMatrixSourceTimeSeries::CalcActualSourceFilePath(const std::string &file_name)
 {
  std::string clean_file_name=trim_spaces(file_name);

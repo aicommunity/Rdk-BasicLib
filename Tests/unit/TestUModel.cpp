@@ -93,15 +93,17 @@ TEST_F(UModelTest, ModelHierarchy) {
     }
     
     child->SetName("ChildModel");
-    parent->AddComponent(child);
+    parent->AddComponent(std::weak_ptr<RDK::UContainer>(child));
     
     // Verify child's owner
-    auto owner = child->GetMainOwner();
+    auto owner_weak = child->GetMainOwner();
+    ASSERT_FALSE(owner_weak.expired()) << "Child's main owner should exist";
+    auto owner = owner_weak.lock();
     EXPECT_EQ(owner, parent) << "Child's main owner should be parent";
     
     // Verify we can find the child
-    auto found = parent->GetComponent("ChildModel", true);
-    EXPECT_NE(found, nullptr) << "Child should be findable in parent";
+    auto found_weak = parent->GetComponent("ChildModel", true);
+    ASSERT_FALSE(found_weak.expired()) << "Child should be findable in parent";
     
     // Cleanup: remove child component before test ends
     // This ensures proper cleanup - child will be removed from container
