@@ -12,62 +12,62 @@ namespace RDK{
 template<class T>
 class RDK_LIB_TYPE UNoiseGen: public UNoise<T>
 {
-protected: // Параметры
+protected: // 
 
-protected: // Данные
-// Уровень шума
+protected: // 
+//  
 UProperty<double, UNoiseGen<T>, ptPubParameter> NoiseLevel;
 
-protected: // Временные переменные
+protected: //  
 #if __cplusplus >= 201103L
 std::random_device rd;  //Will be used to obtain a seed for the random number engine
 std::mt19937 gen; //Standard mersenne_twister_engine seeded with rd()
 #endif
 
-public: // Методы
+public: // 
 // --------------------------
-// Конструкторы и деструкторы
+//   
 // --------------------------
 UNoiseGen(void);
 virtual ~UNoiseGen(void);
 // --------------------------
 
 // --------------------------
-// Методы управления данными
+//   
 // --------------------------
 T GenerateNoise(double lvlNoise);
 // --------------------------
 
 // --------------------------
-// Системные методы управления объектом
+//    
 // --------------------------
 public:
-// Выделяет память для новой чистой копии объекта этого класса
+//         
 virtual UNoiseGen* New(void);
 // --------------------------
 
 // --------------------------
-// Скрытые методы управления счетом
+//    
 // --------------------------
 protected:
-// Восстановление настроек по умолчанию и сброс процесса счета
+//        
 virtual bool ANoiseDefault(void);
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+//     
+//   
+//    Reset()   Ready  true
+//    
 virtual bool ANoiseBuild(void);
 
-// Сброс процесса счета.
+//   .
 virtual bool ANoiseReset(void);
 
-// Выполняет расчет этого объекта
+//    
 virtual bool ANoiseCalculate(void);
 // --------------------------
 
 // --------------------------
-// Вспомогательные методы расчета
+//   
 // --------------------------
 protected:
 
@@ -77,7 +77,7 @@ protected:
 
 
 // --------------------------
-// Конструкторы и деструкторы
+//   
 // --------------------------
 template<class T>
 UNoiseGen<T>::UNoiseGen(void)
@@ -96,7 +96,7 @@ UNoiseGen<T>::~UNoiseGen(void)
 // --------------------------
 
 // --------------------------
-// Методы управления данными
+//   
 // --------------------------
 template<class T>
 T UNoiseGen<T>::GenerateNoise(double lvlNoise)
@@ -119,9 +119,9 @@ T UNoiseGen<T>::GenerateNoise(double lvlNoise)
 // --------------------------
 
 // --------------------------
-// Системные методы управления объектом
+//    
 // --------------------------
-// Выделяет память для новой чистой копии объекта этого класса
+//         
 
 template<class T>
 UNoiseGen<T>* UNoiseGen<T>::New(void)
@@ -131,9 +131,9 @@ UNoiseGen<T>* UNoiseGen<T>::New(void)
 // --------------------------
 
 // --------------------------
-// Скрытые методы управления счетом
+//    
 // --------------------------
-// Восстановление настроек по умолчанию и сброс процесса счета
+//        
 template<class T>
 bool UNoiseGen<T>::ANoiseDefault(void)
 {
@@ -142,17 +142,17 @@ bool UNoiseGen<T>::ANoiseDefault(void)
  return true;
 }
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+//     
+//   
+//    Reset()   Ready  true
+//    
 template<class T>
 bool UNoiseGen<T>::ANoiseBuild(void)
 {
  return true;
 }
 
-// Сброс процесса счета.
+//   .
 template<class T>
 bool UNoiseGen<T>::ANoiseReset(void)
 {
@@ -163,7 +163,7 @@ bool UNoiseGen<T>::ANoiseReset(void)
  return true;
 }
 
-// Выполняет расчет этого объекта
+//    
 template<class T>
 bool UNoiseGen<T>::ANoiseCalculate(void)
 {

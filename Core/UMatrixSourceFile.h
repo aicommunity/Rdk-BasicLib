@@ -5,87 +5,87 @@
 
 namespace RDK {
                                                         
-/// Класс-источник данных матриц
+/// -  
 class RDK_LIB_TYPE UMatrixSourceFile: public UNet
 {
-public: // Параметры
-/// Имя файла с данными
-ULProperty<std::string, UMatrixSourceFile> FileName;
+public: // 
+///    
+UProperty<std::string, UMatrixSourceFile, ptPubParameter> FileName;
 
-/// Флаг необходимости проверки даты-времени обновления файла
-ULProperty<bool, UMatrixSourceFile> IsCheckDateTime;
+///    -  
+UProperty<bool, UMatrixSourceFile, ptPubParameter> IsCheckDateTime;
 
-/// Флаг необходимости пропуска расчета если не было свежих данных
-ULProperty<bool, UMatrixSourceFile> SkipCalcIfNoNewData;
+///         
+UProperty<bool, UMatrixSourceFile, ptPubParameter> SkipCalcIfNoNewData;
 
-/// Флаг наличия новых данных
-ULProperty<bool, UMatrixSourceFile, ptPubState> IsNewData;
+///    
+UProperty<bool, UMatrixSourceFile, ptPubState> IsNewData;
 
-/// Использовать путь до источника видеоданных относительно папки конфигурации
-ULProperty<bool, UMatrixSourceFile> UseRelativePathFromConfig;
+///        
+UProperty<bool, UMatrixSourceFile, ptPubParameter> UseRelativePathFromConfig;
 
-/// Использовать путь до источника видеоданных относительно рабочей папки приложения
-ULProperty<bool, UMatrixSourceFile> UseRelativePathFromWorkDir;
+///         
+UProperty<bool, UMatrixSourceFile, ptPubParameter> UseRelativePathFromWorkDir;
 
-public: // Входные и выходные данные
-/// Матрица double
-UPropertyOutputData<MDMatrix<double>, UMatrixSourceFile, ptPubParameter | ptOutput> Matrix;
+public: //    
+///  double
+UProperty<MDMatrix<double>, UMatrixSourceFile, ptPubParameter | ptOutput> Matrix;
 
 
 protected:
 
 FILETIME LastWriteTime;
 
-public: // Методы
+public: // 
 // --------------------------
-// Конструкторы и деструкторы
+//   
 // --------------------------
 UMatrixSourceFile(void);
 virtual ~UMatrixSourceFile(void);
 // --------------------------    
 
 // --------------------------
-// Системные методы управления объектом
+//    
 // --------------------------
 public:
-// Выделяет память для новой чистой копии объекта этого класса
+//         
 virtual UMatrixSourceFile* New(void);
 // --------------------------
 
 
 // --------------------------
-// Методы управления параметрами
+//   
 // --------------------------
-/// Использовать путь до источника видеоданных относительно папки конфигурации
+///        
 bool SetUseRelativePathFromConfig(const bool &value);
 
-/// Использовать путь до источника видеоданных относительно рабочей папки приложения
+///         
 bool SetUseRelativePathFromWorkDir(const bool &value);
 // --------------------------
 
 // --------------------------
-// Скрытые методы управления счетом
+//    
 // --------------------------
 protected:
-/// Восстановление настроек по умолчанию и сброс процесса счета
+///        
 virtual bool ADefault(void);
 
-/// Обеспечивает сборку внутренней структуры объекта
-/// после настройки параметров
-/// Автоматически вызывает метод Reset() и выставляет Ready в true
-/// в случае успешной сборки
+///     
+///   
+///    Reset()   Ready  true
+///    
 virtual bool ABuild(void);
 
-/// Сброс процесса счета.
+///   .
 virtual bool AReset(void);
 
-/// Выполняет расчет этого объекта
+///    
 virtual bool ACalculate(void);
 
-/// Выполняет чтение, декодирование и выдачу данных
+///  ,    
 virtual bool ReadAndDecode(const std::string &file_name);
 
-/// Расчитывает реальный путь до файла исходя из настроек относительных путей
+///          
 std::string CalcActualSourceFilePath(const std::string &file_name);
 // --------------------------
 

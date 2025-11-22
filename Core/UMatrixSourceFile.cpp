@@ -10,7 +10,7 @@
 namespace RDK {
 
 // --------------------------
-// Конструкторы и деструкторы
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹ Рё РґРµСЃС‚СЂСѓРєС‚РѕСЂС‹
 // --------------------------
 UMatrixSourceFile::UMatrixSourceFile(void)
 :
@@ -31,9 +31,9 @@ UMatrixSourceFile::~UMatrixSourceFile(void)
 // --------------------------    
 
 // --------------------------
-// Системные методы управления объектом
+// РЎРёСЃС‚РµРјРЅС‹Рµ РјРµС‚РѕРґС‹ СѓРїСЂР°РІР»РµРЅРёСЏ РѕР±СЉРµРєС‚РѕРј
 // --------------------------
-// Выделяет память для новой чистой копии объекта этого класса
+// Р’С‹РґРµР»СЏРµС‚ РїР°РјСЏС‚СЊ РґР»СЏ РЅРѕРІРѕР№ С‡РёСЃС‚РѕР№ РєРѕРїРёРё РѕР±СЉРµРєС‚Р° СЌС‚РѕРіРѕ РєР»Р°СЃСЃР°
 UMatrixSourceFile* UMatrixSourceFile::New(void)
 {                             
  return new UMatrixSourceFile;
@@ -42,9 +42,9 @@ UMatrixSourceFile* UMatrixSourceFile::New(void)
 
 
 // --------------------------
-// Методы управления параметрами
+// РњРµС‚РѕРґС‹ СѓРїСЂР°РІР»РµРЅРёСЏ РїР°СЂР°РјРµС‚СЂР°РјРё
 // --------------------------
-/// Использовать путь до источника видеоданных относительно папки конфигурации
+/// РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РїСѓС‚СЊ РґРѕ РёСЃС‚РѕС‡РЅРёРєР° РІРёРґРµРѕРґР°РЅРЅС‹С… РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РїР°РїРєРё РєРѕРЅС„РёРіСѓСЂР°С†РёРё
 bool UMatrixSourceFile::SetUseRelativePathFromConfig(const bool &value)
 {
  UseRelativePathFromWorkDir=false;
@@ -52,7 +52,7 @@ bool UMatrixSourceFile::SetUseRelativePathFromConfig(const bool &value)
  return true;
 }
 
-/// Использовать путь до источника видеоданных относительно рабочей папки приложения
+/// РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РїСѓС‚СЊ РґРѕ РёСЃС‚РѕС‡РЅРёРєР° РІРёРґРµРѕРґР°РЅРЅС‹С… РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ СЂР°Р±РѕС‡РµР№ РїР°РїРєРё РїСЂРёР»РѕР¶РµРЅРёСЏ
 bool UMatrixSourceFile::SetUseRelativePathFromWorkDir(const bool &value)
 {
  UseRelativePathFromConfig=false;
@@ -62,9 +62,9 @@ bool UMatrixSourceFile::SetUseRelativePathFromWorkDir(const bool &value)
 // --------------------------
 
 // --------------------------
-// Скрытые методы управления счетом
+// РЎРєСЂС‹С‚С‹Рµ РјРµС‚РѕРґС‹ СѓРїСЂР°РІР»РµРЅРёСЏ СЃС‡РµС‚РѕРј
 // --------------------------
-// Восстановление настроек по умолчанию и сброс процесса счета
+// Р’РѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РЅР°СЃС‚СЂРѕРµРє РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ Рё СЃР±СЂРѕСЃ РїСЂРѕС†РµСЃСЃР° СЃС‡РµС‚Р°
 bool UMatrixSourceFile::ADefault(void)
 {
  FileName="";
@@ -75,23 +75,23 @@ bool UMatrixSourceFile::ADefault(void)
  return true;
 }
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+// РћР±РµСЃРїРµС‡РёРІР°РµС‚ СЃР±РѕСЂРєСѓ РІРЅСѓС‚СЂРµРЅРЅРµР№ СЃС‚СЂСѓРєС‚СѓСЂС‹ РѕР±СЉРµРєС‚Р°
+// РїРѕСЃР»Рµ РЅР°СЃС‚СЂРѕР№РєРё РїР°СЂР°РјРµС‚СЂРѕРІ
+// РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРё РІС‹Р·С‹РІР°РµС‚ РјРµС‚РѕРґ Reset() Рё РІС‹СЃС‚Р°РІР»СЏРµС‚ Ready РІ true
+// РІ СЃР»СѓС‡Р°Рµ СѓСЃРїРµС€РЅРѕР№ СЃР±РѕСЂРєРё
 bool UMatrixSourceFile::ABuild(void)
 {
  return true;
 }
 
-// Сброс процесса счета.
+// РЎР±СЂРѕСЃ РїСЂРѕС†РµСЃСЃР° СЃС‡РµС‚Р°.
 bool UMatrixSourceFile::AReset(void)
 {
  IsNewData=false;
  return true;
 }
 
-// Выполняет расчет этого объекта
+// Р’С‹РїРѕР»РЅСЏРµС‚ СЂР°СЃС‡РµС‚ СЌС‚РѕРіРѕ РѕР±СЉРµРєС‚Р°
 bool UMatrixSourceFile::ACalculate(void)
 {
  std::string file_name=CalcActualSourceFilePath(FileName);
@@ -144,7 +144,7 @@ bool UMatrixSourceFile::ACalculate(void)
  return ReadAndDecode(file_name);
 }
 
-/// Выполняет чтение, декодирование и выдачу данных
+/// Р’С‹РїРѕР»РЅСЏРµС‚ С‡С‚РµРЅРёРµ, РґРµРєРѕРґРёСЂРѕРІР°РЅРёРµ Рё РІС‹РґР°С‡Сѓ РґР°РЅРЅС‹С…
 bool UMatrixSourceFile::ReadAndDecode(const std::string &file_name)
 {
  USerStorageXML xml;
@@ -171,7 +171,7 @@ bool UMatrixSourceFile::ReadAndDecode(const std::string &file_name)
 }
 
 
-/// Расчитывает реальный путь до файла исходя из настроек относительных путей
+/// Р Р°СЃС‡РёС‚С‹РІР°РµС‚ СЂРµР°Р»СЊРЅС‹Р№ РїСѓС‚СЊ РґРѕ С„Р°Р№Р»Р° РёСЃС…РѕРґСЏ РёР· РЅР°СЃС‚СЂРѕРµРє РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅС‹С… РїСѓС‚РµР№
 std::string UMatrixSourceFile::CalcActualSourceFilePath(const std::string &file_name)
 {
  std::string clean_file_name=trim_spaces(file_name);

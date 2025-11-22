@@ -8,73 +8,72 @@ namespace RDK {
 template<class T>
 class RDK_LIB_TYPE UNoise: public UNet
 {
-protected: // Параметры
-/// Вектор прогнозируемых параметров
-/// Каждая строка описывает один набор параметров
-UPropertyInputData<MDMatrix<T>,UNoise<T> > InputParams;
+protected: // 
+///   
+///      
+UProperty<MDMatrix<T>,UNoise<T>, ptPubInput> InputParams;
 
-protected: // Данные
-/// Вектор выходных спрогнозированных параметров
-/// Каждая строка описывает один набор параметров
-UPropertyOutputData<MDMatrix<T>,UNoise<T> > OutputParams;
-// Флаг применения одинакового шума ко всем элементам массива
-ULProperty<bool,UNoise<T> > OneErrorForAll;
+protected: // Output
+/// Output parameters
+UProperty<MDMatrix<T>,UNoise<T>, ptPubOutput> OutputParams;
+/// Flag to use one error for all
+UProperty<bool,UNoise<T>, ptPubParameter> OneErrorForAll;
 
-public: // Методы
+public: // 
 // --------------------------
-// Конструкторы и деструкторы
+//   
 // --------------------------
 UNoise(void);
 virtual ~UNoise(void);
 // --------------------------
-// Методы управления параметрами
+//   
 // --------------------------
 
 // --------------------------
-// Системные методы управления объектом
+//    
 // --------------------------
-// Выделяет память для новой чистой копии объекта этого класса
+//         
 //virtual NNeuronLife* New(void);
 // --------------------------
 
 
 // --------------------------
-// Скрытые методы управления счетом
+//    
 // --------------------------
 protected:
-// Восстановление настроек по умолчанию и сброс процесса счета
+//        
 virtual bool ADefault(void);
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+//     
+//   
+//    Reset()   Ready  true
+//    
 virtual bool ABuild(void);
 
-// Сброс процесса счета.
+//   .
 virtual bool AReset(void);
 
-// Выполняет расчет этого объекта
+//    
 virtual bool ACalculate(void);
 // --------------------------
 
 // --------------------------
-// Скрытые методы управления счетом
+//    
 // --------------------------
 protected:
-// Восстановление настроек по умолчанию и сброс процесса счета
+//        
 virtual bool ANoiseDefault(void);
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+//     
+//   
+//    Reset()   Ready  true
+//    
 virtual bool ANoiseBuild(void);
 
-// Сброс процесса счета.
+//   .
 virtual bool ANoiseReset(void);
 
-// Выполняет расчет этого объекта
+//    
 virtual bool ANoiseCalculate(void);
 // --------------------------
 
@@ -82,7 +81,7 @@ virtual bool ANoiseCalculate(void);
 };
 
 // --------------------------
-// Конструкторы и деструкторы
+//   
 // --------------------------
 template<class T>
 UNoise<T>::UNoise(void)
@@ -100,44 +99,44 @@ UNoise<T>::~UNoise(void)
 }
 
 // --------------------------
-// Методы управления параметрами
+//   
 // --------------------------
 
 // --------------------------
-// Системные методы управления объектом
+//    
 // --------------------------
-// Выделяет память для новой чистой копии объекта этого класса
+//         
 // --------------------------
 
 
 // --------------------------
-// Скрытые методы управления счетом
+//    
 // --------------------------
-// Восстановление настроек по умолчанию и сброс процесса счета
+//        
 template<class T>
 bool UNoise<T>::ADefault(void)
 {
  return ANoiseDefault();
 }
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+//     
+//   
+//    Reset()   Ready  true
+//    
 template<class T>
 bool UNoise<T>::ABuild(void)
 {
  return ANoiseBuild();
 }
 
-// Сброс процесса счета.
+//   .
 template<class T>
 bool UNoise<T>::AReset(void)
 {
  return ANoiseReset();
 }
 
-// Выполняет расчет этого объекта
+//    
 template<class T>
 bool UNoise<T>::ACalculate(void)
 {
@@ -149,9 +148,9 @@ bool UNoise<T>::ACalculate(void)
 // --------------------------
 
 // --------------------------
-// Скрытые методы управления счетом
+//    
 // --------------------------
-// Восстановление настроек по умолчанию и сброс процесса счета
+//        
 template<class T>
 bool UNoise<T>::ANoiseDefault(void)
 {
@@ -159,24 +158,24 @@ bool UNoise<T>::ANoiseDefault(void)
  return true;
 }
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+//     
+//   
+//    Reset()   Ready  true
+//    
 template<class T>
 bool UNoise<T>::ANoiseBuild(void)
 {
  return true;
 }
 
-// Сброс процесса счета.
+//   .
 template<class T>
 bool UNoise<T>::ANoiseReset(void)
 {
  return true;
 }
 
-// Выполняет расчет этого объекта
+//    
 template<class T>
 bool UNoise<T>::ANoiseCalculate(void)
 {

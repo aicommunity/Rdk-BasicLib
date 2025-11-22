@@ -14,7 +14,7 @@
 namespace RDK {
 
 // --------------------------
-// Конструкторы и деструкторы
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹ Рё РґРµСЃС‚СЂСѓРєС‚РѕСЂС‹
 // --------------------------
 UMatrixSourceDataFile::UMatrixSourceDataFile(void)
 :
@@ -39,9 +39,9 @@ UMatrixSourceDataFile::~UMatrixSourceDataFile(void)
 // --------------------------
 
 // --------------------------
-// Системные методы управления объектом
+// РЎРёСЃС‚РµРјРЅС‹Рµ РјРµС‚РѕРґС‹ СѓРїСЂР°РІР»РµРЅРёСЏ РѕР±СЉРµРєС‚РѕРј
 // --------------------------
-// Выделяет память для новой чистой копии объекта этого класса
+// Р’С‹РґРµР»СЏРµС‚ РїР°РјСЏС‚СЊ РґР»СЏ РЅРѕРІРѕР№ С‡РёСЃС‚РѕР№ РєРѕРїРёРё РѕР±СЉРµРєС‚Р° СЌС‚РѕРіРѕ РєР»Р°СЃСЃР°
 UMatrixSourceDataFile* UMatrixSourceDataFile::New(void)
 {
  return new UMatrixSourceDataFile;
@@ -50,9 +50,9 @@ UMatrixSourceDataFile* UMatrixSourceDataFile::New(void)
 
 
 // --------------------------
-// Методы управления параметрами
+// РњРµС‚РѕРґС‹ СѓРїСЂР°РІР»РµРЅРёСЏ РїР°СЂР°РјРµС‚СЂР°РјРё
 // --------------------------
-/// Использовать путь до источника видеоданных относительно папки конфигурации
+/// РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РїСѓС‚СЊ РґРѕ РёСЃС‚РѕС‡РЅРёРєР° РІРёРґРµРѕРґР°РЅРЅС‹С… РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РїР°РїРєРё РєРѕРЅС„РёРіСѓСЂР°С†РёРё
 bool UMatrixSourceDataFile::SetUseRelativePathFromConfig(const bool &value)
 {
  UseRelativePathFromWorkDir=false;
@@ -60,7 +60,7 @@ bool UMatrixSourceDataFile::SetUseRelativePathFromConfig(const bool &value)
  return true;
 }
 
-/// Использовать путь до источника видеоданных относительно рабочей папки приложения
+/// РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РїСѓС‚СЊ РґРѕ РёСЃС‚РѕС‡РЅРёРєР° РІРёРґРµРѕРґР°РЅРЅС‹С… РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ СЂР°Р±РѕС‡РµР№ РїР°РїРєРё РїСЂРёР»РѕР¶РµРЅРёСЏ
 bool UMatrixSourceDataFile::SetUseRelativePathFromWorkDir(const bool &value)
 {
  UseRelativePathFromConfig=false;
@@ -70,9 +70,9 @@ bool UMatrixSourceDataFile::SetUseRelativePathFromWorkDir(const bool &value)
 // --------------------------
 
 // --------------------------
-// Скрытые методы управления счетом
+// РЎРєСЂС‹С‚С‹Рµ РјРµС‚РѕРґС‹ СѓРїСЂР°РІР»РµРЅРёСЏ СЃС‡РµС‚РѕРј
 // --------------------------
-// Восстановление настроек по умолчанию и сброс процесса счета
+// Р’РѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РЅР°СЃС‚СЂРѕРµРє РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ Рё СЃР±СЂРѕСЃ РїСЂРѕС†РµСЃСЃР° СЃС‡РµС‚Р°
 bool UMatrixSourceDataFile::ADefault(void)
 {
  FileName="";
@@ -83,17 +83,17 @@ bool UMatrixSourceDataFile::ADefault(void)
  return true;
 }
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+// РћР±РµСЃРїРµС‡РёРІР°РµС‚ СЃР±РѕСЂРєСѓ РІРЅСѓС‚СЂРµРЅРЅРµР№ СЃС‚СЂСѓРєС‚СѓСЂС‹ РѕР±СЉРµРєС‚Р°
+// РїРѕСЃР»Рµ РЅР°СЃС‚СЂРѕР№РєРё РїР°СЂР°РјРµС‚СЂРѕРІ
+// РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРё РІС‹Р·С‹РІР°РµС‚ РјРµС‚РѕРґ Reset() Рё РІС‹СЃС‚Р°РІР»СЏРµС‚ Ready РІ true
+// РІ СЃР»СѓС‡Р°Рµ СѓСЃРїРµС€РЅРѕР№ СЃР±РѕСЂРєРё
 bool UMatrixSourceDataFile::ABuild(void)
 {
  ReloadFile=true; //?
  return true;
 }
 
-// Сброс процесса счета.
+// РЎР±СЂРѕСЃ РїСЂРѕС†РµСЃСЃР° СЃС‡РµС‚Р°.
 bool UMatrixSourceDataFile::AReset(void)
 {
  IsNewData=false;
@@ -101,7 +101,7 @@ bool UMatrixSourceDataFile::AReset(void)
  return true;
 }
 
-// Выполняет расчет этого объекта
+// Р’С‹РїРѕР»РЅСЏРµС‚ СЂР°СЃС‡РµС‚ СЌС‚РѕРіРѕ РѕР±СЉРµРєС‚Р°
 bool UMatrixSourceDataFile::ACalculate(void)
 {
  bool res = true;
@@ -111,14 +111,14 @@ bool UMatrixSourceDataFile::ACalculate(void)
   res = ReadAndDecode(file_name);
   if(res)
   {
-      ReloadFile.v = false; //И сразу выключаем, чтобы не делать это каждый раз
+      ReloadFile.v = false; //Р СЃСЂР°Р·Сѓ РІС‹РєР»СЋС‡Р°РµРј, С‡С‚РѕР±С‹ РЅРµ РґРµР»Р°С‚СЊ СЌС‚Рѕ РєР°Р¶РґС‹Р№ СЂР°Р·
   }
  }
 
 
  if(!res)
  {
-  //Тут должно быть что-то другое, типа возврата false?
+  //РўСѓС‚ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ С‡С‚Рѕ-С‚Рѕ РґСЂСѓРіРѕРµ, С‚РёРїР° РІРѕР·РІСЂР°С‚Р° false?
   if(GetOwner())
    GetOwner()->ForceSkipComponentCalculation();
 
@@ -128,7 +128,7 @@ bool UMatrixSourceDataFile::ACalculate(void)
  return true;
 }
 
-/// Выполняет чтение, декодирование и выдачу данных
+/// Р’С‹РїРѕР»РЅСЏРµС‚ С‡С‚РµРЅРёРµ, РґРµРєРѕРґРёСЂРѕРІР°РЅРёРµ Рё РІС‹РґР°С‡Сѓ РґР°РЅРЅС‹С…
 bool UMatrixSourceDataFile::ReadAndDecode(const std::string &file_name)
 {
  std::ifstream datafile;
@@ -166,7 +166,7 @@ bool UMatrixSourceDataFile::ReadAndDecode(const std::string &file_name)
 }
 
 
-/// Расчитывает реальный путь до файла исходя из настроек относительных путей
+/// Р Р°СЃС‡РёС‚С‹РІР°РµС‚ СЂРµР°Р»СЊРЅС‹Р№ РїСѓС‚СЊ РґРѕ С„Р°Р№Р»Р° РёСЃС…РѕРґСЏ РёР· РЅР°СЃС‚СЂРѕРµРє РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅС‹С… РїСѓС‚РµР№
 std::string UMatrixSourceDataFile::CalcActualSourceFilePath(const std::string &file_name)
 {
  std::string clean_file_name=trim_spaces(file_name);
