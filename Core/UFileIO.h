@@ -25,10 +25,10 @@ UProperty<std::string,UFileIO, ptPubParameter> FileName;
 
 public: //   
 ///  
-UProperty<MDMatrix<double>, UFileIO> Input;
+UProperty<MDMatrix<double>, UFileIO, ptInput> Input;
 
 ///  
-UProperty<MDMatrix<double>, UFileIO> Output;
+UProperty<MDMatrix<double>, UFileIO, ptOutput> Output;
 
 protected: //  
 ///        

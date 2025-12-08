@@ -164,37 +164,41 @@ bool UFileIO::AIOCalculate(void)
  if(Direction == 0)
  {
   ReadData();
-  if(NumOutputs == 0)
-   return true;
-  int result_size=int(DataString.size())/GetOutputData(0).GetElementByteSize();
-  if(DataString.size() % GetOutputData(0).GetElementByteSize() != 0)
-   result_size++;
-  SetOutputDataSize(0,MMatrixSize(1,result_size));
+  // Используем свойство Output напрямую
+  MDMatrix<double> output_data;
+  output_data.Resize(1, static_cast<int>(DataString.size()));
   if(DataString.size())
-   memcpy(POutputData[0].UChar,&DataString[0],DataString.size());
-  *Output=POutputData[0];
+   memcpy(output_data.Char, &DataString[0], DataString.size());
+  *Output = output_data;
  }
  else
  if(Direction == 1)
  {
-  if(NumInputs == 0 || !GetInputData(0) || (GetInputData(0)->GetByteSize() == 0 && !Input.IsConnected()))
+  if(!Input.IsConnected())
   {
-   DataString.resize(0);
+   const MDMatrix<double>* input_ptr = Input.operator ->();
+   if(!input_ptr || input_ptr->GetByteSize() == 0)
+   {
+	DataString.resize(0);
+	WriteData();
+	return true;
+   }
+  }
+  
+  UEPtr<const MDMatrix<double> > input;
+  if(Input.IsConnected())
+  {
+   input=Input.operator ->();
   }
   else
   {
-   UEPtr<const MDMatrix<double> > input;
-   if(Input.IsConnected())
-   {
-	input=Input.operator ->();
-   }
-   else
-   {
-	input=GetInputData(0);
-   }
+   input = Input.operator ->();
+  }
+  if(input)
+  {
    DataString.resize(input->GetByteSize());
    if(input->GetByteSize())
-	memcpy(&DataString[0],input->UChar,DataString.size());
+	memcpy(&DataString[0],input->Char,DataString.size());
   }
   WriteData();
  }
