@@ -426,10 +426,10 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
    c_items[i].Item->GetFullName(filename);
    if(ExcludeModelFileName)
    {
-	std::string::size_type i=filename.find_first_of(".");
-	if(i != std::string::npos)
+	std::string::size_type pos=filename.find_first_of(".");
+	if(pos != std::string::npos)
 	{
-     filename.erase(0, i+1);
+     filename.erase(0, pos+1);
     }
    }
 

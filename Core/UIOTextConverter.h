@@ -28,10 +28,10 @@ UProperty<int, UIOTextConverter, ptPubParameter> MaxColumns;
 
 public: //   
 ///  
-UProperty<MDMatrix<double>, UIOTextConverter> Input;
+UProperty<MDMatrix<double>, UIOTextConverter, ptInput> Input;
 
 ///  
-UProperty<MDMatrix<double>, UIOTextConverter> Output;
+UProperty<MDMatrix<double>, UIOTextConverter, ptOutput> Output;
 
 protected: //  
 std::string OutData;

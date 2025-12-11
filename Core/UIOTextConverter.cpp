@@ -90,20 +90,9 @@ bool UIOTextConverter::AIOCalculate(void)
  // Вырожденный случай, вход тождественен выходу
  if(InputMode == OutputMode)
  {
-  if(Input.IsConnected())
+  if(Input.IsConnected() || Input.operator ->())
   {
    *Output=*Input;
-  }
-  else
-  {
-   SetNumOutputs(NumInputs);
-   for(int i=0;i<NumInputs;i++)
-   {
-	SetOutputDataSize(i,MMatrixSize(1,GetInputData(i)->GetSize()));
-	if(GetInputData(i)->GetSize())
-	 memcpy(GetOutputData(i).Void,GetInputData(i)->Void,GetInputData(i)->GetByteSize());
-   }
-   *Output=POutputData[0];
   }
   return true;
  }
@@ -113,16 +102,10 @@ bool UIOTextConverter::AIOCalculate(void)
  {
  case 0: // Случай двоичных данных - просто считываем всё как есть
  {
-  if(Input.IsConnected())
+  if(Input.IsConnected() || Input.operator ->())
   {
    DataAfterRead.resize(1);
    DataAfterRead[0]=*Input;
-  }
-  else
-  {
-   DataAfterRead.resize(NumInputs);
-   for(int i=0;i<NumInputs;i++)
-    DataAfterRead[i]=*GetInputData(i);
   }
  }
  break;
@@ -130,40 +113,38 @@ bool UIOTextConverter::AIOCalculate(void)
  case 1:
  {
   UEPtr<const MDMatrix<double> > input;
-  if(Input.IsConnected())
+  if(Input.IsConnected() || Input.operator ->())
   {
    input=Input.operator ->();
   }
-  else
-  {
-   input=GetInputData(0);
-  }
 
-  OutData.resize(input->GetByteSize());
-  if(!OutData.empty())
-   memcpy(&OutData[0],input->Char,OutData.size()*sizeof(char));
-  ConvertFromTextColumns(OutData, DataAfterRead);
+  if(input)
+  {
+   OutData.resize(input->GetByteSize());
+   if(!OutData.empty())
+	memcpy(&OutData[0],input->Char,OutData.size()*sizeof(char));
+   ConvertFromTextColumns(OutData, DataAfterRead);
+  }
  }
  break;
 
  case 2:
  {
   UEPtr<const MDMatrix<double> > input;
-  if(Input.IsConnected())
+  if(Input.IsConnected() || Input.operator ->())
   {
    input=Input.operator ->();
   }
-  else
+
+  if(input)
   {
-   input=GetInputData(0);
+   OutData.resize(input->GetByteSize());
+   if(!OutData.empty())
+	memcpy(&OutData[0],input->Char,OutData.size()*sizeof(char));
+
+   // Преобразовываем входы последовательно в DataAfterRead
+   ConvertFromTextRows(OutData, DataAfterRead);
   }
-
-  OutData.resize(input->GetByteSize());
-  if(!OutData.empty())
-   memcpy(&OutData[0],input->Char,OutData.size()*sizeof(char));
-
-  // Преобразовываем входы последовательно в DataAfterRead
-  ConvertFromTextRows(OutData, DataAfterRead);
  }
  break;
  }
@@ -172,15 +153,11 @@ bool UIOTextConverter::AIOCalculate(void)
  {
  case 0: // Случай двоичных данных - просто выводим всё как есть
  {
-  SetNumOutputs(int(DataAfterRead.size()));
-  for(int i=0;i<NumOutputs;i++)
+  if(!DataAfterRead.empty())
   {
-   SetOutputDataSize(i,MMatrixSize(1,DataAfterRead[i].GetSize()));
-   Build();
-   if(DataAfterRead[i].GetSize())
-	memcpy(GetOutputData(i).Void,DataAfterRead[i].Void,DataAfterRead[i].GetByteSize());
+   // Используем первое значение из DataAfterRead
+   *Output = DataAfterRead[0];
   }
-  *Output=POutputData[0];
  }
  break;
 
@@ -188,34 +165,26 @@ bool UIOTextConverter::AIOCalculate(void)
   // Выводим во все выходы одинаково преобразованный DataAfterRead
   ConvertToTextColumns(DataAfterRead, OutData);
 
-  for(int i=0;i<NumOutputs;i++)
+  if(!OutData.empty())
   {
-//   SetOutputDataElementSize(i,sizeof(char));
-   int result_size=int(OutData.size())/GetOutputData(i).GetElementByteSize();
-   if(OutData.size() % GetOutputData(i).GetElementByteSize())
-	result_size++;
-   SetOutputDataSize(i,MMatrixSize(1,result_size));
-   if(OutData.size())
-	memcpy(GetOutputData(i).Char,&OutData[0],OutData.size()*sizeof(char));
+   MDMatrix<double> output_data;
+   output_data.Resize(1, static_cast<int>(OutData.size()));
+   memcpy(output_data.Char, &OutData[0], OutData.size()*sizeof(char));
+   *Output = output_data;
   }
-  *Output=POutputData[0];
  break;
 
  case 2:
   // Выводим во все выходы одинаково преобразованный DataAfterRead
   ConvertToTextRows(DataAfterRead, OutData);
 
-  for(int i=0;i<NumOutputs;i++)
+  if(!OutData.empty())
   {
-   int result_size=int(OutData.size())/GetOutputData(i).GetElementByteSize();
-   if(OutData.size() % GetOutputData(i).GetElementByteSize())
-	result_size++;
-//   SetOutputDataElementSize(i,sizeof(char));
-   SetOutputDataSize(i,MMatrixSize(1,int(OutData.size())));
-   if(OutData.size())
-    memcpy(GetOutputData(i).Char,&OutData[0],OutData.size()*sizeof(char));
+   MDMatrix<double> output_data;
+   output_data.Resize(1, static_cast<int>(OutData.size()));
+   memcpy(output_data.Char, &OutData[0], OutData.size()*sizeof(char));
+   *Output = output_data;
   }
-  *Output=POutputData[0];
  break;
  }
 
