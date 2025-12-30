@@ -8,7 +8,7 @@
 namespace RDK {
 
 // --------------------------
-// Конструкторы и деструкторы
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹ Рё РґРµСЃС‚СЂСѓРєС‚РѕСЂС‹
 // --------------------------
 UIOTextConverter::UIOTextConverter(void)
 : InputMode("InputMode",this,&UIOTextConverter::SetInputMode),
@@ -26,7 +26,7 @@ UIOTextConverter::~UIOTextConverter(void)
 // --------------------------
 
 // --------------------------
-// Методы управления параметрами
+// РњРµС‚РѕРґС‹ СѓРїСЂР°РІР»РµРЅРёСЏ РїР°СЂР°РјРµС‚СЂР°РјРё
 // --------------------------
 bool UIOTextConverter::SetInputMode(const int &value)
 {
@@ -46,14 +46,14 @@ bool UIOTextConverter::SetMaxColumns(const int &value)
 
 
 // --------------------------
-// Методы управления данными
+// РњРµС‚РѕРґС‹ СѓРїСЂР°РІР»РµРЅРёСЏ РґР°РЅРЅС‹РјРё
 // --------------------------
 // --------------------------
 
 // --------------------------
-// Системные методы управления объектом
+// РЎРёСЃС‚РµРјРЅС‹Рµ РјРµС‚РѕРґС‹ СѓРїСЂР°РІР»РµРЅРёСЏ РѕР±СЉРµРєС‚РѕРј
 // --------------------------
-// Выделяет память для новой чистой копии объекта этого класса
+// Р’С‹РґРµР»СЏРµС‚ РїР°РјСЏС‚СЊ РґР»СЏ РЅРѕРІРѕР№ С‡РёСЃС‚РѕР№ РєРѕРїРёРё РѕР±СЉРµРєС‚Р° СЌС‚РѕРіРѕ РєР»Р°СЃСЃР°
 UIOTextConverter* UIOTextConverter::New(void)
 {
  return new UIOTextConverter;
@@ -61,49 +61,38 @@ UIOTextConverter* UIOTextConverter::New(void)
 // --------------------------
 
 // --------------------------
-// Скрытые методы управления счетом
+// РЎРєСЂС‹С‚С‹Рµ РјРµС‚РѕРґС‹ СѓРїСЂР°РІР»РµРЅРёСЏ СЃС‡РµС‚РѕРј
 // --------------------------
-// Восстановление настроек по умолчанию и сброс процесса счета
+// Р’РѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РЅР°СЃС‚СЂРѕРµРє РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ Рё СЃР±СЂРѕСЃ РїСЂРѕС†РµСЃСЃР° СЃС‡РµС‚Р°
 bool UIOTextConverter::AIODefault(void)
 {
  return true;
 }
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+// РћР±РµСЃРїРµС‡РёРІР°РµС‚ СЃР±РѕСЂРєСѓ РІРЅСѓС‚СЂРµРЅРЅРµР№ СЃС‚СЂСѓРєС‚СѓСЂС‹ РѕР±СЉРµРєС‚Р°
+// РїРѕСЃР»Рµ РЅР°СЃС‚СЂРѕР№РєРё РїР°СЂР°РјРµС‚СЂРѕРІ
+// РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРё РІС‹Р·С‹РІР°РµС‚ РјРµС‚РѕРґ Reset() Рё РІС‹СЃС‚Р°РІР»СЏРµС‚ Ready РІ true
+// РІ СЃР»СѓС‡Р°Рµ СѓСЃРїРµС€РЅРѕР№ СЃР±РѕСЂРєРё
 bool UIOTextConverter::AIOBuild(void)
 {
  return true;
 }
 
-// Сброс процесса счета.
+// РЎР±СЂРѕСЃ РїСЂРѕС†РµСЃСЃР° СЃС‡РµС‚Р°.
 bool UIOTextConverter::AIOReset(void)
 {
  return true;
 }
 
-// Выполняет расчет этого объекта
+// Р’С‹РїРѕР»РЅСЏРµС‚ СЂР°СЃС‡РµС‚ СЌС‚РѕРіРѕ РѕР±СЉРµРєС‚Р°
 bool UIOTextConverter::AIOCalculate(void)
 {
- // Вырожденный случай, вход тождественен выходу
+ // Р’С‹СЂРѕР¶РґРµРЅРЅС‹Р№ СЃР»СѓС‡Р°Р№, РІС…РѕРґ С‚РѕР¶РґРµСЃС‚РІРµРЅРµРЅ РІС‹С…РѕРґСѓ
  if(InputMode == OutputMode)
  {
-  if(Input.IsConnected())
+  if(Input.IsConnected() || Input.operator ->())
   {
    *Output=*Input;
-  }
-  else
-  {
-   SetNumOutputs(NumInputs);
-   for(int i=0;i<NumInputs;i++)
-   {
-	SetOutputDataSize(i,MMatrixSize(1,GetInputData(i)->GetSize()));
-	if(GetInputData(i)->GetSize())
-	 memcpy(GetOutputData(i).Void,GetInputData(i)->Void,GetInputData(i)->GetByteSize());
-   }
-   *Output=POutputData[0];
   }
   return true;
  }
@@ -111,18 +100,12 @@ bool UIOTextConverter::AIOCalculate(void)
  DataAfterRead.clear();
  switch(InputMode)
  {
- case 0: // Случай двоичных данных - просто считываем всё как есть
+ case 0: // РЎР»СѓС‡Р°Р№ РґРІРѕРёС‡РЅС‹С… РґР°РЅРЅС‹С… - РїСЂРѕСЃС‚Рѕ СЃС‡РёС‚С‹РІР°РµРј РІСЃС‘ РєР°Рє РµСЃС‚СЊ
  {
-  if(Input.IsConnected())
+  if(Input.IsConnected() || Input.operator ->())
   {
    DataAfterRead.resize(1);
    DataAfterRead[0]=*Input;
-  }
-  else
-  {
-   DataAfterRead.resize(NumInputs);
-   for(int i=0;i<NumInputs;i++)
-    DataAfterRead[i]=*GetInputData(i);
   }
  }
  break;
@@ -130,92 +113,78 @@ bool UIOTextConverter::AIOCalculate(void)
  case 1:
  {
   UEPtr<const MDMatrix<double> > input;
-  if(Input.IsConnected())
+  if(Input.IsConnected() || Input.operator ->())
   {
    input=Input.operator ->();
   }
-  else
-  {
-   input=GetInputData(0);
-  }
 
-  OutData.resize(input->GetByteSize());
-  if(!OutData.empty())
-   memcpy(&OutData[0],input->Char,OutData.size()*sizeof(char));
-  ConvertFromTextColumns(OutData, DataAfterRead);
+  if(input)
+  {
+   OutData.resize(input->GetByteSize());
+   if(!OutData.empty())
+	memcpy(&OutData[0],input->Char,OutData.size()*sizeof(char));
+   ConvertFromTextColumns(OutData, DataAfterRead);
+  }
  }
  break;
 
  case 2:
  {
   UEPtr<const MDMatrix<double> > input;
-  if(Input.IsConnected())
+  if(Input.IsConnected() || Input.operator ->())
   {
    input=Input.operator ->();
   }
-  else
+
+  if(input)
   {
-   input=GetInputData(0);
+   OutData.resize(input->GetByteSize());
+   if(!OutData.empty())
+	memcpy(&OutData[0],input->Char,OutData.size()*sizeof(char));
+
+   // РџСЂРµРѕР±СЂР°Р·РѕРІС‹РІР°РµРј РІС…РѕРґС‹ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ РІ DataAfterRead
+   ConvertFromTextRows(OutData, DataAfterRead);
   }
-
-  OutData.resize(input->GetByteSize());
-  if(!OutData.empty())
-   memcpy(&OutData[0],input->Char,OutData.size()*sizeof(char));
-
-  // Преобразовываем входы последовательно в DataAfterRead
-  ConvertFromTextRows(OutData, DataAfterRead);
  }
  break;
  }
 
  switch(OutputMode)
  {
- case 0: // Случай двоичных данных - просто выводим всё как есть
+ case 0: // РЎР»СѓС‡Р°Р№ РґРІРѕРёС‡РЅС‹С… РґР°РЅРЅС‹С… - РїСЂРѕСЃС‚Рѕ РІС‹РІРѕРґРёРј РІСЃС‘ РєР°Рє РµСЃС‚СЊ
  {
-  SetNumOutputs(int(DataAfterRead.size()));
-  for(int i=0;i<NumOutputs;i++)
+  if(!DataAfterRead.empty())
   {
-   SetOutputDataSize(i,MMatrixSize(1,DataAfterRead[i].GetSize()));
-   Build();
-   if(DataAfterRead[i].GetSize())
-	memcpy(GetOutputData(i).Void,DataAfterRead[i].Void,DataAfterRead[i].GetByteSize());
+   // РСЃРїРѕР»СЊР·СѓРµРј РїРµСЂРІРѕРµ Р·РЅР°С‡РµРЅРёРµ РёР· DataAfterRead
+   *Output = DataAfterRead[0];
   }
-  *Output=POutputData[0];
  }
  break;
 
  case 1:
-  // Выводим во все выходы одинаково преобразованный DataAfterRead
+  // Р’С‹РІРѕРґРёРј РІРѕ РІСЃРµ РІС‹С…РѕРґС‹ РѕРґРёРЅР°РєРѕРІРѕ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРЅС‹Р№ DataAfterRead
   ConvertToTextColumns(DataAfterRead, OutData);
 
-  for(int i=0;i<NumOutputs;i++)
+  if(!OutData.empty())
   {
-//   SetOutputDataElementSize(i,sizeof(char));
-   int result_size=int(OutData.size())/GetOutputData(i).GetElementByteSize();
-   if(OutData.size() % GetOutputData(i).GetElementByteSize())
-	result_size++;
-   SetOutputDataSize(i,MMatrixSize(1,result_size));
-   if(OutData.size())
-	memcpy(GetOutputData(i).Char,&OutData[0],OutData.size()*sizeof(char));
+   MDMatrix<double> output_data;
+   output_data.Resize(1, static_cast<int>(OutData.size()));
+   memcpy(output_data.Char, &OutData[0], OutData.size()*sizeof(char));
+   *Output = output_data;
   }
-  *Output=POutputData[0];
  break;
 
  case 2:
-  // Выводим во все выходы одинаково преобразованный DataAfterRead
+  // Р’С‹РІРѕРґРёРј РІРѕ РІСЃРµ РІС‹С…РѕРґС‹ РѕРґРёРЅР°РєРѕРІРѕ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРЅС‹Р№ DataAfterRead
   ConvertToTextRows(DataAfterRead, OutData);
 
-  for(int i=0;i<NumOutputs;i++)
+  if(!OutData.empty())
   {
-   int result_size=int(OutData.size())/GetOutputData(i).GetElementByteSize();
-   if(OutData.size() % GetOutputData(i).GetElementByteSize())
-	result_size++;
-//   SetOutputDataElementSize(i,sizeof(char));
-   SetOutputDataSize(i,MMatrixSize(1,int(OutData.size())));
-   if(OutData.size())
-    memcpy(GetOutputData(i).Char,&OutData[0],OutData.size()*sizeof(char));
+   MDMatrix<double> output_data;
+   output_data.Resize(1, static_cast<int>(OutData.size()));
+   memcpy(output_data.Char, &OutData[0], OutData.size()*sizeof(char));
+   *Output = output_data;
   }
-  *Output=POutputData[0];
  break;
  }
 
@@ -224,9 +193,9 @@ bool UIOTextConverter::AIOCalculate(void)
 // --------------------------
 
 // --------------------------
-// Вспомогательные методы расчета
+// Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Рµ РјРµС‚РѕРґС‹ СЂР°СЃС‡РµС‚Р°
 // --------------------------
-// Преобразовываем строку текста в прототип стандартных входных данных
+// РџСЂРµРѕР±СЂР°Р·РѕРІС‹РІР°РµРј СЃС‚СЂРѕРєСѓ С‚РµРєСЃС‚Р° РІ РїСЂРѕС‚РѕС‚РёРї СЃС‚Р°РЅРґР°СЂС‚РЅС‹С… РІС…РѕРґРЅС‹С… РґР°РЅРЅС‹С…
 void UIOTextConverter::ConvertFromTextColumns(const string &text, std::vector<UItemData> &data)
 {
  size_t num_str1=0, num_str2=0;
@@ -275,7 +244,7 @@ void UIOTextConverter::ConvertFromTextRows(const string &text, std::vector<UItem
  }
 }
 
-// Преобразовываем стандартные входные данные в строку текста    Возможно тут наиндусил, посмотрите пожалуйста!
+// РџСЂРµРѕР±СЂР°Р·РѕРІС‹РІР°РµРј СЃС‚Р°РЅРґР°СЂС‚РЅС‹Рµ РІС…РѕРґРЅС‹Рµ РґР°РЅРЅС‹Рµ РІ СЃС‚СЂРѕРєСѓ С‚РµРєСЃС‚Р°    Р’РѕР·РјРѕР¶РЅРѕ С‚СѓС‚ РЅР°РёРЅРґСѓСЃРёР», РїРѕСЃРјРѕС‚СЂРёС‚Рµ РїРѕР¶Р°Р»СѓР№СЃС‚Р°!
 void UIOTextConverter::ConvertToTextColumns(const std::vector<UItemData> &data, string &text)
 {
  string Temp_digit;

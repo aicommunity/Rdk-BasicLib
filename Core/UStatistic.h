@@ -20,75 +20,75 @@ namespace RDK {
 
 class RDK_LIB_TYPE UStatistic: public UNet
 {
-protected: // Параметры
-// Путь для сохранения статистики
+protected: // 
+//    
 UProperty<std::string,UStatistic, ptPubParameter> SavePath;
 
-/// Префикс имен для статистики
+///    
 UProperty<std::string,UStatistic, ptPubParameter> PrefixName;
 
-// Флаг необходимости создавать подкаталог дата/время каждый раз после Reset
+//     /    Reset
 UProperty<bool,UStatistic, ptPubParameter> SubFolderAfterResetFlag;
 
-/// Флаг принудительного создания корневого пути для логов ("StatisticLog" по умолчанию)
-/// даже если SubFolderAfterResetFlag отключен
+///        ("StatisticLog"  )
+///   SubFolderAfterResetFlag 
 UProperty<bool,UStatistic, ptPubParameter> ForceCreateSavePath;
 
-// Флаг необходимости добавлять дату и время к имени файла
+//         
 UProperty<bool,UStatistic, ptPubParameter> TimeToFileNameFlag;
 
-// Флаг необходимости добавлять порядковый номер файла к имени
+//        
 UProperty<bool,UStatistic, ptPubParameter> OrderIndexToFileNameFlag;
 
-// Число шагов расчета которые следуте пропустить перед началом регистрации
+//         
 UProperty<int,UStatistic, ptPubParameter> NumSkipSteps;
 
 public:
-// Флаг ручного режима сохранения статистики
-ULProperty<bool,UStatistic> ManualModeEnabled;
+//     
+UProperty<bool,UStatistic, ptPubParameter> ManualModeEnabled;
 
-// Интервал отображения
-ULProperty<double,UStatistic> TimeInterval;
+//  
+UProperty<double,UStatistic, ptPubParameter> TimeInterval;
 
-public: // Данные
-// Флаг, взводимый для разового сохранения в ручном режиме
-ULProperty<bool,UStatistic> ManualModeSwitch;
+public: // 
+// ,       
+UProperty<bool,UStatistic, ptPubParameter> ManualModeSwitch;
 
 
-protected: // Временные переменные
+protected: //  
 int OldTimeStamp;
 
-/// Дополнительный постфикс для имени файла, когда на одну временную метку
-/// приходится несколько сохранений лога
+///     ,     
+///    
 int CurrentFileNameNumber;
 
-// Флаг, выставляемый, если был проведен Reset.
+// , ,    Reset.
 bool ResetFlag;
 
-// Текущий путь для записи статистики
+//     
 std::string CurrentPath;
 
-// Текущее имя файла
+//   
 std::string CurrentFileName;
 
-/// Индекс текущего номера файла
+///    
 int CurrentFileIndex;
 
 int CurrentStep;
 
-// Время предыдущей записи
+//   
 double PrevTime;
 
-public: // Методы
+public: // 
 // ---------------------
-// Конструкторы и деструкторы
+//   
 // ---------------------
 UStatistic(void);
 virtual ~UStatistic(void);
 // ---------------------
 
 // ---------------------
-// Методы управления параметрами
+//   
 // ---------------------
 bool SetSavePath(const std::string &value);
 bool SetPrefixName(const std::string &value);
@@ -97,54 +97,54 @@ bool SetTimeInterval(const double &value);
 // ---------------------
 
 // ---------------------
-// Методы счета
+//  
 // ---------------------
 // ---------------------
 
 // ---------------------
-// Операторы
+// 
 // ---------------------
 //bool operator () (UBitmap &input, UBitmap &output);
 // ---------------------
 
 
 // --------------------------
-// Скрытые методы управления счетом фильтров
+//     
 // --------------------------
 protected:
-// Восстановление настроек по умолчанию и сброс процесса счета
+//        
 virtual bool ADefault(void);
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+//     
+//   
+//    Reset()   Ready  true
+//    
 virtual bool ABuild(void);
 
-// Сброс процесса счета без потери настроек
+//      
 virtual bool AReset(void);
 
-// Выполняет расчет этого объекта
+//    
 virtual bool ACalculate(void);
 // --------------------------
 
 // --------------------------
-// Скрытые методы управления счетом фильтров сплиттинга
+//      
 // --------------------------
 protected:
-// Восстановление настроек по умолчанию и сброс процесса счета
+//        
 virtual bool AFSDefault(void)=0;
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+//     
+//   
+//    Reset()   Ready  true
+//    
 virtual bool AFSBuild(void)=0;
 
-// Сброс процесса счета без потери настроек
+//      
 virtual bool AFSReset(void)=0;
 
-// Выполняет расчет этого объекта
+//    
 virtual bool AFSCalculate(void)=0;
 // --------------------------
 };
@@ -152,57 +152,56 @@ virtual bool AFSCalculate(void)=0;
 template<class T>
 class UStatisticMatrix: public RDK::UStatistic
 {
-public: // Параметры
-/// Способ сохранения матрицы на каждом шаге
-/// 0 - в строчку
-/// 1 - как целую матрицу
-ULProperty<int,UStatisticMatrix<T> > SaveMode;
+public: // 
+///      
+/// 0 -  
+/// 1 -   
+UProperty<int,UStatisticMatrix<T>, ptPubParameter> SaveMode;
 
-/// Способ усреднения данных
-/// 0 - без усреднения
-/// 1 - с усреднением по последним N измерениям
-/// 2 - с усреднением по изменению состояния определенного входа
-ULProperty<int,UStatisticMatrix<T> > AverageMode;
+/// Mode for saving statistics
+/// 0 - save to file
+/// 1 - save to file for each iteration
+UProperty<int,UStatisticMatrix<T>, ptPubParameter> AverageMode;
 
-/// Количество измерений для усреднения
-ULProperty<int,UStatisticMatrix<T> > AverageNumber;
+/// Number of iterations for averaging
+UProperty<int,UStatisticMatrix<T>, ptPubParameter> AverageNumber;
 
-/// Пара <имя компонента, имя входа> используемая лдя записи усредненных данных
-ULProperty<std::pair<std::string,std::string>,UStatisticMatrix<T> > AverageInput;
+/// Input pair for averaging statistics
+UProperty<std::pair<std::string,std::string>,UStatisticMatrix<T>, ptPubParameter> AverageInput;
 
-/// Писать или нет временную метку в каждую строку
-ULProperty<bool,UStatisticMatrix<T> > WriteTimeStampFlag;
+///        
+UProperty<bool,UStatisticMatrix<T>, ptPubParameter> WriteTimeStampFlag;
 
-/// Писать или нет время, прошедшее с момента ресета в каждую строку
-ULProperty<bool,UStatisticMatrix<T> > WriteTimeFromResetFlag;
+///    ,       
+UProperty<bool,UStatisticMatrix<T>, ptPubParameter> WriteTimeFromResetFlag;
 
-/// Писать или нет временную метку источника данных в каждую строку
-ULProperty<bool,UStatisticMatrix<T> > WriteSourceTimeStampFlag;
+///          
+UProperty<bool,UStatisticMatrix<T>, ptPubParameter> WriteSourceTimeStampFlag;
 
-/// Писать или нет временную метку времени модели
-ULProperty<bool,UStatisticMatrix<T> > WriteModelTimeStampFlag;
+///       
+UProperty<bool,UStatisticMatrix<T>, ptPubParameter> WriteModelTimeStampFlag;
 
-/// Писать или нет индекс измерения в каждую строку
-ULProperty<bool,UStatisticMatrix<T> > WriteIndexFlag;
+///        
+UProperty<bool,UStatisticMatrix<T>, ptPubParameter> WriteIndexFlag;
 
-/// Флаг обрезки имени модели от полного имени формируемого файла
-ULProperty<bool,UStatisticMatrix<T> > ExcludeModelFileName;
+///         
+UProperty<bool,UStatisticMatrix<T>, ptPubParameter> ExcludeModelFileName;
 
-/// Текущее число измерений для усреднения
-ULProperty<int,UStatisticMatrix<T>, ptPubState > CurrentAverageNumber;
-
+///     
+UProperty<int,UStatisticMatrix<T>, ptPubState > CurrentAverageNumber;
 
 
 
-protected: // Коммуникационные данные
-/// Входной вектор матриц
-UPropertyInputCData<MDMatrix<T>,UStatisticMatrix<T> > InputMatrixData;
+
+protected: //  
+///   
+UProperty<std::vector<MDMatrix<T>>,UStatisticMatrix<T>, ptPubInput> InputMatrixData;
 
 time_t StartTime;
 bool first_calc;
 
-protected: // Данные
-/// Массив файлов логов
+protected: // 
+///   
 std::vector<UEPtr<fstream> > LogFiles;
 
 std::vector<std::string> LogFileNames;
@@ -211,51 +210,51 @@ std::vector<MDMatrix<T> > Average;
 
 int CurrentIndex;
 
-public: // Методы
+public: // 
 // ---------------------
-// Конструкторы и деструкторы
+//   
 // ---------------------
 UStatisticMatrix(void);
 virtual ~UStatisticMatrix(void);
 // ---------------------
 
 // ---------------------
-// Методы счета
+//  
 // ---------------------
-// Создание новой копии этого объекта
+//     
 virtual UStatisticMatrix<T>* New(void);
 // ---------------------
 
 // ----------------------
-// Коммуникационные методы
+//  
 // ----------------------
 protected:
 // ---------------------
 
 // --------------------------
-// Скрытые методы управления счетом фильтров сплиттинга
+//      
 // --------------------------
 protected:
-// Восстановление настроек по умолчанию и сброс процесса счета
+//        
 virtual bool AFSDefault(void);
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+//     
+//   
+//    Reset()   Ready  true
+//    
 virtual bool AFSBuild(void);
 
-// Сброс процесса счета без потери настроек
+//      
 virtual bool AFSReset(void);
 
-// Выполняет расчет этого объекта
+//    
 virtual bool AFSCalculate(void);
 // --------------------------
 };
 
 
 // ---------------------
-// Конструкторы и деструкторы
+//   
 // ---------------------
 template<class T>
 UStatisticMatrix<T>::UStatisticMatrix(void)
@@ -292,9 +291,9 @@ UStatisticMatrix<T>::~UStatisticMatrix(void)
 
 
 // ---------------------
-// Методы счета
+//  
 // ---------------------
-// Создание новой копии этого объекта
+//     
 template<class T>
 UStatisticMatrix<T>* UStatisticMatrix<T>::New(void)
 {
@@ -303,20 +302,20 @@ UStatisticMatrix<T>* UStatisticMatrix<T>::New(void)
 // ---------------------
 
 // ---------------------
-// Операторы
+// 
 // ---------------------
 // ---------------------
 
 
 // ----------------------
-// Коммуникационные методы
+//  
 // ----------------------
 // ---------------------
 
 // --------------------------
-// Скрытые методы управления счетом фильтров сплиттинга
+//      
 // --------------------------
-// Восстановление настроек по умолчанию и сброс процесса счета
+//        
 template<class T>
 bool UStatisticMatrix<T>::AFSDefault(void)
 {
@@ -331,17 +330,17 @@ bool UStatisticMatrix<T>::AFSDefault(void)
  return true;
 }
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+//     
+//   
+//    Reset()   Ready  true
+//    
 template<class T>
 bool UStatisticMatrix<T>::AFSBuild(void)
 {
  return true;
 }
 
-// Сброс процесса счета без потери настроек
+//      
 template<class T>
 bool UStatisticMatrix<T>::AFSReset(void)
 {
@@ -363,7 +362,7 @@ bool UStatisticMatrix<T>::AFSReset(void)
  return true;
 }
 
-// Выполняет расчет этого объекта
+//    
 template<class T>
 bool UStatisticMatrix<T>::AFSCalculate(void)
 {
@@ -427,10 +426,10 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
    c_items[i].Item->GetFullName(filename);
    if(ExcludeModelFileName)
    {
-	std::string::size_type i=filename.find_first_of(".");
-	if(i != std::string::npos)
+	std::string::size_type pos=filename.find_first_of(".");
+	if(pos != std::string::npos)
 	{
-     filename.erase(0, i+1);
+     filename.erase(0, pos+1);
     }
    }
 
@@ -491,7 +490,7 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
     time_t min = (tme%3600)/60;
     time_t sec = tme%60;
 
-    //Получить текущую дату и время в виде строки
+    //       
     std::stringstream ss;
     if(hrs<10)
      ss<<"0";
@@ -617,7 +616,7 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
        time_t min = (tme%3600)/60;
        time_t sec = tme%60;
 
-       //Получить текущую дату и время в виде строки
+       //       
        std::stringstream ss;
        if(hrs<10)
         ss<<"0";
@@ -741,7 +740,7 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
      time_t min = (tme%3600)/60;
      time_t sec = tme%60;
 
-     //Получить текущую дату и время в виде строки
+     //       
      std::stringstream ss;
      if(hrs<10)
      ss<<"0";
