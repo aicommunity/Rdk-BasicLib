@@ -576,7 +576,7 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
   }
   ++(*CurrentAverageNumber);
 
-  if(CurrentAverageNumber == AverageNumber.v && AverageNumber>0)
+  if(CurrentAverageNumber == AverageNumber.GetData() && AverageNumber>0)
   {
    for(size_t i=0;i<Average.size();i++)
     Average[i]/=T(CurrentAverageNumber);
@@ -599,7 +599,7 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
      time_t time_data;
      time(&time_data);
    //	 std::string new_file_name;
-     result+=get_text_time(time_data,'.',':')+std::string(" AvgN=\t")+sntoa(CurrentAverageNumber.v);
+     result+=get_text_time(time_data,'.',':')+std::string(" AvgN=\t")+sntoa(CurrentAverageNumber.GetData());
     }
 
       if(WriteSourceTimeStampFlag)
@@ -700,7 +700,7 @@ bool UStatisticMatrix<T>::AFSCalculate(void)
   }
   ++(*CurrentAverageNumber);
 
-  if(CurrentAverageNumber == AverageNumber.v && AverageNumber>0)
+  if(CurrentAverageNumber == AverageNumber.GetData() && AverageNumber>0)
   {
    for(size_t i=0;i<Average.size();i++)
     Average[i]/=T(CurrentAverageNumber);

@@ -105,13 +105,13 @@ bool UMatrixSourceDataFile::AReset(void)
 bool UMatrixSourceDataFile::ACalculate(void)
 {
  bool res = true;
- if(ReloadFile.v==true)
+ if(ReloadFile.GetData()==true)
  {
   std::string file_name=CalcActualSourceFilePath(FileName);
   res = ReadAndDecode(file_name);
   if(res)
   {
-      ReloadFile.v = false; //И сразу выключаем, чтобы не делать это каждый раз
+      ReloadFile = false; //И сразу выключаем, чтобы не делать это каждый раз
   }
  }
 

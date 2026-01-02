@@ -50,13 +50,13 @@ UStatistic::~UStatistic(void)
 // ---------------------
 bool UStatistic::SetSavePath(const std::string &value)
 {
- SavePath=value;
+ SavePath.SetDataDirect(value);
  return true;
 }
 
 bool UStatistic::SetPrefixName(const std::string &value)
 {
- PrefixName=value;
+ PrefixName.SetDataDirect(value);
  return true;
 }
 
@@ -144,23 +144,23 @@ bool UStatistic::ACalculate(void)
 
  if(SubFolderAfterResetFlag && ResetFlag)
  {
-  CurrentPath=Environment->GetCurrentDataDir()+SavePath.v;
+  CurrentPath=Environment->GetCurrentDataDir()+SavePath.GetData();
   if(RDK::CreateNewDirectory(CurrentPath.c_str()))
    return false; // TODO: Заглушка!! здесь исключение
 
   time_t time_data;
   time(&time_data);
   if(!PrefixName->empty())
-   CurrentPath=Environment->GetCurrentDataDir()+SavePath.v+std::string("/")+PrefixName.v+std::string(" ")+get_text_time(time_data,'.','-');
+   CurrentPath=Environment->GetCurrentDataDir()+SavePath.GetData()+std::string("/")+PrefixName.GetData()+std::string(" ")+get_text_time(time_data,'.','-');
   else
-   CurrentPath=Environment->GetCurrentDataDir()+SavePath.v+std::string("/")+get_text_time(time_data,'.','-');
+   CurrentPath=Environment->GetCurrentDataDir()+SavePath.GetData()+std::string("/")+get_text_time(time_data,'.','-');
   if(RDK::CreateNewDirectory(CurrentPath.c_str()))
    return false; // TODO: Заглушка!! здесь исключение
  }
  else
  if(!SubFolderAfterResetFlag && ResetFlag)
  {
-  CurrentPath=Environment->GetCurrentDataDir()+SavePath.v;
+  CurrentPath=Environment->GetCurrentDataDir()+SavePath.GetData();
   if(ForceCreateSavePath)
    if(RDK::CreateNewDirectory(CurrentPath.c_str()))
     return false; // TODO: Заглушка!! здесь исключение

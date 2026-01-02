@@ -149,7 +149,7 @@ bool UMatrixSourceFile::ReadAndDecode(const std::string &file_name)
 {
  USerStorageXML xml;
 
- if(SkipCalcIfNoNewData.v == true)
+ if(SkipCalcIfNoNewData.GetData() == true)
  {
   if(!xml.LoadFromFile(file_name,"Matrix"))
   {
