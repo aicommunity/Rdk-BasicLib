@@ -81,7 +81,7 @@ bool UMatrixSourceFileSep::ReadAndDecode(const std::string &file_name)
 {
  std::string buffer;
  Matrix->Resize(0,0);
- if(SkipCalcIfNoNewData.v == true)
+ if(SkipCalcIfNoNewData.GetData() == true)
  {
   if(!LoadFile(file_name, buffer) || Separator->empty())
   {
@@ -103,7 +103,7 @@ bool UMatrixSourceFileSep::ReadAndDecode(const std::string &file_name)
  for(int i=0;i<int(lines.size());i++)
  {
   std::vector<std::string> elems;
-  separatestring(lines[i],elems,Separator.v[0]);
+  separatestring(lines[i],elems,Separator.GetData()[0]);
   int cols=int(elems.size());
   Matrix->Resize(rows,cols);
   for(int j=0;j<int(elems.size());j++)

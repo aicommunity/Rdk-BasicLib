@@ -142,11 +142,11 @@ void UMatrixSourceTimeSeries::UpdateCurrentLine()
 
  if(current_line_index>=0)
  {
-     if(current_line_index>=FullMatrix.v.GetRows())
+     if(current_line_index>=FullMatrix.GetData().GetRows())
      {
          current_line_index=0;
      }
-     outline = FullMatrix.v.GetRow(current_line_index);
+     outline = FullMatrix.GetData().GetRow(current_line_index);
      current_line_index++;
  }
  *CurrentLineIndex = current_line_index;
@@ -157,7 +157,7 @@ void UMatrixSourceTimeSeries::UpdateCurrentLine()
 //Преобразовать данные в матрицу шириной ColCount
 bool UMatrixSourceTimeSeries::TransformData(MDMatrix<double> &matrix)
 {
- int cols = ColCount.v;
+ int cols = ColCount.GetData();
  int rows = int(source_timeseries.size()) - cols - 1;
  matrix.Resize(rows, cols);
 
@@ -297,14 +297,14 @@ bool UMatrixSourceTimeSeries::ReadAndDecode(const std::string &file_name)
 
  //Ширина выходных данных
  //Если не задано нормально, нечего и считать
- if(ColCount.v>0)
+ if(ColCount.GetData()>0)
  {
   //Если данных меньше, чем длина одной серии, тоже возвернем ничего
-  if(int(source_timeseries.size())>ColCount.v)
+  if(int(source_timeseries.size())>ColCount.GetData())
   {
    MDMatrix<double> out;
    TransformData(out);
-   if(IsStandartizeData.v==true)
+   if(IsStandartizeData.GetData()==true)
    {
     StandartizeData(out);
    }
@@ -333,7 +333,7 @@ bool UMatrixSourceTimeSeries::ReadAndDecode(const std::string &file_name)
 
  /*USerStorageXML xml;
 
- if(SkipCalcIfNoNewData.v == true)
+ if(SkipCalcIfNoNewData.GetData() == true)
  {
   if(!xml.LoadFromFile(file_name,"Matrix"))
   {
