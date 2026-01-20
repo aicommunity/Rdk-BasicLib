@@ -88,6 +88,41 @@ Rdk-BasicLib is organized by component categories, each solving specific data ha
 
 ### Library Structure
 
+```mermaid
+flowchart TB
+    subgraph DataIO
+        UIO_EN[UIO]
+        UFileIO_EN[UFileIO]
+        UIOConverter_EN[UIOConverter]
+    end
+    
+    subgraph MatricesAndSources
+        UMatrixSource_EN[UMatrixSource]
+        UFileDataset_EN[UFileDataset]
+        UScalarSource_EN[UScalarSource]
+    end
+    
+    subgraph Statistics
+        UStatistic_EN[UStatistic]
+    end
+    
+    subgraph Generators
+        UNoise_EN[UNoise]
+        UNoiseGen_EN[UNoiseGen]
+    end
+    
+    subgraph Models
+        UModel_EN[UModel]
+    end
+    
+    UIO_EN --> UMatrixSource_EN
+    UFileIO_EN --> UFileDataset_EN
+    UMatrixSource_EN --> UStatistic_EN
+    UNoise_EN --> UModel_EN
+```
+
+The diagram shows the high-level grouping of components and typical data flow: data sources feed processing/statistics components, and generator components feed models.
+
 ### Main Modules
 
 #### Data I/O

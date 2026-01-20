@@ -6,8 +6,8 @@
 
 ```mermaid
 flowchart LR
-    Source[Источник данных<br/>UMatrixSource]
-    Process[Обработка<br/>UStatistic]
+    Source["Источник_данных (UMatrixSource)"]
+    Process["Обработка (UStatistic)"]
     Output[Выходные данные]
     
     Source --> Process
@@ -36,4 +36,18 @@ sequenceDiagram
 
 ### General Data Flow
 
+```mermaid
+flowchart LR
+    Source_EN["Data_source (UMatrixSource)"]
+    Process_EN["Processing (UStatistic)"]
+    Output_EN[Output_data]
+    
+    Source_EN --> Process_EN
+    Process_EN --> Output_EN
+```
+
+The flowchart shows a simple pipeline: data source produces a matrix, processing component computes statistics, results are sent to output consumers via properties.
+
 ### Example: Statistical Data Processing
+
+The sequence diagram in the RU section shows a typical flow: load data → push input → calculate statistics → publish mean/variance.
