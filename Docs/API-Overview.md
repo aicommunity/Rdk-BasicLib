@@ -226,7 +226,6 @@ if (source->IsNewData) {
 
 ### См. также
 
-- [Reports/03-Rdk-BasicLib.md](../../../Reports/03-Rdk-BasicLib.md) - детальное описание
 - Исходный код: `Libraries/Rdk-BasicLib/Core/`
 
 ---
@@ -453,5 +452,4 @@ if (source->IsNewData) {
 
 ### See Also
 
-- [Reports/03-Rdk-BasicLib.md](../../../Reports/03-Rdk-BasicLib.md) - detailed description
 - Source code: `Libraries/Rdk-BasicLib/Core/`

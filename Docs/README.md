@@ -17,8 +17,8 @@
 
 ### Связь с корневой документацией
 
-Для обзорной информации см.:
-- [Docs/Libraries/Rdk-BasicLib.md](../../Docs/Libraries/Rdk-BasicLib.md) - обзор библиотеки
+Для обзорной информации см. корневую документацию проекта:
+- `Docs/Libraries/Rdk-BasicLib.md` - обзор библиотеки (в корневом репозитории)
 
 ### Детальная документация
 
@@ -45,8 +45,8 @@ The library includes components for:
 
 ### Link to Root Documentation
 
-For overview information see:
-- [Docs/Libraries/Rdk-BasicLib.md](../../Docs/Libraries/Rdk-BasicLib.md) - library overview
+For overview information see root project documentation:
+- `Docs/Libraries/Rdk-BasicLib.md` - library overview (in root repository)
 
 ### Detailed Documentation
 
