@@ -5,6 +5,7 @@
 ### Назначение
 
 **Класс**: `UIOTextConverter` — компонент для преобразования матричных данных между внутренним форматом и текстовым представлением.  
+**Префикс**: `IO` — **I**nput/**O**utput (ввод-вывод).  
 **Базовый класс**: `UIOConverter`.  
 Используется для подготовки данных к экспорту/логированию или, наоборот, для чтения текстовых матриц.
 
@@ -83,7 +84,7 @@ flowchart TD
     fromText --> fillOutput[Fill Output matrix]
     toText --> fillOutputText[Fill text representation]
 
-    fillOutput --> endNode[End]
+    fillOutput --> endNode[Конец]
     fillOutputText --> endNode
 ```
 

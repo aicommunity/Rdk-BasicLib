@@ -78,7 +78,7 @@ flowchart TD
     start[Start ACalculate] --> checkConnected{InputParams.IsConnected()?}
     checkConnected -->|no| endNoOp[Return true without changes]
     checkConnected -->|yes| callNoise[Call ANoiseCalculate()]
-    callNoise --> endNode[End]
+    callNoise --> endNode[Конец]
 ```
 
 ### UML-диаграмма компонентов

@@ -86,7 +86,7 @@ flowchart TD
 
     stdData --> selectLine
     selectLine --> updateProps[Set CurrentLine, CurrentLineIndex, IsNewData]
-    updateProps --> endNode[End]
+    updateProps --> endNode[Конец]
 ```
 
 ### UML-диаграмма компонентов

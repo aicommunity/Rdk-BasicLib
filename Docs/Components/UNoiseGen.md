@@ -81,7 +81,7 @@ flowchart TD
     mode -->|no| loopAll[Loop over all elements]
 
     genSingle --> fillSingle[Add same noise to all elements]
-    fillSingle --> endNode[End]
+    fillSingle --> endNode[Конец]
 
     loopAll --> addEach[For each element: add GenerateNoise(NoiseLevel)]
     addEach --> endNode

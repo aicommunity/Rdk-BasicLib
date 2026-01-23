@@ -102,7 +102,7 @@ flowchart TD
     checkSkip -->|no| accumulate[Update averages / counters]
     accumulate --> writeMode{SaveMode / AverageMode}
     writeMode --> writeFiles[Append statistics to log files]
-    writeFiles --> endNode[End]
+    writeFiles --> endNode[Конец]
 ```
 
 ### UML-диаграмма компонентов

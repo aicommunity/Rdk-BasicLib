@@ -5,6 +5,7 @@
 ### Назначение
 
 **Класс**: `UIOConverter` — базовый абстрактный класс для компонентов преобразования данных в IO-контексте.  
+**Префикс**: `IO` — **I**nput/**O**utput (ввод-вывод).  
 **Базовый класс**: `UNet`.  
 Не регистрируется напрямую в `UStorage`, используется как родительский класс для специализированных конвертеров (например, `UIOTextConverter`).
 
@@ -72,7 +73,7 @@ stateDiagram-v2
 ```mermaid
 flowchart TD
     start[Start AIOCalculate] --> convert[Convert data format]
-    convert --> endNode[End]
+    convert --> endNode[Конец]
 ```
 
 ### UML-диаграмма компонентов

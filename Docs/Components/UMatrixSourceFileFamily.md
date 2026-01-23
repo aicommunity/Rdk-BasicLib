@@ -105,7 +105,7 @@ flowchart TD
     readFile --> parseSep[Split by Separator]
     parseSep --> fillMatrix[Fill Matrix / SampleData]
     fillMatrix --> updateState[Update RowCount/ColCount or NumSamples/CurrentSample]
-    updateState --> endNode[End]
+    updateState --> endNode[Конец]
 ```
 
 ### UML-диаграмма компонентов

@@ -5,6 +5,7 @@
 ### Назначение
 
 **Класс**: `UIO` — базовый абстрактный класс для компонентов ввода/вывода данных.  
+**Префикс**: `IO` — **I**nput/**O**utput (ввод-вывод).  
 **Базовый класс**: `UNet`.  
 Не регистрируется напрямую в `UStorage`, используется как родительский класс для специализированных IO-компонентов (например, `UFileIO`).
 
@@ -76,7 +77,7 @@ flowchart TD
     start[Start AIOCalculate] --> checkDirection{Direction?}
     checkDirection -->|0 input| readOp[Read operation]
     checkDirection -->|1 output| writeOp[Write operation]
-    readOp --> endNode[End]
+    readOp --> endNode[Конец]
     writeOp --> endNode
 ```
 

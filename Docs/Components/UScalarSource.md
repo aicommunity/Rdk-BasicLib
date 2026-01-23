@@ -70,7 +70,7 @@ flowchart TD
     start[Start ACalculate] --> checkParams{Parameters changed?}
     checkParams -->|no| endNoOp[Return without changes]
     checkParams -->|yes| updateProps[Update scalar properties]
-    updateProps --> endNode[End]
+    updateProps --> endNode[Конец]
 ```
 
 ### UML-диаграмма компонентов
