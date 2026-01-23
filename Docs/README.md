@@ -25,6 +25,34 @@
 - [Architecture.md](Architecture.md) - архитектура библиотеки
 - [Usage-Examples.md](Usage-Examples.md) - примеры использования
 - [API-Overview.md](API-Overview.md) - обзор API
+- [Component-Catalog.md](Component-Catalog.md) - каталог компонентов
+- `Docs/Components/*.md` - подробная документация по отдельным компонентам
+
+### Шаблон документа компонента (mermaid UML)
+
+Для всех компонентов `Rdk-BasicLib` используется единый шаблон `.md` (аналогично `Nmsdk-PulseLib`):
+
+- `## <ComponentName> — краткое описание (RU)`
+- `### Назначение`
+- `### UML-диаграмма классов`
+- `### UML-диаграмма последовательности`
+- `### UML-диаграмма состояний` (если применимо)
+- `### UML-диаграмма активности`
+- `### UML-диаграмма компонентов`
+- `### Свойства`
+- `### Методы`
+- `### Примеры использования в C++`
+- `### Примеры использования в конфигурациях`
+
+Каждая UML-секция оформляется как `mermaid`-диаграмма:
+
+- Классы: ` ```mermaid` + `classDiagram` (иерархия, свойства, методы).
+- Последовательность: ` ```mermaid` + `sequenceDiagram` (жизненный цикл, вызовы `ADefault/ABuild/AReset/ACalculate`).
+- Состояния: ` ```mermaid` + `stateDiagram-v2` (инициализация, конфигурация, работа, сброс).
+- Активность: ` ```mermaid` + `flowchart TD` (алгоритм работы ключевого метода, ветвления и циклы).
+- Компоненты: ` ```mermaid` + `graph TB` (место компонента в архитектуре `Rdk-BasicLib`, связи с другими объектами).
+
+EN-секция компонента следует той же структуре с английскими заголовками (`Purpose`, `UML Class Diagram`, `UML Sequence Diagram`, `Properties`, `Methods`, `Usage in C++`, `Usage in Configs`).
 
 ---
 
@@ -53,3 +81,29 @@ For overview information see root project documentation:
 - [Architecture.md](Architecture.md) - library architecture
 - [Usage-Examples.md](Usage-Examples.md) - usage examples
 - [API-Overview.md](API-Overview.md) - API overview
+- [Component-Catalog.md](Component-Catalog.md) - component catalog
+- `Docs/Components/*.md` - per-component detailed documentation
+
+### Component documentation template (mermaid UML)
+
+All `Rdk-BasicLib` components share a unified `.md` template (similar to `Nmsdk-PulseLib`):
+
+- `## <ComponentName> — short description (EN)`
+- `### Purpose`
+- `### UML Class Diagram`
+- `### UML Sequence Diagram`
+- `### UML State Diagram` (if applicable)
+- `### UML Activity Diagram`
+- `### UML Component Diagram`
+- `### Properties`
+- `### Methods`
+- `### Usage in C++`
+- `### Usage in Configs`
+
+Each UML section is a `mermaid` diagram:
+
+- Classes: ` ```mermaid` + `classDiagram` (inheritance, properties, methods).
+- Sequence: ` ```mermaid` + `sequenceDiagram` (lifecycle, `ADefault/ABuild/AReset/ACalculate` calls).
+- States: ` ```mermaid` + `stateDiagram-v2` (initialisation, configuration, running, reset).
+- Activity: ` ```mermaid` + `flowchart TD` (core algorithm, branches and loops).
+- Components: ` ```mermaid` + `graph TB` (component position in `Rdk-BasicLib` architecture, relations to other objects).
