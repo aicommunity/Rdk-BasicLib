@@ -15,6 +15,36 @@
 - Генерации данных и шума
 - Базовых математических моделей
 
+### Быстрый старт
+
+#### Чтение данных из файла
+
+```cpp
+// Создание источника данных
+auto source = storage->CreateComponent<UMatrixSource>("Source");
+source->FileName = "data.csv";
+source->Default();
+source->Build();
+
+// Чтение данных
+source->Calculate();
+auto data = source->OutputMatrix();
+```
+
+#### Вычисление статистики
+
+```cpp
+// Создание статистического компонента
+auto statistic = storage->CreateComponent<UStatisticDoubleMatrix>("Statistic");
+statistic->InputData.AttachTo(&source->OutputMatrix);
+statistic->CalculateMean = true;
+statistic->Build();
+
+// Вычисление
+statistic->Calculate();
+double mean = statistic->Mean();
+```
+
 ### Связь с корневой документацией
 
 Для обзорной информации см. корневую документацию проекта:
@@ -26,6 +56,7 @@
 - [Usage-Examples.md](Usage-Examples.md) - примеры использования
 - [API-Overview.md](API-Overview.md) - обзор API
 - [Component-Catalog.md](Component-Catalog.md) - каталог компонентов
+- [FAQ.md](FAQ.md) - часто задаваемые вопросы
 - `Docs/Components/*.md` - подробная документация по отдельным компонентам
 
 ### Шаблон документа компонента (mermaid UML)
@@ -82,6 +113,7 @@ For overview information see root project documentation:
 - [Usage-Examples.md](Usage-Examples.md) - usage examples
 - [API-Overview.md](API-Overview.md) - API overview
 - [Component-Catalog.md](Component-Catalog.md) - component catalog
+- [FAQ.md](FAQ.md) - frequently asked questions
 - `Docs/Components/*.md` - per-component detailed documentation
 
 ### Component documentation template (mermaid UML)
