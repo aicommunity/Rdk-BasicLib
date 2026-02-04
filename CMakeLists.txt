@@ -29,7 +29,11 @@ target_sources(${TARGET_NAME}
 
 target_compile_definitions(${TARGET_NAME} PUBLIC RDK_LIB_CVS_REVISION=0 RDK_QT)
 
-find_package(Qt5 REQUIRED COMPONENTS Core)
-target_link_libraries(${TARGET_NAME} PUBLIC Qt5::Core Threads::Threads rdk.static.qt)
+include(${CMAKE_SOURCE_DIR}/cmake/SelectQt.cmake)
+target_link_libraries(${TARGET_NAME} PUBLIC
+  Nmsdk::Qt::Core
+  Threads::Threads
+  rdk.static.qt
+)
 
 
