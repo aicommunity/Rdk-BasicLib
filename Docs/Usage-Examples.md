@@ -191,8 +191,9 @@ for (int i = 0; i < normalizedData.Rows(); i++) {
     }
 }
 
-// Теперь normalizedData можно использовать в ML компонентах
-// (например, из Rdk-TensorflowLib или Rdk-PyMachineLearningLib)
+// Historical note: optional ML libs (Rdk-TensorflowLib, Rdk-PyMachineLearningLib)
+// are deprecated and not in .gitmodules — see Docs/Libraries/Optional-ML-Libraries.md
+// For new work, use PulseLib / CvBasicLib pipelines instead.
 ```
 
 ### Интеграция с Rdk
@@ -401,7 +402,7 @@ for (int i = 0; i < normalizedData.Rows(); i++) {
 }
 
 // Now normalizedData can be used in ML components
-// (e.g., from Rdk-TensorflowLib or Rdk-PyMachineLearningLib)
+// Historical: optional ML libs are deprecated — see Docs/Libraries/Optional-ML-Libraries.md
 ```
 
 ### Integration with Rdk
