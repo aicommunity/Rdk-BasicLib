@@ -71,7 +71,7 @@
 - [ ] Добавить пути к примерам в `Bin/ClDesc/` и `Bin/Configs/` в блоки «Использование в конфигурациях»
 
 ### Приоритет P2 — навигация
-- [ ] В начале каждого компонента — ссылка: «Каталог: [Component-Catalog.md](../Component-Catalog.md)»
+- [ ] В начале каждого компонента — ссылка: «Каталог: [Component-Catalog.md](Component-Catalog.md)»
 - [ ] Проверить перекрёстные ссылки из `Docs/Libraries/Rdk-BasicLib.md`
 
 ---
