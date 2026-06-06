@@ -112,5 +112,61 @@ graph TB
 **Class**: `UStatisticDoubleMatrix` is a `UStatisticMatrix<double>` specialization for double matrices, computing and logging statistics.  
 It is heavily used in motion control and position control configs for numeric diagnostics.
 
-Mermaid diagrams in the RU section show its inheritance, data flow and interaction within `Rdk-BasicLib`. 
+Mermaid diagrams in the RU section show its inheritance, data flow and interaction within `Rdk-BasicLib`.
 
+```mermaid
+classDiagram
+    UStatistic <|-- UStatisticMatrix_double_
+    UStatisticMatrix_double_ <|-- UStatisticDoubleMatrix
+
+    class UStatistic {
+        +SavePath : UProperty_string_
+        +PrefixName : UProperty_string_
+        +SubFolderAfterResetFlag : UProperty_bool_
+        +ForceCreateSavePath : UProperty_bool_
+        +TimeToFileNameFlag : UProperty_bool_
+        +OrderIndexToFileNameFlag : UProperty_bool_
+        +NumSkipSteps : UProperty_int_
+        +ManualModeEnabled : UProperty_bool_
+        +TimeInterval : UProperty_double_
+    }
+
+    class UStatisticMatrix_double_ {
+        +SaveMode : UProperty_int_
+        +AverageMode : UProperty_int_
+        +AverageNumber : UProperty_int_
+        +AverageInput : UProperty_pair_string_string__
+        +WriteTimeStampFlag : UProperty_bool_
+        +WriteTimeFromResetFlag : UProperty_bool_
+        +WriteSourceTimeStampFlag : UProperty_bool_
+        +WriteModelTimeStampFlag : UProperty_bool_
+        +WriteIndexFlag : UProperty_bool_
+        +ExcludeModelFileName : UProperty_bool_
+        +CurrentAverageNumber : UProperty_int_
+        +InputMatrixData : UProperty_vector_MDMatrix_double___
+    }
+```
+
+```mermaid
+sequenceDiagram
+    participant S as UStorage
+    participant Src as DoubleMatrixSource
+    participant St as UStatisticDoubleMatrix
+
+    S->>St: ADefault()
+    S->>St: ABuild()
+
+    loop each step
+        Src-->>St: InputMatrixData (double matrices)
+        S->>St: ACalculate()
+        St-->>S: update statistics / log files
+    end
+```
+
+```mermaid
+graph TB
+    src[DoubleMatrixSource] --> stats[UStatisticDoubleMatrix]
+    stats --> logs[Double statistic logs / files]
+```
+
+## UStatisticDoubleMatrix — double matrix statistics (Rdk-BasicLib)

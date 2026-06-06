@@ -183,5 +183,87 @@ It is typically used together with `UFileIO` or logging components.
 
 - Modes `InputMode` and `OutputMode` control how text is parsed or generated (rows vs columns).
 - `MaxColumns` limits the width of textual output for readability.
-- Lifecycle and interactions are described by the mermaid diagrams in the RU section. 
+- Lifecycle and interactions are described by the mermaid diagrams in the RU section.
 
+```mermaid
+classDiagram
+    UIOConverter <|-- UIOTextConverter
+
+    class UIOConverter {
+        +AIODefault() bool
+        +AIOBuild() bool
+        +AIOReset() bool
+        +AIOCalculate() bool
+    }
+
+    class UIOTextConverter {
+        +InputMode : UProperty_int_
+        +OutputMode : UProperty_int_
+        +MaxColumns : UProperty_int_
+        +Input : UProperty_MDMatrix_double__ (input)
+        +Output : UProperty_MDMatrix_double__ (output)
+        +New() UIOTextConverter*
+        +SetInputMode(int) bool
+        +SetOutputMode(int) bool
+        +SetMaxColumns(int) bool
+        +AIODefault() bool
+        +AIOBuild() bool
+        +AIOReset() bool
+        +AIOCalculate() bool
+    }
+```
+
+```mermaid
+sequenceDiagram
+    participant Cfg as Config
+    participant S as UStorage
+    participant Conv as UIOTextConverter
+
+    Cfg->>S: create (ClassName="UIOTextConverter")
+    S->>Conv: New()
+    S->>Conv: AIODefault()
+    S->>Conv: AIOBuild()
+
+    loop each step
+        S->>Conv: provide Input (matrix)
+        S->>Conv: AIOCalculate()
+        Conv-->>S: Output (matrix or text-encoded)
+    end
+```
+
+```mermaid
+stateDiagram-v2
+    [*] --> Uninitialized: New()
+    Uninitialized --> Defaulted: AIODefault()
+    Defaulted --> Built: AIOBuild()
+    Built --> Ready: Ready = true
+    Ready --> Converting: AIOCalculate()
+    Converting --> Ready: step done
+    Ready --> Resetting: AIOReset()
+    Resetting --> Ready
+```
+
+```mermaid
+flowchart TD
+    start[Start AIOCalculate] --> modeBlock{InputMode / OutputMode}
+    modeBlock --> fromText[ConvertFromTextColumns/Rows]
+    modeBlock --> toText[ConvertToTextColumns/Rows]
+
+    fromText --> fillOutput[Fill Output matrix]
+    toText --> fillOutputText[Fill text representation]
+
+    fillOutput --> endNode[End]
+    fillOutputText --> endNode
+```
+
+```mermaid
+graph TB
+    subgraph basicLib["Rdk-BasicLib"]
+        conv[UIOTextConverter]
+    end
+
+    src[Numeric component] -->|"matrix"| conv
+    conv -->|"converted matrix / text"| sink[Logger / FileIO / NextComponent]
+```
+
+## UIOTextConverter — IO text converter (Rdk-BasicLib)

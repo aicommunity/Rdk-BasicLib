@@ -149,5 +149,79 @@ void AddNoise(MDMatrix<double>& signal)
 **Classes**: `UNoiseGen<T>` and its registered specialisations (`UNoiseGenDouble`, `UNoiseGenInt`) implement additive noise for matrix signals.  
 They are used for data augmentation, robustness testing and simulating measurement noise.
 
-Mermaid diagrams in the RU section show inheritance from `UNoise<T>`, lifecycle, activity and component interactions. 
+Mermaid diagrams in the RU section show inheritance from `UNoise<T>`, lifecycle, activity and component interactions.
 
+```mermaid
+classDiagram
+    UNoise <|-- UNoiseGen_T_
+    UNoiseGen_T_ <|-- UNoiseGenDouble
+    UNoiseGen_T_ <|-- UNoiseGenInt
+
+    class UNoise_T_ {
+        +InputParams : UProperty_MDMatrix_T__ (input)
+        +OutputParams : UProperty_MDMatrix_T__ (output)
+        +OneErrorForAll : bool
+    }
+
+    class UNoiseGen_T_ {
+        +NoiseLevel : UProperty_double_
+        +New() UNoiseGen*
+        +GenerateNoise(lvlNoise: double) T
+        +ANoiseDefault() bool
+        +ANoiseBuild() bool
+        +ANoiseReset() bool
+        +ANoiseCalculate() bool
+    }
+```
+
+```mermaid
+sequenceDiagram
+    participant Cfg as Config
+    participant S as UStorage
+    participant NG as UNoiseGenDouble
+
+    Cfg->>S: create (Class="UNoiseGenDouble")
+    S->>NG: New()
+    S->>NG: ANoiseDefault()
+    S->>NG: ANoiseBuild()
+
+    loop each step
+        S->>NG: provide InputParams (matrix)
+        S->>NG: ANoiseCalculate()
+        NG-->>S: OutputParams = InputParams + noise
+    end
+```
+
+```mermaid
+stateDiagram-v2
+    [*] --> Uninitialized: New()
+    Uninitialized --> Defaulted: ANoiseDefault()
+    Defaulted --> Built: ANoiseBuild()
+    Built --> Ready: Ready = true
+    Ready --> Generating: ANoiseCalculate()
+    Generating --> Ready: noise added
+    Ready --> Resetting: ANoiseReset()
+    Resetting --> Ready
+```
+
+```mermaid
+flowchart TD
+    start[Start ANoiseCalculate] --> resize[Resize OutputParams to InputParams size]
+    resize --> mode{OneErrorForAll?}
+    mode -->|yes| genSingle[GenerateNoise(NoiseLevel)]
+    mode -->|no| loopAll[Loop over all elements]
+
+    genSingle --> fillSingle[Add same noise to all elements]
+    fillSingle --> endNode[End]
+
+    loopAll --> addEach[For each element: add GenerateNoise(NoiseLevel)]
+    addEach --> endNode
+```
+
+```mermaid
+graph TB
+    src[Input signal (matrix)] --> noiseGen[UNoiseGenDouble / UNoiseGenInt]
+    noiseGen --> out[Noisy signal]
+```
+
+## UNoiseGen / UNoiseGenDouble / UNoiseGenInt — noise generators (Rdk-BasicLib)

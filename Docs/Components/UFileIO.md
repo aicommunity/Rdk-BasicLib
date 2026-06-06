@@ -197,5 +197,111 @@ It reads `MDMatrix<double>` from files and writes matrices to disk according to 
 - Binary/text mode, clear/append, block size and file path are controlled via `BinFlag`, `ClearFlag`, `ReadPartSize`, and `FileName`.
 - Input/output matrices are exposed via `Input` and `Output` `UProperty` objects.
 - Lifecycle follows `UIO`: `AIODefault` → `AIOBuild` → repeated `AIOCalculate` → optional `AIOReset`.  
-Mermaid diagrams in the RU section describe class relationships, lifecycle, activity, and component interactions. 
+Mermaid diagrams in the RU section describe class relationships, lifecycle, activity, and component interactions.
 
+```mermaid
+classDiagram
+    UIO <|-- UFileIO
+
+    class UIO {
+        +AIODefault() bool
+        +AIOBuild() bool
+        +AIOReset() bool
+        +AIOCalculate() bool
+    }
+
+    class UFileIO {
+        +BinFlag : UProperty_int_
+        +ClearFlag : UProperty_int_
+        +ReadPartSize : UProperty_streamsize_
+        +FileName : UProperty_string_
+        +Input : UProperty_MDMatrix_double__ (input)
+        +Output : UProperty_MDMatrix_double__ (output)
+        +New() UFileIO*
+        +SetBinFlag(int) bool
+        +SetClearFlag(int) bool
+        +SetReadPartSize(streamsize) bool
+        +SetFileName(string) bool
+        +GetDataString() string
+        +SetDataString(string) bool
+        +WriteData() bool
+        +ReadData() char
+        +AIODefault() bool
+        +AIOBuild() bool
+        +AIOReset() bool
+        +AIOCalculate() bool
+    }
+```
+
+```mermaid
+sequenceDiagram
+    participant Cfg as Config
+    participant S as UStorage
+    participant IO as UFileIO
+    participant FS as FileSystem
+
+    Cfg->>S: create (ClassName="UFileIO")
+    S->>IO: New()
+    S->>IO: AIODefault()
+    S->>IO: AIOBuild()
+
+    alt write mode
+        loop each step
+            S->>IO: provide Input (matrix)
+            S->>IO: AIOCalculate()
+            IO->>FS: WriteData()
+        end
+    else read mode
+        loop each step
+            S->>IO: AIOCalculate()
+            IO->>FS: ReadData()
+            IO-->>S: Output (matrix)
+        end
+    end
+```
+
+```mermaid
+stateDiagram-v2
+    [*] --> Uninitialized: New()
+    Uninitialized --> Defaulted: AIODefault()
+    Defaulted --> Built: AIOBuild()
+    Built --> Ready: Ready = true
+    Ready --> Calculating: AIOCalculate()
+    Calculating --> Ready: step done
+    Ready --> Resetting: AIOReset()
+    Resetting --> Ready: state cleared
+```
+
+```mermaid
+flowchart TD
+    start[Start AIOCalculate] --> checkMode{Write or read?}
+    checkMode -->|write| readInput[Read Input matrix]
+    checkMode -->|read| readFile[ReadData from file]
+
+    readInput --> formatData[Format matrix to DataString]
+    formatData --> writeFile[WriteData to file]
+    writeFile --> endNode[End AIOCalculate]
+
+    readFile --> parseData[Parse DataString to matrix]
+    parseData --> setOutput[Fill Output property]
+    setOutput --> endNode
+```
+
+```mermaid
+graph TB
+    subgraph basicLib["Rdk-BasicLib"]
+        fileIO[UFileIO]
+    end
+
+    subgraph pipeline["IO pipeline"]
+        src[Source / Model]
+        next[NextComponent]
+        fs[File system]
+    end
+
+    src -->|"Input (matrix)"| fileIO
+    fileIO -->|"Output (matrix)"| next
+    fileIO -->|"Read/Write"| fs
+```
+
+## UFileIO — file input/output (Rdk-BasicLib)

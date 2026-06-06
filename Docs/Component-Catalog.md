@@ -34,24 +34,30 @@
 List of components from `CreateClassSamples` (`UBCLLibrary.cpp`, `UIOLibrary.cpp`) with brief purpose and key inputs/outputs.
 
 ## Models
+
 - **UModel** — see component [`UModel`](Components/UModel.md).
 
 ## Statistics
+
 - **UStatisticIntMatrix** — see [`UStatisticIntMatrix`](Components/UStatisticIntMatrix.md).
 - **UStatisticDoubleMatrix** — see [`UStatisticDoubleMatrix`](Components/UStatisticDoubleMatrix.md).
 
 ## IO
+
 - **UFileIO** — see [`UFileIO`](Components/UFileIO.md).
 - **UIOTextConverter** — see [`UIOTextConverter`](Components/UIOTextConverter.md).
 
 ## Generators
+
 - **UNoiseGen** / **UNoiseGenDouble** / **UNoiseGenInt** — see [`UNoiseGen*`](Components/UNoiseGen.md).
 
 ## Sources
+
 - **UMatrixSource** — see [`UMatrixSource`](Components/UMatrixSource.md).
 - **UScalarSource** — see [`UScalarSource`](Components/UScalarSource.md).
 - **UMatrixSourceTimeSeries** — see [`UMatrixSourceTimeSeries`](Components/UMatrixSourceTimeSeries.md).
 - **UMatrixSourceDataFile**, **UUMatrixSourceFile**, **UMatrixSourceFileSep**, **UFileDataset** — see [`File-based matrix sources`](Components/UMatrixSourceFileFamily.md).
 
 ## Usage priority
+
 Commonly found in `Bin/ClDesc`/`Configs`: `UMatrixSource*`, `UStatistic*`, `UNoiseGen*`, `UModel`. For details see `Architecture.md`, `API-Overview.md`, `Usage-Examples.md`.

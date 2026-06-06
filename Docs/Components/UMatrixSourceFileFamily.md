@@ -182,5 +182,112 @@ graph TB
 **Classes**: `UMatrixSourceDataFile`, `UMatrixSourceFile`, `UMatrixSourceFileSep`, `UFileDataset` — matrix/dataset loaders from filesystem.  
 They read matrices from files (plain or separated text, datasets) and expose them as `UProperty` matrices for models and solvers.
 
-The mermaid diagrams in the RU section describe inheritance, lifecycle, activity and component interactions for the whole family. 
+The mermaid diagrams in the RU section describe inheritance, lifecycle, activity and component interactions for the whole family.
 
+```mermaid
+classDiagram
+    UNet <|-- UMatrixSourceDataFile
+    UNet <|-- UMatrixSourceFile
+    UMatrixSourceFile <|-- UMatrixSourceFileSep
+    UMatrixSourceFileSep <|-- UFileDataset
+
+    class UMatrixSourceDataFile {
+        +FileName : UProperty_string_
+        +IsCheckDateTime : UProperty_bool_
+        +SkipCalcIfNoNewData : UProperty_bool_
+        +ReloadFile : UProperty_bool_
+        +IsNewData : UProperty_bool_
+        +UseRelativePathFromConfig : UProperty_bool_
+        +UseRelativePathFromWorkDir : UProperty_bool_
+        +RowCount : UProperty_int_
+        +ColCount : UProperty_int_
+        +FullMatrix : UProperty_MDMatrix_double__
+    }
+
+    class UMatrixSourceFile {
+        +FileName : UProperty_string_
+        +IsCheckDateTime : UProperty_bool_
+        +SkipCalcIfNoNewData : UProperty_bool_
+        +IsNewData : UProperty_bool_
+        +UseRelativePathFromConfig : UProperty_bool_
+        +UseRelativePathFromWorkDir : UProperty_bool_
+        +Matrix : UProperty_MDMatrix_double__
+    }
+
+    class UMatrixSourceFileSep {
+        +Separator : UProperty_string_
+    }
+
+    class UFileDataset {
+        +NumSamples : UProperty_int_
+        +CurrentSample : UProperty_int_
+        +SampleData : UProperty_MDMatrix_double__
+    }
+```
+
+```mermaid
+sequenceDiagram
+    participant Cfg as Config
+    participant S as UStorage
+    participant Src as UMatrixSourceDataFile
+
+    Cfg->>S: load (Class="UMatrixSourceDataFile")
+    S->>Src: New()
+    S->>Src: ADefault()
+    S->>Src: ABuild()
+
+    loop each step
+        S->>Src: ACalculate()
+        alt new data available
+            Src-->>S: FullMatrix updated, IsNewData=true
+        else no new data
+            Src-->>S: IsNewData=false (SkipCalcIfNoNewData respected)
+        end
+    end
+```
+
+```mermaid
+stateDiagram-v2
+    [*] --> Uninitialized: New()
+    Uninitialized --> Defaulted: ADefault()
+    Defaulted --> Built: ABuild()
+    Built --> Ready: Ready = true
+    Ready --> Reading: ACalculate()
+    Reading --> Ready: matrix updated
+    Ready --> Resetting: AReset()
+    Resetting --> Ready
+```
+
+```mermaid
+flowchart TD
+    start[Start ACalculate] --> buildPath[CalcActualSourceFilePath(FileName)]
+    buildPath --> readFile[ReadAndDecode(file)]
+    readFile --> parseSep[Split by Separator]
+    parseSep --> fillMatrix[Fill Matrix / SampleData]
+    fillMatrix --> updateState[Update RowCount/ColCount or NumSamples/CurrentSample]
+    updateState --> endNode[End]
+```
+
+```mermaid
+graph TB
+    subgraph basicLib["Rdk-BasicLib"]
+        dataFile[UMatrixSourceDataFile]
+        fileSrc[UMatrixSourceFile]
+        sepSrc[UMatrixSourceFileSep]
+        dataset[UFileDataset]
+    end
+
+    fs[File system]
+    model[Model / Solver]
+
+    fs --> dataFile
+    fs --> fileSrc
+    fs --> sepSrc
+
+    dataFile -->|"FullMatrix"| model
+    fileSrc -->|"Matrix"| model
+    sepSrc -->|"Matrix (parsed by separator)"| model
+    dataset -->|"SampleData (current sample)"| model
+```
+
+## File-based matrix sources (Rdk-BasicLib)

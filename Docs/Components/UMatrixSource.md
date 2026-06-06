@@ -219,3 +219,100 @@ The mermaid diagrams above describe its class structure, lifecycle, states, acti
 
 Configuration examples follow the same XML pattern as in the RU section and other configs in `Bin/Configs`.
 
+```mermaid
+classDiagram
+    UNet <|-- UMatrixSource
+
+    class UNet {
+        +ADefault() bool
+        +ABuild() bool
+        +AReset() bool
+        +ACalculate() bool
+    }
+
+    class UMatrixSource {
+        +DoubleMatrixInput : UProperty_MDMatrix_double_
+        +IntMatrixInput : UProperty_MDMatrix_int_
+        +DoubleVectorInput : UProperty_MDVector_double_
+        +IntVectorInput : UProperty_MDVector_int_
+        +DoubleMatrix : UProperty_MDMatrix_double_
+        +IntMatrix : UProperty_MDMatrix_int_
+        +DoubleVector : UProperty_MDVector_double_
+        +IntVector : UProperty_MDVector_int_
+        +New() UMatrixSource*
+        +ADefault() bool
+        +ABuild() bool
+        +AReset() bool
+        +ACalculate() bool
+    }
+```
+
+```mermaid
+sequenceDiagram
+    participant Cfg as Config
+    participant S as UStorage
+    participant Src as UMatrixSource
+
+    Cfg->>S: load (MatrixSource Class="UMatrixSource")
+    S->>Src: New()
+    S->>Src: ADefault()
+    S->>Src: ABuild()
+
+    loop each time step
+        S->>Src: ACalculate()
+        Src-->>S: DoubleMatrix / IntMatrix / DoubleVector / IntVector
+    end
+```
+
+```mermaid
+stateDiagram-v2
+    [*] --> Uninitialized: New()
+    Uninitialized --> Defaulted: ADefault()
+    Defaulted --> Built: ABuild()
+    Built --> Ready: Ready = true
+    Ready --> Calculating: ACalculate()
+    Calculating --> Ready: step done
+    Ready --> Resetting: AReset()
+    Resetting --> Ready: state cleared
+```
+
+```mermaid
+flowchart TD
+    start[Start ACalculate] --> checkActivity{Activity enabled?}
+    checkActivity -->|no| endNode[Return without changes]
+    checkActivity -->|yes| readInputs[Read input matrices/vectors]
+    readInputs --> selectData{Configured outputs?}
+
+    selectData --> useDoubleMatrix[Prepare DoubleMatrix]
+    selectData --> useIntMatrix[Prepare IntMatrix]
+    selectData --> useDoubleVector[Prepare DoubleVector]
+    selectData --> useIntVector[Prepare IntVector]
+
+    useDoubleMatrix --> combine[Combine and validate sizes]
+    useIntMatrix --> combine
+    useDoubleVector --> combine
+    useIntVector --> combine
+
+    combine --> writeOutputs[Write output properties]
+    writeOutputs --> endNode[End ACalculate]
+```
+
+```mermaid
+graph TB
+    subgraph basicLib["Rdk-BasicLib"]
+        src[UMatrixSource]
+    end
+
+    subgraph ioSubsystem["IO / Models"]
+        sdeSolver["SdeSolver2"]
+        nextComp["Downstream component"]
+    end
+
+    config["Config XML (MatrixSource)"]
+
+    config -->|"Class=\"UMatrixSource\""| src
+    src -->|"DoubleMatrix / IntMatrix"| sdeSolver
+    src -->|"matrix outputs"| nextComp
+```
+
+## UMatrixSource — matrix source (Rdk-BasicLib)

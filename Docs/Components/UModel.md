@@ -160,3 +160,81 @@ graph TB
 
 The mermaid diagrams above describe the class relationship (`UNet` → `UModel`), lifecycle, states, activity, and role of `UModel` in `Rdk-BasicLib` processing pipelines.
 
+```mermaid
+classDiagram
+    UNet <|-- UModel
+
+    class UNet {
+        +ADefault() bool
+        +ABuild() bool
+        +AReset() bool
+        +ACalculate() bool
+    }
+
+    class UModel {
+        +New() UModel*
+        +ADefault() bool
+        +ABuild() bool
+        +AReset() bool
+        +ACalculate() bool
+    }
+```
+
+```mermaid
+sequenceDiagram
+    participant Cfg as Config
+    participant S as UStorage
+    participant M as UModel
+
+    Cfg->>S: load (ClassName="UModel")
+    S->>M: New()
+    S->>M: ADefault()
+    S->>M: ABuild()
+
+    loop processing
+        S->>M: ACalculate()
+        M-->>S: update outputs (UProperty)
+    end
+```
+
+```mermaid
+stateDiagram-v2
+    [*] --> Uninitialized: New()
+    Uninitialized --> Defaulted: ADefault()
+    Defaulted --> Built: ABuild()
+    Built --> Ready: Ready = true
+    Ready --> Calculating: ACalculate()
+    Calculating --> Ready: step done
+    Ready --> Resetting: AReset()
+    Resetting --> Ready: state cleared
+```
+
+```mermaid
+flowchart TD
+    start[Start ACalculate] --> checkInputs{Inputs ready?}
+    checkInputs -->|no| endNoOp[Return without changes]
+    checkInputs -->|yes| readInputs[Read input UProperty values]
+    readInputs --> compute[Apply configured operations]
+    compute --> writeOutputs[Write results to output properties]
+    writeOutputs --> endOk[End ACalculate]
+```
+
+```mermaid
+graph TB
+    subgraph basicLib["Rdk-BasicLib"]
+        model[UModel]
+    end
+
+    subgraph pipeline["Model pipeline"]
+        src[SourceComponent]
+        next[NextComponent]
+    end
+
+    config["Config XML (UModel object)"]
+
+    config -->|"ClassName=\"UModel\""| model
+    src -->|"inputs (UProperty)"| model
+    model -->|"outputs (UProperty)"| next
+```
+
+## UModel — base model (Rdk-BasicLib)

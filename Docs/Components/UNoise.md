@@ -137,3 +137,80 @@ It is not registered directly in `UStorage` but serves as a parent for specializ
 - Implements lifecycle methods at both `UNet` level and specialized `ANoise*` level.
 - Derived classes must implement `ANoiseCalculate` to add noise to input matrices.
 - Mermaid diagrams in the RU section show inheritance, lifecycle and component relationships.
+
+```mermaid
+classDiagram
+    UNet <|-- UNoise_T_
+    UNoise_T_ <|-- UNoiseGen_T_
+
+    class UNet {
+        +ADefault() bool
+        +ABuild() bool
+        +AReset() bool
+        +ACalculate() bool
+    }
+
+    class UNoise_T_ {
+        +InputParams : UProperty_MDMatrix_T__ (input)
+        +OutputParams : UProperty_MDMatrix_T__ (output)
+        +OneErrorForAll : UProperty_bool_
+        +ADefault() bool
+        +ABuild() bool
+        +AReset() bool
+        +ACalculate() bool
+        +ANoiseDefault() bool
+        +ANoiseBuild() bool
+        +ANoiseReset() bool
+        +ANoiseCalculate() bool
+    }
+```
+
+```mermaid
+sequenceDiagram
+    participant Child as UNoiseGen_T_ (child)
+    participant Base as UNoise_T_
+    participant Net as UNet
+
+    Child->>Base: ANoiseDefault()
+    Base->>Net: ADefault()
+    Child->>Base: ANoiseBuild()
+    Base->>Net: ABuild()
+    
+    loop each step
+        Child->>Base: ANoiseCalculate()
+        Base->>Net: ACalculate()
+        Base->>Base: check InputParams.IsConnected()
+    end
+```
+
+```mermaid
+stateDiagram-v2
+    [*] --> Uninitialized: New()
+    Uninitialized --> Defaulted: ANoiseDefault()
+    Defaulted --> Built: ANoiseBuild()
+    Built --> Ready: Ready = true
+    Ready --> Generating: ANoiseCalculate()
+    Generating --> Ready
+    Ready --> Resetting: ANoiseReset()
+    Resetting --> Ready
+```
+
+```mermaid
+flowchart TD
+    start[Start ACalculate] --> checkConnected{InputParams.IsConnected()?}
+    checkConnected -->|no| endNoOp[Return true without changes]
+    checkConnected -->|yes| callNoise[Call ANoiseCalculate()]
+    callNoise --> endNode[End]
+```
+
+```mermaid
+graph TB
+    subgraph basicLib["Rdk-BasicLib"]
+        noise[UNoise base template]
+        noiseGen[UNoiseGen]
+    end
+
+    noise -->|inherits| noiseGen
+```
+
+## UNoise — base noise generator template (Rdk-BasicLib)

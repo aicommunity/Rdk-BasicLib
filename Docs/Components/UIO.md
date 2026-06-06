@@ -138,3 +138,79 @@ It is not registered directly in `UStorage` but serves as a parent for specializ
 - `Direction` property controls whether the component performs input (0) or output (1) operations.
 - The class provides both standard `UNet` lifecycle methods and specialized `AIO*` methods for IO-specific logic.
 - Mermaid diagrams in the RU section show inheritance, lifecycle and component relationships.
+
+```mermaid
+classDiagram
+    UNet <|-- UIO
+    UIO <|-- UFileIO
+
+    class UNet {
+        +ADefault() bool
+        +ABuild() bool
+        +AReset() bool
+        +ACalculate() bool
+    }
+
+    class UIO {
+        +Direction : UProperty_int_ (parameter)
+        -BinaryStorage : USerStorageBinary
+        +ADefault() bool
+        +ABuild() bool
+        +AReset() bool
+        +ACalculate() bool
+        +AIODefault() bool
+        +AIOBuild() bool
+        +AIOReset() bool
+        +AIOCalculate() bool
+    }
+```
+
+```mermaid
+sequenceDiagram
+    participant Child as UFileIO (child)
+    participant Base as UIO
+    participant Net as UNet
+
+    Child->>Base: AIODefault()
+    Base->>Net: ADefault()
+    Child->>Base: AIOBuild()
+    Base->>Net: ABuild()
+    
+    loop each step
+        Child->>Base: AIOCalculate()
+        Base->>Net: ACalculate()
+    end
+```
+
+```mermaid
+stateDiagram-v2
+    [*] --> Uninitialized: New()
+    Uninitialized --> Defaulted: AIODefault()
+    Defaulted --> Built: AIOBuild()
+    Built --> Ready: Ready = true
+    Ready --> Calculating: AIOCalculate()
+    Calculating --> Ready
+    Ready --> Resetting: AIOReset()
+    Resetting --> Ready
+```
+
+```mermaid
+flowchart TD
+    start[Start AIOCalculate] --> checkDirection{Direction?}
+    checkDirection -->|0 input| readOp[Read operation]
+    checkDirection -->|1 output| writeOp[Write operation]
+    readOp --> endNode[End]
+    writeOp --> endNode
+```
+
+```mermaid
+graph TB
+    subgraph basicLib["Rdk-BasicLib"]
+        io[UIO base class]
+        fileIO[UFileIO]
+    end
+
+    io -->|inherits| fileIO
+```
+
+## UIO — base IO class (Rdk-BasicLib)

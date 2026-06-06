@@ -121,3 +121,74 @@ It is not registered directly in `UStorage` but serves as a parent for specializ
 - Provides both standard `UNet` lifecycle methods and specialized `AIO*` methods for conversion logic.
 - Derived classes implement specific conversion algorithms in their `AIOCalculate` methods.
 - Mermaid diagrams in the RU section show inheritance, lifecycle and component relationships.
+
+```mermaid
+classDiagram
+    UNet <|-- UIOConverter
+    UIOConverter <|-- UIOTextConverter
+
+    class UNet {
+        +ADefault() bool
+        +ABuild() bool
+        +AReset() bool
+        +ACalculate() bool
+    }
+
+    class UIOConverter {
+        +ADefault() bool
+        +ABuild() bool
+        +AReset() bool
+        +ACalculate() bool
+        +AIODefault() bool
+        +AIOBuild() bool
+        +AIOReset() bool
+        +AIOCalculate() bool
+    }
+```
+
+```mermaid
+sequenceDiagram
+    participant Child as UIOTextConverter (child)
+    participant Base as UIOConverter
+    participant Net as UNet
+
+    Child->>Base: AIODefault()
+    Base->>Net: ADefault()
+    Child->>Base: AIOBuild()
+    Base->>Net: ABuild()
+    
+    loop each step
+        Child->>Base: AIOCalculate()
+        Base->>Net: ACalculate()
+    end
+```
+
+```mermaid
+stateDiagram-v2
+    [*] --> Uninitialized: New()
+    Uninitialized --> Defaulted: AIODefault()
+    Defaulted --> Built: AIOBuild()
+    Built --> Ready: Ready = true
+    Ready --> Converting: AIOCalculate()
+    Converting --> Ready
+    Ready --> Resetting: AIOReset()
+    Resetting --> Ready
+```
+
+```mermaid
+flowchart TD
+    start[Start AIOCalculate] --> convert[Convert data format]
+    convert --> endNode[End]
+```
+
+```mermaid
+graph TB
+    subgraph basicLib["Rdk-BasicLib"]
+        conv[UIOConverter base class]
+        textConv[UIOTextConverter]
+    end
+
+    conv -->|inherits| textConv
+```
+
+## UIOConverter — base IO converter class (Rdk-BasicLib)

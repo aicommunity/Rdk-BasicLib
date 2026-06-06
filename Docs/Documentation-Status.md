@@ -68,50 +68,50 @@
 
 ### Приоритет P1 — качество и шаблон
 - [ ] Создать **Component-Documentation-Template.md** (по образцу Nmsdk-MotionControlLib / Nmsdk-PulseLib)
-- [ ] Добавить секцию **## EN** в **Component-Catalog.md** (сейчас RU-only — см. [Bilingual-Parity-Report.md](../../../Docs/Audit/Bilingual-Parity-Report.md))
-- [ ] Синхронизировать таблицы свойств/методов с заголовками `Core/*.h`
-- [ ] Добавить пути к примерам в `Bin/ClDesc/` и `Bin/Configs/` в блоки «Использование в конфигурациях»
+- [ ] Добавить секцию **## EN** в **Component-Catalog.md** (currently RU-only — see [Bilingual-Parity-Report.md](../../../Docs/Audit/Bilingual-Parity-Report.md))
+- [ ] Synchronize tables properties/methods с headers `Core/*.h`
+- [ ] Add paths к examples в `Bin/ClDesc/` и `Bin/Configs/` в blockи «Usage in configurations»
 
-### Приоритет P2 — навигация
-- [ ] В начале каждого компонента — ссылка: «Каталог: [Component-Catalog.md](Component-Catalog.md)»
-- [ ] Проверить перекрёстные ссылки из `Docs/Libraries/Rdk-BasicLib.md`
+### Priority P2 — navigation
+- [ ] В beginning each component — link: «Directory: [Component-Catalog.md](Component-Catalog.md)»
+- [ ] Check cross links из `Docs/Libraries/Rdk-BasicLib.md`
 
 ---
 
-## Чеклист по классам (`UploadClass`)
+## Checklist по classes (`UploadClass`)
 
-Регистрация: `Libraries/Rdk-BasicLib/Core/UBCLLibrary.cpp`, `UIOLibrary.cpp`.
+Registration: `Libraries/Rdk-BasicLib/Core/UBCLLibrary.cpp`, `UIOLibrary.cpp`.
 
-| ClassName | Doc-файл | Статус |
+| ClassName | Doc-file | Status |
 |-----------|----------|--------|
-| `UFileDataset` | — | ❌ отсутствует |
+| `UFileDataset` | — | ❌ missing |
 | `UFileIO` | `Components/UFileIO.md` | ✅ |
 | `UIOTextConverter` | `Components/UIOTextConverter.md` | ✅ |
 | `UMatrixSource` | `Components/UMatrixSource.md` | ✅ |
-| `UMatrixSourceDataFile` | (группа `UMatrixSourceFileFamily`) | ⚠ частично |
-| `UMatrixSourceFileSep` | (группа `UMatrixSourceFileFamily`) | ⚠ частично |
+| `UMatrixSourceDataFile` | (group `UMatrixSourceFileFamily`) | ⚠ partially |
+| `UMatrixSourceFileSep` | (group `UMatrixSourceFileFamily`) | ⚠ partially |
 | `UMatrixSourceTimeSeries` | `Components/UMatrixSourceTimeSeries.md` | ✅ |
 | `UModel` | `Components/UModel.md` | ✅ |
 | `UNoiseGen` | `Components/UNoiseGen.md` | ✅ |
-| `UNoiseGenDouble` | (группа `UNoiseGen`) | ⚠ частично |
-| `UNoiseGenInt` | (группа `UNoiseGen`) | ⚠ частично |
+| `UNoiseGenDouble` | (group `UNoiseGen`) | ⚠ partially |
+| `UNoiseGenInt` | (group `UNoiseGen`) | ⚠ partially |
 | `UScalarSource` | `Components/UScalarSource.md` | ✅ |
 | `UStatisticDoubleMatrix` | `Components/UStatisticDoubleMatrix.md` | ✅ |
 | `UStatisticIntMatrix` | `Components/UStatisticIntMatrix.md` | ✅ |
-| `UUMatrixSourceFile` | (группа `UMatrixSourceFileFamily`) | ⚠ частично |
+| `UUMatrixSourceFile` | (group `UMatrixSourceFileFamily`) | ⚠ partially |
 
 ---
 
-## Чеклист синхронизации с кодом
+## Checklist sync с code
 
-При добавлении или изменении класса в `Libraries/Rdk-BasicLib/Core/` рекомендуется обновить:
+При adding или changing class в `Libraries/Rdk-BasicLib/Core/` recommended update:
 
-1. **Component-Catalog.md** — при регистрации нового `UploadClass` в `UBCLLibrary.cpp` / `UIOLibrary.cpp`
-2. **Docs/Components/[ComponentName].md** — таблицы свойств и методов, диаграммы, примеры C++/XML
-3. **API-Overview.md** — при изменении публичного API ключевых классов (`UMatrixSource`, `UStatistic*`, `UNoiseGen*`, `UModel`)
-4. **Usage-Examples.md** — при появлении новых типовых сценариев или путей к конфигам
-5. **Architecture.md** / **Diagrams/** — при изменении потоков данных между подсистемами
-6. Перезапустить аудит: `Scripts/doc-audit/run-all.sh` и сверить [Component-Gap-Report.md](../../../Docs/Audit/Component-Gap-Report.md)
+1. **Component-Catalog.md** — при registration new `UploadClass` в `UBCLLibrary.cpp` / `UIOLibrary.cpp`
+2. **Docs/Components/[ComponentName].md** — property and method tables, diagrams, examples C++/XML
+3. **API-Overview.md** — при changing public API key classes (`UMatrixSource`, `UStatistic*`, `UNoiseGen*`, `UModel`)
+4. **Usage-Examples.md** — при appearance new typical scenarios или paths к configs
+5. **Architecture.md** / **Diagrams/** — при changing flows data between subsystems
+6. Rerun audit: `Scripts/doc-audit/run-all.sh` и verify [Component-Gap-Report.md](../../../Docs/Audit/Component-Gap-Report.md)
 
 ---
 
@@ -134,4 +134,4 @@ When adding or changing a class in `Core/`:
 
 ---
 
-*Источники: [Component-Gap-Report.md](../../../Docs/Audit/Component-Gap-Report.md), [Code-Inventory.json](../../../Docs/Audit/Code-Inventory.json); шаблон — [Nmsdk-PulseLib/Docs/Documentation-Status.md](../../Nmsdk-PulseLib/Docs/Documentation-Status.md).*
+*References: [Component-Gap-Report.md](../../../Docs/Audit/Component-Gap-Report.md), [Code-Inventory.json](../../../Docs/Audit/Code-Inventory.json); template — [Nmsdk-PulseLib/Docs/Documentation-Status.md](../../Nmsdk-PulseLib/Docs/Documentation-Status.md).*

@@ -51,3 +51,17 @@ The flowchart shows a simple pipeline: data source produces a matrix, processing
 ### Example: Statistical Data Processing
 
 The sequence diagram in the RU section shows a typical flow: load data → push input → calculate statistics → publish mean/variance.
+
+```mermaid
+sequenceDiagram
+    participant Source as UMatrixSourceFile
+    participant Statistic as UStatistic
+    participant Output as Выход
+    
+    Source->>Source: LoadData()
+    Source->>Statistic: InputData
+    Statistic->>Statistic: Calculate()
+    Statistic->>Statistic: ComputeMean()
+    Statistic->>Statistic: ComputeVariance()
+    Statistic->>Output: Mean, Variance
+```

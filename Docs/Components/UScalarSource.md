@@ -139,5 +139,69 @@ void UseScalarSource()
 ### Purpose
 
 **Class**: `UScalarSource` provides scalar values of various numeric types (double, float, int, etc.) as parameters/outputs for other components.  
-The mermaid diagrams in the RU section describe class structure, lifecycle and interactions. 
+The mermaid diagrams in the RU section describe class structure, lifecycle and interactions.
 
+```mermaid
+classDiagram
+    UNet <|-- UScalarSource
+
+    class UScalarSource {
+        +Double : UProperty_double_
+        +LDouble : UProperty_long_double_
+        +Float : UProperty_float_
+        +Int : UProperty_int_
+        +Long : UProperty_long_
+        +ULong : UProperty_unsigned_long_
+        +LongLong : UProperty_long_
+        +ULongLong : UProperty_unsigned_long_
+        +New() UScalarSource*
+        +ADefault() bool
+        +ABuild() bool
+        +AReset() bool
+        +ACalculate() bool
+    }
+```
+
+```mermaid
+sequenceDiagram
+    participant Cfg as Config
+    participant S as UStorage
+    participant Src as UScalarSource
+
+    Cfg->>S: create (Class="UScalarSource")
+    S->>Src: New()
+    S->>Src: ADefault()
+    S->>Src: ABuild()
+
+    loop each step
+        S->>Src: ACalculate()
+        Src-->>S: publish Double / Int / ... values
+    end
+```
+
+```mermaid
+stateDiagram-v2
+    [*] --> Uninitialized: New()
+    Uninitialized --> Defaulted: ADefault()
+    Defaulted --> Built: ABuild()
+    Built --> Ready: Ready = true
+    Ready --> Updating: ACalculate()
+    Updating --> Ready
+    Ready --> Resetting: AReset()
+    Resetting --> Ready
+```
+
+```mermaid
+flowchart TD
+    start[Start ACalculate] --> checkParams{Parameters changed?}
+    checkParams -->|no| endNoOp[Return without changes]
+    checkParams -->|yes| updateProps[Update scalar properties]
+    updateProps --> endNode[End]
+```
+
+```mermaid
+graph TB
+    src[UScalarSource] -->|"Double / Int / ... scalars"| model[Model / Controller]
+```
+
+## UScalarSource — scalar source (Rdk-BasicLib)
