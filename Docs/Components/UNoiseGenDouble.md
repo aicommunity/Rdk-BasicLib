@@ -1,18 +1,20 @@
 # UNoiseGenDouble
 
+**Каталог:** [Component-Catalog.md](../Component-Catalog.md).
+
 ## RU
 
 ### Назначение
 
-**Класс**: `UNoiseGenDouble` — генератор шума (double)
+**Класс**: `UNoiseGenDouble` — генератор аддитивного шума для матриц `MDMatrix<double>` (`UNoiseGen<double>`).
 
-**Регистрация**: `UBCLLibrary.cpp` / `UIOLibrary.cpp` → `UploadClass("UNoiseGenDouble", ...)`.
-См. также: [UNoiseGen](UNoiseGen.md)
+**Регистрация**: `UBCLLibrary.cpp` → `UploadClass("UNoiseGenDouble", ...)`.
 
+См. также: [UNoiseGen](UNoiseGen.md#unoisegendouble), [UNoiseGenInt](UNoiseGenInt.md).
 
 ### Свойства и методы
 
-См. заголовок `Libraries/Rdk-BasicLib/Core/UNoiseGenDouble.h` и [API-Overview.md](../API-Overview.md).
+Ключевые свойства: `InputParams`, `OutputParams`, `NoiseLevel`, `OneErrorForAll`. Полные таблицы и UML — в [UNoiseGen.md](UNoiseGen.md), заголовок `Core/UNoiseGen.h` / специализация double, [API-Overview.md](../API-Overview.md).
 
 ---
 
@@ -20,8 +22,12 @@
 
 ### Purpose
 
-**Class**: `UNoiseGenDouble` — double noise generator
+**Class**: `UNoiseGenDouble` — additive noise generator for `MDMatrix<double>` (`UNoiseGen<double>`).
 
 **Registration**: `UploadClass("UNoiseGenDouble", ...)` in Rdk-BasicLib.
 
-See `Core/UNoiseGenDouble.h` and [API-Overview.md](../API-Overview.md).
+See also: [UNoiseGen](UNoiseGen.md#unoisegendouble), [UNoiseGenInt](UNoiseGenInt.md).
+
+### Properties and methods
+
+Key properties: `InputParams`, `OutputParams`, `NoiseLevel`, `OneErrorForAll`. Full tables and UML in [UNoiseGen.md](UNoiseGen.md), header `Core/UNoiseGen.h` / double specialization, [API-Overview.md](../API-Overview.md).

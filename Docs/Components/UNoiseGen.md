@@ -10,6 +10,18 @@
 - `UNoiseGen<double>` → `UNoiseGenDouble`.
 - `UNoiseGen<int>` → `UNoiseGenInt`.
 
+Per-class: [`UNoiseGenDouble`](UNoiseGenDouble.md) · [`UNoiseGenInt`](UNoiseGenInt.md).
+
+<a id="unoisegendouble"></a>
+### UNoiseGenDouble
+
+См. [`UNoiseGenDouble.md`](UNoiseGenDouble.md) — специализация `UNoiseGen<double>`.
+
+<a id="unoisegenint"></a>
+### UNoiseGenInt
+
+См. [`UNoiseGenInt.md`](UNoiseGenInt.md) — специализация `UNoiseGen<int>`.
+
 Компонент добавляет случайный шум к входному сигналу или генерирует шумовой сигнал с заданным уровнем.
 
 ### UML-диаграмма классов

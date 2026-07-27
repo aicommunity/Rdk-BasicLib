@@ -7,9 +7,31 @@
 Семейство компонентов чтения матриц и датасетов из файловых источников:
 
 - `UMatrixSourceDataFile` — чтение матриц из обычных файлов.
-- `UMatrixSourceFile` — чтение матриц (Windows‑специфичная реализация, использует `FILETIME`).
+- `UMatrixSourceFile` / `UUMatrixSourceFile` — чтение матриц (Windows‑специфичная реализация, использует `FILETIME`).
 - `UMatrixSourceFileSep` — чтение текстовых файлов с разделителями (CSV‑подобный формат).
 - `UFileDataset` — работа с наборами файлов/записей (dataset) поверх `UMatrixSourceFileSep`.
+
+Per-class: [`UMatrixSourceDataFile`](UMatrixSourceDataFile.md) · [`UUMatrixSourceFile`](UUMatrixSourceFile.md) · [`UMatrixSourceFileSep`](UMatrixSourceFileSep.md) · [`UFileDataset`](UFileDataset.md).
+
+<a id="umatrixsourcedatafile"></a>
+### UMatrixSourceDataFile
+
+См. [`UMatrixSourceDataFile.md`](UMatrixSourceDataFile.md).
+
+<a id="uumatrixsourcefile"></a>
+### UUMatrixSourceFile
+
+См. [`UUMatrixSourceFile.md`](UUMatrixSourceFile.md) (зарегистрированное имя; в UML ниже — `UMatrixSourceFile`).
+
+<a id="umatrixsourcefilesep"></a>
+### UMatrixSourceFileSep
+
+См. [`UMatrixSourceFileSep.md`](UMatrixSourceFileSep.md).
+
+<a id="ufiledataset"></a>
+### UFileDataset
+
+См. [`UFileDataset.md`](UFileDataset.md).
 
 ### Регистрация
 

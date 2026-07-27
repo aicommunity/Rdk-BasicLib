@@ -1,18 +1,20 @@
 # UNoiseGenInt
 
+**Каталог:** [Component-Catalog.md](../Component-Catalog.md).
+
 ## RU
 
 ### Назначение
 
-**Класс**: `UNoiseGenInt` — генератор шума (int)
+**Класс**: `UNoiseGenInt` — генератор аддитивного шума для матриц `MDMatrix<int>` (`UNoiseGen<int>`).
 
-**Регистрация**: `UBCLLibrary.cpp` / `UIOLibrary.cpp` → `UploadClass("UNoiseGenInt", ...)`.
-См. также: [UNoiseGen](UNoiseGen.md)
+**Регистрация**: `UBCLLibrary.cpp` → `UploadClass("UNoiseGenInt", ...)`.
 
+См. также: [UNoiseGen](UNoiseGen.md#unoisegenint), [UNoiseGenDouble](UNoiseGenDouble.md).
 
 ### Свойства и методы
 
-См. заголовок `Libraries/Rdk-BasicLib/Core/UNoiseGenInt.h` и [API-Overview.md](../API-Overview.md).
+Ключевые свойства: `InputParams`, `OutputParams`, `NoiseLevel`, `OneErrorForAll`. Полные таблицы и UML — в [UNoiseGen.md](UNoiseGen.md), заголовок `Core/UNoiseGen.h` / специализация int, [API-Overview.md](../API-Overview.md).
 
 ---
 
@@ -20,8 +22,12 @@
 
 ### Purpose
 
-**Class**: `UNoiseGenInt` — integer noise generator
+**Class**: `UNoiseGenInt` — additive noise generator for `MDMatrix<int>` (`UNoiseGen<int>`).
 
 **Registration**: `UploadClass("UNoiseGenInt", ...)` in Rdk-BasicLib.
 
-See `Core/UNoiseGenInt.h` and [API-Overview.md](../API-Overview.md).
+See also: [UNoiseGen](UNoiseGen.md#unoisegenint), [UNoiseGenDouble](UNoiseGenDouble.md).
+
+### Properties and methods
+
+Key properties: `InputParams`, `OutputParams`, `NoiseLevel`, `OneErrorForAll`. Full tables and UML in [UNoiseGen.md](UNoiseGen.md), header `Core/UNoiseGen.h` / int specialization, [API-Overview.md](../API-Overview.md).

@@ -1,18 +1,20 @@
 # UMatrixSourceDataFile
 
+**Каталог:** [Component-Catalog.md](../Component-Catalog.md).
+
 ## RU
 
 ### Назначение
 
-**Класс**: `UMatrixSourceDataFile` — источник матрицы из файла данных
+**Класс**: `UMatrixSourceDataFile` — источник матрицы из файла данных (`FullMatrix`, опциональная проверка даты/времени файла).
 
-**Регистрация**: `UBCLLibrary.cpp` / `UIOLibrary.cpp` → `UploadClass("UMatrixSourceDataFile", ...)`.
-См. также: [UMatrixSource](UMatrixSource.md)
+**Регистрация**: `UBCLLibrary.cpp` → `UploadClass("UMatrixSourceDataFile", ...)`.
 
+См. также: [UMatrixSourceFileFamily](UMatrixSourceFileFamily.md#umatrixsourcedatafile), [UMatrixSource](UMatrixSource.md).
 
 ### Свойства и методы
 
-См. заголовок `Libraries/Rdk-BasicLib/Core/UMatrixSourceDataFile.h` и [API-Overview.md](../API-Overview.md).
+Ключевые свойства: `FileName`, `IsCheckDateTime`, `SkipCalcIfNoNewData`, `ReloadFile`, `IsNewData`, `FullMatrix`, `RowCount`, `ColCount`. Полные таблицы — в `Core/UMatrixSourceDataFile.h` и [API-Overview.md](../API-Overview.md).
 
 ---
 
@@ -20,8 +22,12 @@
 
 ### Purpose
 
-**Class**: `UMatrixSourceDataFile` — matrix source from data file
+**Class**: `UMatrixSourceDataFile` — matrix source from a data file (`FullMatrix`, optional file datetime check).
 
 **Registration**: `UploadClass("UMatrixSourceDataFile", ...)` in Rdk-BasicLib.
 
-See `Core/UMatrixSourceDataFile.h` and [API-Overview.md](../API-Overview.md).
+See also: [UMatrixSourceFileFamily](UMatrixSourceFileFamily.md#umatrixsourcedatafile), [UMatrixSource](UMatrixSource.md).
+
+### Properties and methods
+
+Key properties: `FileName`, `IsCheckDateTime`, `SkipCalcIfNoNewData`, `ReloadFile`, `IsNewData`, `FullMatrix`, `RowCount`, `ColCount`. Full tables in `Core/UMatrixSourceDataFile.h` and [API-Overview.md](../API-Overview.md).

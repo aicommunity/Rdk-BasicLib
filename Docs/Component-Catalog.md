@@ -2,62 +2,64 @@
 
 ## RU
 
-Список компонентов из `CreateClassSamples` (`UBCLLibrary.cpp`, `UIOLibrary.cpp`) с кратким назначением и ключевыми входами/выходами.
+Список всех **15** зарегистрированных компонентов (`UploadClass` в `UBCLLibrary.cpp`, `UIOLibrary.cpp`) с кратким назначением и ссылками на per-class страницы.
 
-## Models
-- **UModel** — см. компонент [`UModel`](Components/UModel.md).
+| # | ClassName | Doc | Группа |
+|---|-----------|-----|--------|
+| 1 | `UModel` | [`UModel.md`](Components/UModel.md) | Models |
+| 2 | `UStatisticIntMatrix` | [`UStatisticIntMatrix.md`](Components/UStatisticIntMatrix.md) | Statistics |
+| 3 | `UStatisticDoubleMatrix` | [`UStatisticDoubleMatrix.md`](Components/UStatisticDoubleMatrix.md) | Statistics |
+| 4 | `UFileIO` | [`UFileIO.md`](Components/UFileIO.md) | IO |
+| 5 | `UIOTextConverter` | [`UIOTextConverter.md`](Components/UIOTextConverter.md) | IO |
+| 6 | `UNoiseGen` | [`UNoiseGen.md`](Components/UNoiseGen.md) | Generators |
+| 7 | `UNoiseGenDouble` | [`UNoiseGenDouble.md`](Components/UNoiseGenDouble.md) | Generators |
+| 8 | `UNoiseGenInt` | [`UNoiseGenInt.md`](Components/UNoiseGenInt.md) | Generators |
+| 9 | `UMatrixSource` | [`UMatrixSource.md`](Components/UMatrixSource.md) | Sources |
+| 10 | `UScalarSource` | [`UScalarSource.md`](Components/UScalarSource.md) | Sources |
+| 11 | `UMatrixSourceTimeSeries` | [`UMatrixSourceTimeSeries.md`](Components/UMatrixSourceTimeSeries.md) | Sources |
+| 12 | `UMatrixSourceDataFile` | [`UMatrixSourceDataFile.md`](Components/UMatrixSourceDataFile.md) | File sources |
+| 13 | `UUMatrixSourceFile` | [`UUMatrixSourceFile.md`](Components/UUMatrixSourceFile.md) | File sources |
+| 14 | `UMatrixSourceFileSep` | [`UMatrixSourceFileSep.md`](Components/UMatrixSourceFileSep.md) | File sources |
+| 15 | `UFileDataset` | [`UFileDataset.md`](Components/UFileDataset.md) | File sources |
 
-## Statistics
-- **UStatisticIntMatrix** — см. [`UStatisticIntMatrix`](Components/UStatisticIntMatrix.md).
-- **UStatisticDoubleMatrix** — см. [`UStatisticDoubleMatrix`](Components/UStatisticDoubleMatrix.md).
+### Групповые обзоры
 
-## IO
-- **UFileIO** — см. [`UFileIO`](Components/UFileIO.md).
-- **UIOTextConverter** — см. [`UIOTextConverter`](Components/UIOTextConverter.md).
+- Генераторы шума: [`UNoiseGen.md`](Components/UNoiseGen.md) (семейство `UNoiseGen*` / `UNoise`).
+- Файловые источники: [`UMatrixSourceFileFamily.md`](Components/UMatrixSourceFileFamily.md).
 
-## Generators
-- **UNoiseGen** / **UNoiseGenDouble** / **UNoiseGenInt** — см. [`UNoiseGen*`](Components/UNoiseGen.md).
+### Usage priority
 
-## Sources
-- **UMatrixSource** — см. [`UMatrixSource`](Components/UMatrixSource.md).
-- **UScalarSource** — см. [`UScalarSource`](Components/UScalarSource.md).
-- **UMatrixSourceTimeSeries** — см. [`UMatrixSourceTimeSeries`](Components/UMatrixSourceTimeSeries.md).
-- **UMatrixSourceDataFile**, **UUMatrixSourceFile**, **UMatrixSourceFileSep**, **UFileDataset** — см. [`File-based matrix sources`](Components/UMatrixSourceFileFamily.md).
-
-## Usage priority
 Часто встречаются в `Bin/ClDesc`/`Configs`: `UMatrixSource*`, `UStatistic*`, `UNoiseGen*`, `UModel`. Для подробностей см. `Architecture.md`, `API-Overview.md`, `Usage-Examples.md`.
 
 ---
 
 ## EN
 
-List of components from `CreateClassSamples` (`UBCLLibrary.cpp`, `UIOLibrary.cpp`) with brief purpose and key inputs/outputs.
+List of all **15** registered components (`UploadClass` in `UBCLLibrary.cpp`, `UIOLibrary.cpp`) with brief purpose and per-class doc links.
 
-## Models
+| # | ClassName | Doc | Group |
+|---|-----------|-----|-------|
+| 1 | `UModel` | [`UModel.md`](Components/UModel.md) | Models |
+| 2 | `UStatisticIntMatrix` | [`UStatisticIntMatrix.md`](Components/UStatisticIntMatrix.md) | Statistics |
+| 3 | `UStatisticDoubleMatrix` | [`UStatisticDoubleMatrix.md`](Components/UStatisticDoubleMatrix.md) | Statistics |
+| 4 | `UFileIO` | [`UFileIO.md`](Components/UFileIO.md) | IO |
+| 5 | `UIOTextConverter` | [`UIOTextConverter.md`](Components/UIOTextConverter.md) | IO |
+| 6 | `UNoiseGen` | [`UNoiseGen.md`](Components/UNoiseGen.md) | Generators |
+| 7 | `UNoiseGenDouble` | [`UNoiseGenDouble.md`](Components/UNoiseGenDouble.md) | Generators |
+| 8 | `UNoiseGenInt` | [`UNoiseGenInt.md`](Components/UNoiseGenInt.md) | Generators |
+| 9 | `UMatrixSource` | [`UMatrixSource.md`](Components/UMatrixSource.md) | Sources |
+| 10 | `UScalarSource` | [`UScalarSource.md`](Components/UScalarSource.md) | Sources |
+| 11 | `UMatrixSourceTimeSeries` | [`UMatrixSourceTimeSeries.md`](Components/UMatrixSourceTimeSeries.md) | Sources |
+| 12 | `UMatrixSourceDataFile` | [`UMatrixSourceDataFile.md`](Components/UMatrixSourceDataFile.md) | File sources |
+| 13 | `UUMatrixSourceFile` | [`UUMatrixSourceFile.md`](Components/UUMatrixSourceFile.md) | File sources |
+| 14 | `UMatrixSourceFileSep` | [`UMatrixSourceFileSep.md`](Components/UMatrixSourceFileSep.md) | File sources |
+| 15 | `UFileDataset` | [`UFileDataset.md`](Components/UFileDataset.md) | File sources |
 
-- **UModel** — see component [`UModel`](Components/UModel.md).
+### Group overviews
 
-## Statistics
+- Noise generators: [`UNoiseGen.md`](Components/UNoiseGen.md) (`UNoiseGen*` / `UNoise` family).
+- File-based sources: [`UMatrixSourceFileFamily.md`](Components/UMatrixSourceFileFamily.md).
 
-- **UStatisticIntMatrix** — see [`UStatisticIntMatrix`](Components/UStatisticIntMatrix.md).
-- **UStatisticDoubleMatrix** — see [`UStatisticDoubleMatrix`](Components/UStatisticDoubleMatrix.md).
-
-## IO
-
-- **UFileIO** — see [`UFileIO`](Components/UFileIO.md).
-- **UIOTextConverter** — see [`UIOTextConverter`](Components/UIOTextConverter.md).
-
-## Generators
-
-- **UNoiseGen** / **UNoiseGenDouble** / **UNoiseGenInt** — see [`UNoiseGen*`](Components/UNoiseGen.md).
-
-## Sources
-
-- **UMatrixSource** — see [`UMatrixSource`](Components/UMatrixSource.md).
-- **UScalarSource** — see [`UScalarSource`](Components/UScalarSource.md).
-- **UMatrixSourceTimeSeries** — see [`UMatrixSourceTimeSeries`](Components/UMatrixSourceTimeSeries.md).
-- **UMatrixSourceDataFile**, **UUMatrixSourceFile**, **UMatrixSourceFileSep**, **UFileDataset** — see [`File-based matrix sources`](Components/UMatrixSourceFileFamily.md).
-
-## Usage priority
+### Usage priority
 
 Commonly found in `Bin/ClDesc`/`Configs`: `UMatrixSource*`, `UStatistic*`, `UNoiseGen*`, `UModel`. For details see `Architecture.md`, `API-Overview.md`, `Usage-Examples.md`.
