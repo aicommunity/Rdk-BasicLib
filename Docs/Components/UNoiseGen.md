@@ -154,6 +154,16 @@ void AddNoise(MDMatrix<double>& signal)
 
 ## UNoiseGen / UNoiseGenDouble / UNoiseGenInt — noise generators (Rdk-BasicLib)
 
+### Ключевые свойства / Favorites
+
+| Свойство | Роль |
+|----------|------|
+| `NoiseLevel` | Амплитуда шума |
+| `OneErrorForAll` | Один шум на всю матрицу |
+| `InputParams` / `OutputParams` | I/O |
+
+ClDesc: `Bin/ClDesc/BasicLib/ru-RU/UNoiseGen.xml`.
+
 ## EN
 
 ### Purpose

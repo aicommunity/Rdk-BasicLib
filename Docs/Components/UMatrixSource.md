@@ -202,6 +202,15 @@ void RunMatrixSource()
 
 ## UMatrixSource — matrix source (Rdk-BasicLib)
 
+### Ключевые свойства / Favorites
+
+| Свойство | Роль |
+|----------|------|
+| `DoubleMatrix` / `IntMatrix` (и Input-варианты) | Основные I/O матриц |
+| `DoubleVector` / `IntVector` | Векторные порты |
+
+ClDesc: `Bin/ClDesc/BasicLib/ru-RU/UMatrixSource.xml`.
+
 ## EN
 
 ### Purpose

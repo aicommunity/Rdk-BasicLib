@@ -105,6 +105,17 @@ graph TB
 
 ## UStatisticDoubleMatrix — double matrix statistics (Rdk-BasicLib)
 
+### Ключевые свойства / Favorites
+
+| Свойство | Роль |
+|----------|------|
+| `SavePath` / `SaveMode` | Куда и как писать статистику |
+| `AverageMode` / `AverageNumber` / `AverageInput` | Режим усреднения |
+| `PrefixName` / `NumSkipSteps` / `TimeInterval` | Именование и дискретизация |
+| `ManualModeEnabled` / `InputMatrixData` | Ручной режим и вход |
+
+ClDesc: `Bin/ClDesc/BasicLib/ru-RU/UStatisticDoubleMatrix.xml` (direct Favorites).
+
 ## EN
 
 ### Purpose

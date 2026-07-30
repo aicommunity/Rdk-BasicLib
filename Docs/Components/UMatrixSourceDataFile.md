@@ -18,6 +18,16 @@
 
 ---
 
+### Ключевые свойства / Favorites
+
+| Свойство | Роль |
+|----------|------|
+| `FileName` / `ReloadFile` | Источник данных |
+| `UseRelativePathFromConfig` / `SkipCalcIfNoNewData` | Путь и обновление |
+| `FullMatrix` / `RowCount` / `ColCount` | Результат и размеры |
+
+ClDesc: `Bin/ClDesc/BasicLib/ru-RU/UMatrixSourceDataFile.xml`.
+
 ## EN
 
 ### Purpose
