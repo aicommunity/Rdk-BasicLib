@@ -11,7 +11,7 @@ target_include_directories(${TARGET_NAME}
     ${CMAKE_SOURCE_DIR}/Libraries/Rdk-BasicLib/Core
 )
 
-file(GLOB BASIC_SOURCES
+file(GLOB BASIC_SOURCES CONFIGURE_DEPENDS
   ${CMAKE_SOURCE_DIR}/Libraries/Rdk-BasicLib/Core/*.cpp
 )
 
