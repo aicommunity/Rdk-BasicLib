@@ -6,7 +6,7 @@
 namespace RDK {
 
 // --------------------------
-// Êîíñòðóêòîðû è äåñòðóêòîðû
+// ÐšÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€Ñ‹ Ð¸ Ð´ÐµÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€Ñ‹
 // --------------------------
 UFileDataset::UFileDataset(void)
 : NumSamples("NumSamples",this),
@@ -22,9 +22,9 @@ UFileDataset::~UFileDataset(void)
 // --------------------------    
 
 // --------------------------
-// Ñèñòåìíûå ìåòîäû óïðàâëåíèÿ îáúåêòîì
+// Ð¡Ð¸ÑÑ‚ÐµÐ¼Ð½Ñ‹Ðµ Ð¼ÐµÑ‚Ð¾Ð´Ñ‹ ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð¼
 // --------------------------
-// Âûäåëÿåò ïàìÿòü äëÿ íîâîé ÷èñòîé êîïèè îáúåêòà ýòîãî êëàññà
+// Ð’Ñ‹Ð´ÐµÐ»ÑÐµÑ‚ Ð¿Ð°Ð¼ÑÑ‚ÑŒ Ð´Ð»Ñ Ð½Ð¾Ð²Ð¾Ð¹ Ñ‡Ð¸ÑÑ‚Ð¾Ð¹ ÐºÐ¾Ð¿Ð¸Ð¸ Ð¾Ð±ÑŠÐµÐºÑ‚Ð° ÑÑ‚Ð¾Ð³Ð¾ ÐºÐ»Ð°ÑÑÐ°
 UFileDataset* UFileDataset::New(void)
 {                             
  return new UFileDataset;
@@ -32,9 +32,9 @@ UFileDataset* UFileDataset::New(void)
 // --------------------------
 
 // --------------------------
-// Ñêðûòûå ìåòîäû óïðàâëåíèÿ ñ÷åòîì
+// Ð¡ÐºÑ€Ñ‹Ñ‚Ñ‹Ðµ Ð¼ÐµÑ‚Ð¾Ð´Ñ‹ ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ ÑÑ‡ÐµÑ‚Ð¾Ð¼
 // --------------------------
-// Âîññòàíîâëåíèå íàñòðîåê ïî óìîë÷àíèþ è ñáðîñ ïðîöåññà ñ÷åòà
+// Ð’Ð¾ÑÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ðµ Ð½Ð°ÑÑ‚Ñ€Ð¾ÐµÐº Ð¿Ð¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ Ð¸ ÑÐ±Ñ€Ð¾Ñ Ð¿Ñ€Ð¾Ñ†ÐµÑÑÐ° ÑÑ‡ÐµÑ‚Ð°
 bool UFileDataset::ADefault(void)
 {
  if(!UMatrixSourceFileSep::ADefault())
@@ -44,10 +44,10 @@ bool UFileDataset::ADefault(void)
  return true;
 }
 
-// Îáåñïå÷èâàåò ñáîðêó âíóòðåííåé ñòðóêòóðû îáúåêòà
-// ïîñëå íàñòðîéêè ïàðàìåòðîâ
-// Àâòîìàòè÷åñêè âûçûâàåò ìåòîä Reset() è âûñòàâëÿåò Ready â true
-// â ñëó÷àå óñïåøíîé ñáîðêè
+// ÐžÐ±ÐµÑÐ¿ÐµÑ‡Ð¸Ð²Ð°ÐµÑ‚ ÑÐ±Ð¾Ñ€ÐºÑƒ Ð²Ð½ÑƒÑ‚Ñ€ÐµÐ½Ð½ÐµÐ¹ ÑÑ‚Ñ€ÑƒÐºÑ‚ÑƒÑ€Ñ‹ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°
+// Ð¿Ð¾ÑÐ»Ðµ Ð½Ð°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð²
+// ÐÐ²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¸ Ð²Ñ‹Ð·Ñ‹Ð²Ð°ÐµÑ‚ Ð¼ÐµÑ‚Ð¾Ð´ Reset() Ð¸ Ð²Ñ‹ÑÑ‚Ð°Ð²Ð»ÑÐµÑ‚ Ready Ð² true
+// Ð² ÑÐ»ÑƒÑ‡Ð°Ðµ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾Ð¹ ÑÐ±Ð¾Ñ€ÐºÐ¸
 bool UFileDataset::ABuild(void)
 {
  if(!UMatrixSourceFileSep::ABuild())
@@ -56,7 +56,7 @@ bool UFileDataset::ABuild(void)
  return true;
 }
 
-// Ñáðîñ ïðîöåññà ñ÷åòà.
+// Ð¡Ð±Ñ€Ð¾Ñ Ð¿Ñ€Ð¾Ñ†ÐµÑÑÐ° ÑÑ‡ÐµÑ‚Ð°.
 bool UFileDataset::AReset(void)
 {
  if(!UMatrixSourceFileSep::AReset())
@@ -64,7 +64,7 @@ bool UFileDataset::AReset(void)
 
  NumSamples=Matrix->GetRows();
 
- if(CurrentSample>=0 && CurrentSample.v<NumSamples.v)
+ if(CurrentSample>=0 && CurrentSample.GetData()<NumSamples.GetData())
   SampleData=Matrix->GetRow(CurrentSample);
  else
   SampleData->Resize(0,0);
@@ -72,14 +72,14 @@ bool UFileDataset::AReset(void)
  return true;
 }
 
-// Âûïîëíÿåò ðàñ÷åò ýòîãî îáúåêòà
+// Ð’Ñ‹Ð¿Ð¾Ð»Ð½ÑÐµÑ‚ Ñ€Ð°ÑÑ‡ÐµÑ‚ ÑÑ‚Ð¾Ð³Ð¾ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°
 bool UFileDataset::ACalculate(void)
 {
  if(!UMatrixSourceFileSep::ACalculate())
   return false;
 
  NumSamples=Matrix->GetRows();
- if(CurrentSample.v>=0 && CurrentSample.v<NumSamples.v)
+ if(CurrentSample.GetData()>=0 && CurrentSample.GetData()<NumSamples.GetData())
   SampleData=Matrix->GetRow(CurrentSample);
  else
   SampleData->Resize(0,0);

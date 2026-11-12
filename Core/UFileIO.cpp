@@ -8,7 +8,7 @@
 namespace RDK {
 
 // --------------------------
-// Конструкторы и деструкторы
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹ Рё РґРµСЃС‚СЂСѓРєС‚РѕСЂС‹
 // --------------------------
 UFileIO::UFileIO(void)
 : BinFlag("BinFlag", this, &UFileIO::SetBinFlag),
@@ -27,7 +27,7 @@ UFileIO::~UFileIO(void)
 // --------------------------
 
 // --------------------------
-// Методы управления параметрами
+// РњРµС‚РѕРґС‹ СѓРїСЂР°РІР»РµРЅРёСЏ РїР°СЂР°РјРµС‚СЂР°РјРё
 // --------------------------
 bool UFileIO::SetBinFlag(const int &bin_flag)
 {
@@ -52,7 +52,7 @@ bool UFileIO::SetReadPartSize(const std::streamsize &value)
 
 
 // --------------------------
-// Методы управления данными
+// РњРµС‚РѕРґС‹ СѓРїСЂР°РІР»РµРЅРёСЏ РґР°РЅРЅС‹РјРё
 // --------------------------
 const std::string& UFileIO::GetDataString(void) const
 {
@@ -92,7 +92,7 @@ bool UFileIO::WriteData()
 
 char UFileIO::ReadData()
 {
- // Позиция по которой будет проведен следующий этап записи
+ // РџРѕР·РёС†РёСЏ РїРѕ РєРѕС‚РѕСЂРѕР№ Р±СѓРґРµС‚ РїСЂРѕРІРµРґРµРЅ СЃР»РµРґСѓСЋС‰РёР№ СЌС‚Р°Рї Р·Р°РїРёСЃРё
  std::streamsize readindex=0;
 
  std::fstream ofs;
@@ -122,9 +122,9 @@ char UFileIO::ReadData()
 // --------------------------
 
 // --------------------------
-// Системные методы управления объектом
+// РЎРёСЃС‚РµРјРЅС‹Рµ РјРµС‚РѕРґС‹ СѓРїСЂР°РІР»РµРЅРёСЏ РѕР±СЉРµРєС‚РѕРј
 // --------------------------
-// Выделяет память для новой чистой копии объекта этого класса
+// Р’С‹РґРµР»СЏРµС‚ РїР°РјСЏС‚СЊ РґР»СЏ РЅРѕРІРѕР№ С‡РёСЃС‚РѕР№ РєРѕРїРёРё РѕР±СЉРµРєС‚Р° СЌС‚РѕРіРѕ РєР»Р°СЃСЃР°
 UFileIO* UFileIO::New(void)
 {
  return new UFileIO;
@@ -132,9 +132,9 @@ UFileIO* UFileIO::New(void)
 // --------------------------
 
 // --------------------------
-// Скрытые методы управления счетом
+// РЎРєСЂС‹С‚С‹Рµ РјРµС‚РѕРґС‹ СѓРїСЂР°РІР»РµРЅРёСЏ СЃС‡РµС‚РѕРј
 // --------------------------
-// Восстановление настроек по умолчанию и сброс процесса счета
+// Р’РѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РЅР°СЃС‚СЂРѕРµРє РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ Рё СЃР±СЂРѕСЃ РїСЂРѕС†РµСЃСЃР° СЃС‡РµС‚Р°
 bool UFileIO::AIODefault(void)
 {
  SetReadPartSize(2048);
@@ -143,58 +143,62 @@ bool UFileIO::AIODefault(void)
  return true;
 }
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+// РћР±РµСЃРїРµС‡РёРІР°РµС‚ СЃР±РѕСЂРєСѓ РІРЅСѓС‚СЂРµРЅРЅРµР№ СЃС‚СЂСѓРєС‚СѓСЂС‹ РѕР±СЉРµРєС‚Р°
+// РїРѕСЃР»Рµ РЅР°СЃС‚СЂРѕР№РєРё РїР°СЂР°РјРµС‚СЂРѕРІ
+// РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРё РІС‹Р·С‹РІР°РµС‚ РјРµС‚РѕРґ Reset() Рё РІС‹СЃС‚Р°РІР»СЏРµС‚ Ready РІ true
+// РІ СЃР»СѓС‡Р°Рµ СѓСЃРїРµС€РЅРѕР№ СЃР±РѕСЂРєРё
 bool UFileIO::AIOBuild(void)
 {
  return true;
 }
 
-// Сброс процесса счета.
+// РЎР±СЂРѕСЃ РїСЂРѕС†РµСЃСЃР° СЃС‡РµС‚Р°.
 bool UFileIO::AIOReset(void)
 {
  return true;
 }
 
-// Выполняет расчет этого объекта
+// Р’С‹РїРѕР»РЅСЏРµС‚ СЂР°СЃС‡РµС‚ СЌС‚РѕРіРѕ РѕР±СЉРµРєС‚Р°
 bool UFileIO::AIOCalculate(void)
 {
  if(Direction == 0)
  {
   ReadData();
-  if(NumOutputs == 0)
-   return true;
-  int result_size=int(DataString.size())/GetOutputData(0).GetElementByteSize();
-  if(DataString.size() % GetOutputData(0).GetElementByteSize() != 0)
-   result_size++;
-  SetOutputDataSize(0,MMatrixSize(1,result_size));
+  // РСЃРїРѕР»СЊР·СѓРµРј СЃРІРѕР№СЃС‚РІРѕ Output РЅР°РїСЂСЏРјСѓСЋ
+  MDMatrix<double> output_data;
+  output_data.Resize(1, static_cast<int>(DataString.size()));
   if(DataString.size())
-   memcpy(POutputData[0].UChar,&DataString[0],DataString.size());
-  *Output=POutputData[0];
+   memcpy(output_data.Char, &DataString[0], DataString.size());
+  *Output = output_data;
  }
  else
  if(Direction == 1)
  {
-  if(NumInputs == 0 || !GetInputData(0) || (GetInputData(0)->GetByteSize() == 0 && !Input.IsConnected()))
+  if(!Input.IsConnected())
   {
-   DataString.resize(0);
+   const MDMatrix<double>* input_ptr = Input.operator ->();
+   if(!input_ptr || input_ptr->GetByteSize() == 0)
+   {
+	DataString.resize(0);
+	WriteData();
+	return true;
+   }
+  }
+  
+  UEPtr<const MDMatrix<double> > input;
+  if(Input.IsConnected())
+  {
+   input=Input.operator ->();
   }
   else
   {
-   UEPtr<const MDMatrix<double> > input;
-   if(Input.IsConnected())
-   {
-	input=Input.operator ->();
-   }
-   else
-   {
-	input=GetInputData(0);
-   }
+   input = Input.operator ->();
+  }
+  if(input)
+  {
    DataString.resize(input->GetByteSize());
    if(input->GetByteSize())
-	memcpy(&DataString[0],input->UChar,DataString.size());
+	memcpy(&DataString[0],input->Char,DataString.size());
   }
   WriteData();
  }

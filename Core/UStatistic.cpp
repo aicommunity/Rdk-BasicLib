@@ -23,7 +23,7 @@ namespace RDK {
 //UStatisticRect UBGuiSelectionRect;
 
 // ---------------------
-// Конструкторы и деструкторы
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹ Рё РґРµСЃС‚СЂСѓРєС‚РѕСЂС‹
 // ---------------------
 UStatistic::UStatistic(void)
  : SavePath("SavePath", this),
@@ -46,17 +46,17 @@ UStatistic::~UStatistic(void)
 // ---------------------
 
 // ---------------------
-// Методы управления параметрами
+// РњРµС‚РѕРґС‹ СѓРїСЂР°РІР»РµРЅРёСЏ РїР°СЂР°РјРµС‚СЂР°РјРё
 // ---------------------
 bool UStatistic::SetSavePath(const std::string &value)
 {
- SavePath=value;
+ SavePath.SetDataDirect(value);
  return true;
 }
 
 bool UStatistic::SetPrefixName(const std::string &value)
 {
- PrefixName=value;
+ PrefixName.SetDataDirect(value);
  return true;
 }
 
@@ -77,9 +77,9 @@ bool UStatistic::SetTimeInterval(const double &value)
 // ---------------------
 
 // --------------------------
-// Скрытые методы управления счетом фильтров
+// РЎРєСЂС‹С‚С‹Рµ РјРµС‚РѕРґС‹ СѓРїСЂР°РІР»РµРЅРёСЏ СЃС‡РµС‚РѕРј С„РёР»СЊС‚СЂРѕРІ
 // --------------------------
-// Восстановление настроек по умолчанию и сброс процесса счета
+// Р’РѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РЅР°СЃС‚СЂРѕРµРє РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ Рё СЃР±СЂРѕСЃ РїСЂРѕС†РµСЃСЃР° СЃС‡РµС‚Р°
 bool UStatistic::ADefault(void)
 {
  Activity=false;
@@ -96,16 +96,16 @@ bool UStatistic::ADefault(void)
  return AFSDefault();
 }
 
-// Обеспечивает сборку внутренней структуры объекта
-// после настройки параметров
-// Автоматически вызывает метод Reset() и выставляет Ready в true
-// в случае успешной сборки
+// РћР±РµСЃРїРµС‡РёРІР°РµС‚ СЃР±РѕСЂРєСѓ РІРЅСѓС‚СЂРµРЅРЅРµР№ СЃС‚СЂСѓРєС‚СѓСЂС‹ РѕР±СЉРµРєС‚Р°
+// РїРѕСЃР»Рµ РЅР°СЃС‚СЂРѕР№РєРё РїР°СЂР°РјРµС‚СЂРѕРІ
+// РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРё РІС‹Р·С‹РІР°РµС‚ РјРµС‚РѕРґ Reset() Рё РІС‹СЃС‚Р°РІР»СЏРµС‚ Ready РІ true
+// РІ СЃР»СѓС‡Р°Рµ СѓСЃРїРµС€РЅРѕР№ СЃР±РѕСЂРєРё
 bool UStatistic::ABuild(void)
 {
  return AFSBuild();
 }
 
-// Сброс процесса счета без потери настроек
+// РЎР±СЂРѕСЃ РїСЂРѕС†РµСЃСЃР° СЃС‡РµС‚Р° Р±РµР· РїРѕС‚РµСЂРё РЅР°СЃС‚СЂРѕРµРє
 bool UStatistic::AReset(void)
 {
  ResetFlag=true;
@@ -118,7 +118,7 @@ bool UStatistic::AReset(void)
  return AFSReset();
 }
 
-// Выполняет расчет этого объекта
+// Р’С‹РїРѕР»РЅСЏРµС‚ СЂР°СЃС‡РµС‚ СЌС‚РѕРіРѕ РѕР±СЉРµРєС‚Р°
 bool UStatistic::ACalculate(void)
 {
  if(CurrentStep<NumSkipSteps)
@@ -144,26 +144,26 @@ bool UStatistic::ACalculate(void)
 
  if(SubFolderAfterResetFlag && ResetFlag)
  {
-  CurrentPath=Environment->GetCurrentDataDir()+SavePath.v;
+  CurrentPath=Environment->GetCurrentDataDir()+SavePath.GetData();
   if(RDK::CreateNewDirectory(CurrentPath.c_str()))
-   return false; // TODO: Заглушка!! здесь исключение
+   return false; // TODO: Р—Р°РіР»СѓС€РєР°!! Р·РґРµСЃСЊ РёСЃРєР»СЋС‡РµРЅРёРµ
 
   time_t time_data;
   time(&time_data);
   if(!PrefixName->empty())
-   CurrentPath=Environment->GetCurrentDataDir()+SavePath.v+std::string("/")+PrefixName.v+std::string(" ")+get_text_time(time_data,'.','-');
+   CurrentPath=Environment->GetCurrentDataDir()+SavePath.GetData()+std::string("/")+PrefixName.GetData()+std::string(" ")+get_text_time(time_data,'.','-');
   else
-   CurrentPath=Environment->GetCurrentDataDir()+SavePath.v+std::string("/")+get_text_time(time_data,'.','-');
+   CurrentPath=Environment->GetCurrentDataDir()+SavePath.GetData()+std::string("/")+get_text_time(time_data,'.','-');
   if(RDK::CreateNewDirectory(CurrentPath.c_str()))
-   return false; // TODO: Заглушка!! здесь исключение
+   return false; // TODO: Р—Р°РіР»СѓС€РєР°!! Р·РґРµСЃСЊ РёСЃРєР»СЋС‡РµРЅРёРµ
  }
  else
  if(!SubFolderAfterResetFlag && ResetFlag)
  {
-  CurrentPath=Environment->GetCurrentDataDir()+SavePath.v;
+  CurrentPath=Environment->GetCurrentDataDir()+SavePath.GetData();
   if(ForceCreateSavePath)
    if(RDK::CreateNewDirectory(CurrentPath.c_str()))
-    return false; // TODO: Заглушка!! здесь исключение
+    return false; // TODO: Р—Р°РіР»СѓС€РєР°!! Р·РґРµСЃСЊ РёСЃРєР»СЋС‡РµРЅРёРµ
  }
 
  ResetFlag=false;
